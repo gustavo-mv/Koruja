@@ -33,7 +33,6 @@ const App = () => {
       </View>
     );
   }
-
   return (
     <View style={{ flex: 1 }}>
       {isLoggedIn ? <HomeScreen /> : <LoginScreen />}

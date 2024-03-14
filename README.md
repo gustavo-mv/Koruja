@@ -25,7 +25,7 @@ npm install
 Cria um arquivo .ENV com:
 
 ```
-API_URL=https://url:3000
+EXPO_PUBLIC_API_URL=https://url.com
 ```
 
 Executar Expo GO no VsCode:
