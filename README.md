@@ -8,8 +8,8 @@ Essas instruções permitirão que você obtenha uma cópia do projeto em opera�
 
 ### 📋 Pré-requisitos
 
-Node.js
-VsCode
+Node.js -
+VsCode -
 Expo Go (Play Store)
 
 ### 🔧 Instalação
@@ -39,7 +39,7 @@ Por fim, escanear o QR do Expo que será mostrado no terminal, usando o App.
 
 ## 🛠️ Construído com
 
-Mencione as ferramentas que você usou para criar seu projeto
+
 
 - [Expo](https://expo.dev/) - Ferramenta de Desenvolvimento React Native
 - [Native Wind](https://www.nativewind.dev/) - Framework Tailwind utilizado em Expo.
