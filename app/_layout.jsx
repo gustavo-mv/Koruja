@@ -1,12 +1,12 @@
-import { SplashScreen, Stack } from "expo-router";
+import { Slot } from "expo-router";
+import { AuthProvider } from "./AuthContext";
 
-import "../global.css";
-import { AuthProvider } from "../authContext";
-
-export default function Layout() {
+export default function HomeLayout() {
   return (
-    <AuthProvider>
-      <Stack screenOptions={{ headerShown: false }} />
-    </AuthProvider>
+    <>
+      <AuthProvider>
+        <Slot />
+      </AuthProvider>
+    </>
   );
 }

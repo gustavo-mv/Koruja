@@ -7,7 +7,7 @@ import {
   StyleSheet,
   Image,
 } from "react-native";
-import { useAuth } from "./../../authContext";
+import AuthContext from "./../AuthContext";
 
 import { useRouter } from "expo-router";
 
@@ -19,18 +19,19 @@ const LoginForm = () => {
   const [email, setEmail] = React.useState("");
   const [senha, setSenha] = React.useState("");
   const [error, setError] = React.useState("");
-  const { login } = useAuth();
+  const { login } = React.useContext(AuthContext);
   const [loginDisable, setLoginDisable] = React.useState(true);
-  const [color, setColor] = React.useState("opacity-20");
+
+  const verificaCondicao = () => {
+    if (email.length > 4 && senha.length > 4) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
   React.useEffect(() => {
-    if (email.length > 4 && senha.length > 4) {
-      setColor("opacity-100 ");
-      setLoginDisable(false);
-    } else {
-      setColor("opacity-50");
-      setLoginDisable(true);
-    }
+    setLoginDisable(verificaCondicao());
   }, [email, senha]);
 
   const handleLogin = async () => {
@@ -50,10 +51,15 @@ const LoginForm = () => {
       const data = await response.json();
       console.log(data.access_token);
       const token = data.access_token;
-      router.replace("/(tabs)/home");
+      router.replace("/home/");
       login(token);
-    } catch (error) {
-      setError(error.message || "Erro ao fazer login");
+    } catch (e) {
+      if (typeof e === "string") {
+        e.toUpperCase();
+        setError(e || "Erro ao fazer login");
+      } else if (e instanceof Error) {
+        e.message;
+      }
       console.log("chegou aqui");
       console.log(API_URL);
       console.log(email, senha);
@@ -103,13 +109,13 @@ const LoginForm = () => {
         </TouchableOpacity>
         <TouchableOpacity
           className="w-32"
-          title="Login"
           disabled={loginDisable}
           onPress={handleLogin}
         >
           <Text
-            style={styles.text}
-            className={` w-32 ${color} bg-green-500 text-gray-900  pt-1 rounded-xl h-10 text-lg font-bold text-center`}
+            className={` w-32 ${
+              loginDisable ? "opacity-20" : "opacity-100"
+            } bg-green-500 text-gray-900  pt-1 rounded-xl h-10 text-lg font-bold text-center`}
           >
             Login
           </Text>

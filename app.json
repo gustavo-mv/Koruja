@@ -1,17 +1,16 @@
 {
   "expo": {
+    "scheme": "myapp",
     "name": "attlasAssistente",
     "slug": "attlasAssistente",
-    "main": "expo-router/entry",
-    "scheme": "attlasAssistente",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/AttlasBlack.png",
+      "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#000000"
+      "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
