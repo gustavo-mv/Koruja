@@ -1,20 +1,15 @@
 import React, { createContext, useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-interface User {
-  username: string;
-  email: string;
-}
-
 interface AuthContextType {
-  user: User | null;
+  token: string | null;
   isLoading: boolean;
-  login: (userData: User) => void;
+  login: (userData: string) => void;
   logout: () => void;
 }
 
 const AuthContext = createContext<AuthContextType>({
-  user: null,
+  token: null,
   isLoading: true,
   login: () => {},
   logout: () => {},
@@ -23,7 +18,7 @@ const AuthContext = createContext<AuthContextType>({
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [token, setToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -32,9 +27,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const checkUser = async () => {
     try {
-      const userFromStorage = await AsyncStorage.getItem("user");
-      if (userFromStorage) {
-        setUser(JSON.parse(userFromStorage));
+      const tokenFromStorage = await AsyncStorage.getItem("token");
+      if (tokenFromStorage) {
+        setToken(JSON.parse(tokenFromStorage));
       }
     } catch (error) {
       console.error("Error checking user:", error);
@@ -43,10 +38,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
-  const login = async (userData: User) => {
+  const login = async (userData: string) => {
     try {
-      await AsyncStorage.setItem("user", JSON.stringify(userData));
-      setUser(userData);
+      await AsyncStorage.setItem("token", JSON.stringify(userData));
+      setToken(userData);
     } catch (error) {
       console.error("Error logging in:", error);
     }
@@ -54,8 +49,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const logout = async () => {
     try {
-      await AsyncStorage.removeItem("user");
-      setUser(null);
+      await AsyncStorage.removeItem("token");
+      setToken(null);
     } catch (error) {
       console.error("Error logging out:", error);
     }
@@ -64,7 +59,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   return (
     <AuthContext.Provider
       value={{
-        user,
+        token,
         isLoading,
         login,
         logout,

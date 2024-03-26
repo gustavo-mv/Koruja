@@ -20,19 +20,6 @@ const LoginForm = () => {
   const [senha, setSenha] = React.useState("");
   const [error, setError] = React.useState("");
   const { login } = React.useContext(AuthContext);
-  const [loginDisable, setLoginDisable] = React.useState(true);
-
-  const verificaCondicao = () => {
-    if (email.length > 4 && senha.length > 4) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-
-  React.useEffect(() => {
-    setLoginDisable(verificaCondicao());
-  }, [email, senha]);
 
   const handleLogin = async () => {
     try {
@@ -109,12 +96,14 @@ const LoginForm = () => {
         </TouchableOpacity>
         <TouchableOpacity
           className="w-32"
-          disabled={loginDisable}
+          disabled={email.length > 4 && senha.length > 4 ? false : true}
           onPress={handleLogin}
         >
           <Text
             className={` w-32 ${
-              loginDisable ? "opacity-20" : "opacity-100"
+              email.length > 4 && senha.length > 4
+                ? "opacity-100"
+                : "opacity-40"
             } bg-green-500 text-gray-900  pt-1 rounded-xl h-10 text-lg font-bold text-center`}
           >
             Login
