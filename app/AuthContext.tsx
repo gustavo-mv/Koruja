@@ -1,17 +1,27 @@
 import React, { createContext, useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+interface User {
+  id: string;
+  nome: string;
+  email: string;
+}
+
 interface AuthContextType {
   token: string | null;
+  userGlobalData: User | null;
   isLoading: boolean;
   login: (userData: string) => void;
+  dataUser: (tokenInfoFromFetch: User) => void;
   logout: () => void;
 }
 
 const AuthContext = createContext<AuthContextType>({
   token: null,
+  userGlobalData: null,
   isLoading: true,
   login: () => {},
+  dataUser: () => {},
   logout: () => {},
 });
 
@@ -20,6 +30,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [token, setToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [userGlobalData, setUserGlobalData] = useState<User | null>(null);
 
   useEffect(() => {
     checkUser();
@@ -35,6 +46,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       console.error("Error checking user:", error);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const dataUser = async (tokenInfoFromFetch: User) => {
+    try {
+      setUserGlobalData(tokenInfoFromFetch);
+    } catch (error) {
+      console.error("Erro ao definir Informações do Usuário", error);
     }
   };
 
@@ -60,7 +79,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     <AuthContext.Provider
       value={{
         token,
+        userGlobalData,
         isLoading,
+        dataUser,
         login,
         logout,
       }}
