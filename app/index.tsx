@@ -4,13 +4,13 @@ import { router } from "expo-router";
 import AuthContext from "./AuthContext";
 
 const index = () => {
-  const { user, isLoading } = React.useContext(AuthContext);
+  const { token, isLoading } = React.useContext(AuthContext);
 
   React.useEffect(() => {
     if (!isLoading) {
-      router.replace(user ? "/home" : "/login");
+      router.replace(token ? "/home" : "/login");
     }
-  }, [isLoading, user]);
+  }, [isLoading, token]);
 
   if (isLoading) {
     return (

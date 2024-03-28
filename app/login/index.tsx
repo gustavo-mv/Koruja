@@ -18,7 +18,7 @@ const API_URL = process.env.EXPO_PUBLIC_API_URL;
 const LoginForm = () => {
   const [email, setEmail] = React.useState("");
   const [senha, setSenha] = React.useState("");
-  const [error, setError] = React.useState("");
+  const [error, setError] = React.useState<string | null>(null);
   const { login } = React.useContext(AuthContext);
 
   const handleLogin = async () => {
@@ -32,14 +32,14 @@ const LoginForm = () => {
       });
 
       if (!response.ok) {
+        setError("Usuário ou Senha Incorretos.");
         throw new Error("Usuário ou Senha Incorretos.");
+      } else {
+        const data = await response.json();
+        console.log(data.access_token);
+        const token = data.access_token;
+        login(token);
       }
-
-      const data = await response.json();
-      console.log(data.access_token);
-      const token = data.access_token;
-      router.replace("/home/");
-      login(token);
     } catch (e) {
       if (typeof e === "string") {
         e.toUpperCase();
@@ -47,10 +47,6 @@ const LoginForm = () => {
       } else if (e instanceof Error) {
         e.message;
       }
-      console.log("chegou aqui");
-      console.log(API_URL);
-      console.log(email, senha);
-      console.log(process.env);
     }
   };
 

@@ -4,11 +4,11 @@ import React from "react";
 
 export default function HomeLayout() {
   const { token, dataUser } = React.useContext(AuthContext);
-
+  const API_URL = process.env.EXPO_PUBLIC_API_URL;
   React.useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("https://api.attlasoft.com/auth/me", {
+        const response = await fetch(`${API_URL}/auth/me`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

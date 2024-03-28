@@ -72,7 +72,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="conf"
         options={{
-          title: "Config",
+          title: "Configurações",
           tabBarActiveTintColor: "green",
           tabBarIconStyle: { color: "#FF6464" },
           tabBarIcon: ({ color }) => (

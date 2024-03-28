@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Redirect, router } from "expo-router";
 
 interface User {
   id: string;
@@ -61,6 +62,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     try {
       await AsyncStorage.setItem("token", JSON.stringify(userData));
       setToken(userData);
+      router.replace("/home/");
     } catch (error) {
       console.error("Error logging in:", error);
     }
@@ -70,6 +72,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     try {
       await AsyncStorage.removeItem("token");
       setToken(null);
+      setUserGlobalData(null);
+      router.replace("/login");
     } catch (error) {
       console.error("Error logging out:", error);
     }

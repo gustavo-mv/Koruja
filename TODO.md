@@ -6,13 +6,10 @@ Metas para desenvolver no aplicativo. ❎✅
 
 - [ ] SplashScreen Funcional.
 - [ ] Tela de Introdução.
-- [ ] Layout Principal.
+
 - [ ] Formulários para gerar gabaritos.
 
 # Bugs a resolver
-
-- [ ] Botão de sair da conta.
-- [ ] Mostrar erro de senha no Login.
 
 # Feito
 
@@ -21,3 +18,6 @@ Metas para desenvolver no aplicativo. ❎✅
 - [✅] Configuração TailWind.
 - [✅] Configuração Básica Expo Router
 - [✅] Autenticação Via Token JWT
+- [✅] Botão de sair da conta.
+- [✅] Mostrar erro de senha no Login.
+- [✅] Layout Principal.
