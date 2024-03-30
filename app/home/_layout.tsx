@@ -1,4 +1,4 @@
-import { Stack } from "expo-router";
+import { Stack, router } from "expo-router";
 import AuthContext from "./../AuthContext";
 import React from "react";
 
@@ -15,7 +15,8 @@ export default function HomeLayout() {
         });
 
         if (!response.ok) {
-          throw new Error("Erro ao buscar dados da API");
+          router.replace("/login");
+          throw new Error("Token Expirado!");
         }
         const data = await response.json();
         dataUser(data);

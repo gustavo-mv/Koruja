@@ -33,6 +33,7 @@ export default function TabLayout() {
         name="turmas"
         options={{
           title: "Turmas",
+          headerShown: false,
           tabBarActiveTintColor: "green",
           tabBarIconStyle: { color: "#FF6464" },
           tabBarIcon: ({ color }) => (
@@ -65,6 +66,7 @@ export default function TabLayout() {
           title: "Atividades",
           tabBarActiveTintColor: "green",
           tabBarIconStyle: { color: "#FF6464" },
+          headerShown: false,
           tabBarIcon: ({ color }) => (
             <Icon name="event-note" size={32} color={color} />
           ),
