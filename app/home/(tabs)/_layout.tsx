@@ -47,6 +47,7 @@ export default function TabLayout() {
           title: "Scan",
           tabBarActiveTintColor: "green",
           tabBarIconStyle: { color: "white" },
+          headerShown: false,
           tabBarIcon: ({ color }) => (
             <Icon
               name="qr-code-scanner"

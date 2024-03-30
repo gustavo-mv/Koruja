@@ -6,7 +6,6 @@ Metas para desenvolver no aplicativo. ❎✅
 
 - [ ] SplashScreen Funcional.
 - [ ] Tela de Introdução.
-
 - [ ] Formulários para gerar gabaritos.
 
 # Bugs a resolver
