@@ -1,14 +1,10 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text } from "react-native";
 import React from "react";
 import moment from "moment";
+import { UserProps } from "@/models/UserProps";
 
-/*interface UserProps {
-  nome: string | null;
-}
-*/
-
-const HeaderHome = () => {
-  const horaAtual = moment().hour(); // Obtém a hora atual do dispositivo
+const HeaderHome = (props: UserProps) => {
+  const horaAtual = moment().hour();
   let saudacao;
 
   if (horaAtual >= 6 && horaAtual < 12) {
@@ -24,7 +20,7 @@ const HeaderHome = () => {
       <Text className=" font-extralight text-3xl text-white tracking-wider">
         {saudacao},{" "}
         <Text className="font-bold text-3xl text-green-500 tracking-wider">
-          Vinicius!
+          {props.nome}!
         </Text>{" "}
       </Text>
     </View>

@@ -1,13 +1,14 @@
-import { View, Text, ScrollView } from "react-native";
-import React from "react";
-//import AuthContext from "@/app/AuthContext";
+import { ScrollView } from "react-native";
+import React, { useContext } from "react";
+import AuthContext from "@/app/AuthContext";
 import HeaderHome from "../../../components/Home/HeaderHome";
 import HomeIndex from "../../../components/Home/HomeIndex";
+
 const index = () => {
-  //const { userGlobalData } = React.useContext(AuthContext);
+  const { userGlobalData } = useContext(AuthContext);
   return (
     <ScrollView>
-      <HeaderHome />
+      <HeaderHome nome={userGlobalData?.nome || null} />
       <HomeIndex />
     </ScrollView>
   );
