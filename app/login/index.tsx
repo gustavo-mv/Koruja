@@ -88,12 +88,12 @@ const LoginForm = () => {
         </TouchableOpacity>
         <TouchableOpacity
           className="w-32"
-          disabled={email.length > 4 && senha.length > 4 ? false : true}
+          disabled={email.length > 4 && senha.length > 6 ? false : true}
           onPress={handleLogin}
         >
           <Text
             className={` w-32 ${
-              email.length > 4 && senha.length > 4
+              email.length > 4 && senha.length > 6
                 ? "opacity-100"
                 : "opacity-40"
             } bg-green-500 text-gray-900  pt-1 rounded-xl h-10 text-lg font-bold text-center`}
