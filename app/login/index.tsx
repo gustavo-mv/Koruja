@@ -9,10 +9,6 @@ import {
 } from "react-native";
 import AuthContext from "./../AuthContext";
 
-import { useRouter } from "expo-router";
-
-const router = useRouter();
-
 const API_URL = process.env.EXPO_PUBLIC_API_URL;
 
 const LoginForm = () => {
