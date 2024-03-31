@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Tabs } from "expo-router";
+import { Tabs } from "expo-router";
 import { StyleSheet } from "react-native";
 import Icon from "@expo/vector-icons/MaterialIcons";
 

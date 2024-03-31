@@ -7,7 +7,6 @@ const GabaritosCard = () => {
     <LinearGradient
       colors={["#069d09", "#069009", "#067409"]}
       className="h-36 m-3  flex flex-row rounded-xl  pl-7"
-      style={styles.container}
     >
       <View className="flex-1 items-start justify-center ">
         <Text className=" text-xl text-white">Gabaritos</Text>
@@ -33,22 +32,4 @@ const GabaritosCard = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {},
-});
-
-/* border-r-2 pr-2 mr-1*/
-/*const styles = StyleSheet.create({
-  container: {
-    // Estilo da sombra
-    shadowColor: "rgba(0, 0, 0, 0.5)",
-    shadowOffset: {
-      width: 10, // Deslocamento horizontal
-      height: 0, // Deslocamento vertical
-    },
-    shadowOpacity: 1, // Opacidade da sombra
-    shadowRadius: 15, // Raio da sombra
-    elevation: 5, // Efeito de sombra para Android
-  },
-});*/
 export default GabaritosCard;
