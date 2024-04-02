@@ -62,7 +62,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     try {
       await AsyncStorage.setItem("token", JSON.stringify(userData));
       setToken(userData);
-      router.replace("/home/");
+      router.replace("/");
     } catch (error) {
       console.error("Error logging in:", error);
     }

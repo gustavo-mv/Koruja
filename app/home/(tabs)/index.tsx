@@ -6,9 +6,12 @@ import HomeIndex from "../../../components/Home/HomeIndex";
 
 const index = () => {
   const { userGlobalData } = useContext(AuthContext);
+  if (!userGlobalData) {
+    return null;
+  }
   return (
     <ScrollView>
-      <HeaderHome nome={userGlobalData?.nome || null} />
+      <HeaderHome {...userGlobalData} />
       <HomeIndex />
     </ScrollView>
   );

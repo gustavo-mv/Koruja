@@ -3,7 +3,7 @@ import React from "react";
 import moment from "moment";
 import { UserProps } from "@/models/UserProps";
 
-const HeaderHome = (props: UserProps) => {
+const HeaderHome: React.FC<UserProps> = ({ nome }) => {
   const horaAtual = moment().hour();
   let saudacao;
 
@@ -20,7 +20,7 @@ const HeaderHome = (props: UserProps) => {
       <Text className=" font-extralight text-3xl text-white tracking-wider">
         {saudacao},{" "}
         <Text className="font-bold text-3xl text-green-500 tracking-wider">
-          {props.nome}!
+          {nome}!
         </Text>{" "}
       </Text>
     </View>
