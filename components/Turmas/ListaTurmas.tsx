@@ -2,6 +2,7 @@ import { TurmaProps } from "@/models/TurmaProps";
 import React from "react";
 import { View, Text, TouchableOpacity, FlatList } from "react-native";
 import SemTurmas from "./SemTurmas";
+import CardTurma from "./CardTurma";
 
 interface ListaTurmasProps {
   idProf: string | null;
@@ -33,11 +34,7 @@ const ListaTurmas: React.FC<ListaTurmasProps> = ({ idProf }) => {
       {isLoading ? (
         <Text>Carregando...</Text>
       ) : turmas.length > 0 ? (
-        <FlatList
-          data={turmas}
-          renderItem={({ item }) => <Text>{item.nome}</Text>}
-          keyExtractor={(item) => item.id.toString()}
-        />
+        turmas.map((turma) => <CardTurma key={turma.id} nome={turma.nome} />)
       ) : (
         <SemTurmas />
       )}

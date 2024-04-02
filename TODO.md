@@ -4,14 +4,16 @@ Metas para desenvolver no aplicativo. ❎✅
 
 ## Falta Fazer
 
-- [ ] SplashScreen Funcional.
 - [ ] Tela de Introdução.
 - [ ] Formulários para gerar gabaritos.
 
 # Bugs a resolver
 
+- [ ] Ajeitar a margin bottom da lista de Turmas, o último elemento tá escondido.
+
 # Feito
 
+- [✅] SplashScreen Funcional.
 - [✅] Tela de Login.
 - [✅] Variáveis com .ENV .
 - [✅] Configuração TailWind.

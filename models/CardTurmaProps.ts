@@ -1,0 +1,3 @@
+interface CardTurmaProps {
+  nome: string;
+}
