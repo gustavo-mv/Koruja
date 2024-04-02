@@ -3,6 +3,7 @@ import React from "react";
 import TurmasIndex from "@/components/Turmas/TurmasIndex";
 import AuthContext from "@/app/AuthContext";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Link } from "expo-router";
 
 const turmas = () => {
   const { userGlobalData } = React.useContext(AuthContext);
@@ -22,7 +23,15 @@ const turmas = () => {
           size={24}
           color="black"
         />
-        <Text className=" font-semibold pl-2">Adicionar Turma</Text>
+
+        <Link
+          href={{
+            pathname: "/home/novaturma",
+            params: { idProfessor: userGlobalData.id },
+          }}
+        >
+          <Text className=" font-semibold pl-2">Adicionar Turma</Text>
+        </Link>
       </TouchableOpacity>
     </View>
   );
