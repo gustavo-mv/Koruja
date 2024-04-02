@@ -2,8 +2,7 @@ import { TurmaProps } from "@/models/TurmaProps";
 import React from "react";
 import { View, Text, TouchableOpacity, FlatList } from "react-native";
 import SemTurmas from "./SemTurmas";
-import CardTurma from "./CardTurma";
-
+import CardTurma from "@/components/Turmas/CardTurma";
 interface ListaTurmasProps {
   idProf: string | null;
 }
