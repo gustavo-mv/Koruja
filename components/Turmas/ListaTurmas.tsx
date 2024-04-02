@@ -1,6 +1,7 @@
 import { TurmaProps } from "@/models/TurmaProps";
 import React from "react";
 import { View, Text, TouchableOpacity, FlatList } from "react-native";
+import SemTurmas from "./SemTurmas";
 
 interface ListaTurmasProps {
   idProf: string | null;
@@ -28,7 +29,7 @@ const ListaTurmas: React.FC<ListaTurmasProps> = ({ idProf }) => {
   };
 
   return (
-    <TouchableOpacity>
+    <View className="w-full">
       {isLoading ? (
         <Text>Carregando...</Text>
       ) : turmas.length > 0 ? (
@@ -38,9 +39,9 @@ const ListaTurmas: React.FC<ListaTurmasProps> = ({ idProf }) => {
           keyExtractor={(item) => item.id.toString()}
         />
       ) : (
-        <Text>O professor não tem turmas cadastradas.</Text>
+        <SemTurmas />
       )}
-    </TouchableOpacity>
+    </View>
   );
 };
 export default ListaTurmas;

@@ -12,32 +12,6 @@ interface AtividadeProps {
 }
 
 const AtividadeCard: React.FC<AtividadeProps> = (props: AtividadeProps) => {
-  /*  function corParaRGBA(cor: string) {
-    const corMap = {
-      green: "0, 128, 0",
-      blue: "0, 0, 255",
-      red: "255, 0, 0",
-      // Adicione mais cores conforme necessário
-    };
-
-    // Retorna o valor RGBA correspondente ao nome da cor
-    return corMap[cor] || "0, 0, 0"; // Se a cor não estiver no mapa, retorna preto
-  }
-
-  // Função para escurecer a cor
-  function escurecerCor(cor: string, percentagem: number) {
-    const rgba = corParaRGBA(cor);
-    const [r, g, b] = rgba.split(", ");
-    const rEscurecido = Math.max(0, parseInt(r) * (1 - percentagem));
-    const gEscurecido = Math.max(0, parseInt(g) * (1 - percentagem));
-    const bEscurecido = Math.max(0, parseInt(b) * (1 - percentagem));
-
-    // Retorna a cor escurecida como uma string no formato RGBA
-    return `rgba(${rEscurecido}, ${gEscurecido}, ${bEscurecido}, 1)`;
-  }
-
-  const corEscurecida = escurecerCor(props.cor, 0.5);
-*/
   return (
     <View className="bg-gray-300 border-green-300/40 border-2 w-40 h-52 m-1 rounded-lg">
       <View className="items-center rounded-t-lg bg-black">

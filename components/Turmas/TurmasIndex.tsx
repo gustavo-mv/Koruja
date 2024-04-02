@@ -19,7 +19,9 @@ const TurmasIndex: React.FC<UserProps> = ({ id }) => {
         }}
         source={require("./../../assets/lotties/Turmas.json")}
       />
-      <Text className=" text-3xl font-bold tracking-wider mt-72">Turmas</Text>
+      <Text className=" text-3xl font-bold tracking-wider mt-72 mb-3">
+        Turmas
+      </Text>
       <ListaTurmas idProf={id} />
     </View>
   );
