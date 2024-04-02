@@ -9,8 +9,6 @@ Metas para desenvolver no aplicativo. ❎✅
 
 # Bugs a resolver
 
-- [ ] Ajeitar a margin bottom da lista de Turmas, o último elemento tá escondido.
-
 # Feito
 
 - [✅] SplashScreen Funcional.
@@ -22,3 +20,4 @@ Metas para desenvolver no aplicativo. ❎✅
 - [✅] Botão de sair da conta.
 - [✅] Mostrar erro de senha no Login.
 - [✅] Layout Principal.
+- [✅] Ajeitar a margin bottom da lista de Turmas, o último elemento tá escondido.

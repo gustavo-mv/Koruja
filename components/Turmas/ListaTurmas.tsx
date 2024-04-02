@@ -30,7 +30,7 @@ const ListaTurmas: React.FC<ListaTurmasProps> = ({ idProf }) => {
   };
 
   return (
-    <View className="w-full">
+    <View className="w-full mb-10">
       {isLoading ? (
         <Text>Carregando...</Text>
       ) : turmas.length > 0 ? (
