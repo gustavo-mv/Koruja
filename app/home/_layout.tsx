@@ -15,7 +15,7 @@ export default function HomeLayout() {
         options={{ title: "Adicionar Turma", headerTitleAlign: "center" }}
       />
       <Stack.Screen
-        name="[idturma]"
+        name="[turmaId]"
         options={{
           title: "",
           headerStyle: { backgroundColor: "black" },

@@ -14,12 +14,12 @@ const CardTurma: React.FC<TurmaProps> = ({
   return (
     <Link
       href={{
-        pathname: "/home/[idturma]",
+        pathname: "/home/[turmaId]",
         params: {
           nome: nome,
           turmaId: id,
           professorId: professorId,
-          disciplinas: disciplinas,
+          disciplinas: JSON.stringify(disciplinas),
         },
       }}
       asChild
