@@ -11,6 +11,12 @@
       "distribution": "internal"
     },
     "production": {
+      "android": {
+        "image": "latest"
+      },
+      "ios": {
+        "image": "latest"
+      },
       "env": {
         "EXPO_PUBLIC_API_URL": "https://api.attlasoft.com"
       }
