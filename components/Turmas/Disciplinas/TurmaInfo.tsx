@@ -4,16 +4,30 @@ import SemDisciplina from "./SemDisciplina";
 import { TurmaProps } from "@/models/TurmaProps";
 
 const TurmaInfo: React.FC<TurmaProps> = (turma) => {
-  return (
-    <View>
-      <View className=" bg-black rounded-b-3xl z-50">
-        <Text className=" text-white text-4xl font-extrabold tracking-wide ml-6 w-96 pr-12 mb-4">
-          {turma.nome}
-        </Text>
+  if (turma.disciplinas.length === 0) {
+    return (
+      <View>
+        <View className=" bg-black rounded-b-3xl z-50">
+          <Text className=" text-white text-4xl font-extrabold tracking-wide ml-6 w-96 pr-12 mb-4">
+            {turma.nome}
+          </Text>
+          <Text className=" text-white">{turma.disciplinas}</Text>
+        </View>
+        <SemDisciplina {...turma} />
       </View>
-      <SemDisciplina {...turma} />
-    </View>
-  );
+    );
+  } else {
+    return (
+      <View>
+        <View className=" bg-black rounded-b-3xl z-50">
+          <Text className=" text-white text-4xl font-extrabold tracking-wide ml-6 w-96 pr-12 mb-4">
+            {turma.nome}
+          </Text>
+        </View>
+        <Text>Show!!</Text>
+      </View>
+    );
+  }
 };
 
 export default TurmaInfo;

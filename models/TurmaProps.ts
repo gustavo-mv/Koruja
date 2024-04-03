@@ -2,5 +2,5 @@ export interface TurmaProps {
   id: string;
   nome: string;
   professorId: string;
-  disciplinas: number[];
+  disciplinas: number[] | string[];
 }

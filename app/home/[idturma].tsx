@@ -5,15 +5,17 @@ import { useGlobalSearchParams } from "expo-router";
 
 const turma = () => {
   const { nome, turmaId, disciplinas, professorId } = useGlobalSearchParams();
-  let numeroConv: number[] = [];
-  if (Array.isArray(disciplinas)) {
-    numeroConv = disciplinas.map((str) => parseInt(str, 10));
-  }
+
+  const isStringArray = (value: unknown): value is string[] => {
+    return (
+      Array.isArray(value) && value.every((item) => typeof item === "string")
+    );
+  };
 
   if (
     typeof nome === "string" &&
     typeof turmaId === "string" &&
-    typeof numeroConv === "object" &&
+    isStringArray(disciplinas) &&
     typeof professorId === "string"
   ) {
     return (
@@ -21,7 +23,7 @@ const turma = () => {
         <TurmaInfo
           nome={nome}
           id={turmaId}
-          disciplinas={numeroConv}
+          disciplinas={disciplinas}
           professorId={professorId}
         />
       </View>
