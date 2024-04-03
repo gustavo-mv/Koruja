@@ -7,13 +7,14 @@
     "orientation": "portrait",
     "icon": "./assets/attlasAssistente.png",
     "userInterfaceStyle": "light",
-
     "splash": {
       "image": "./assets/AttlasBlack.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -31,9 +32,19 @@
       [
         "expo-font",
         {
-          "fonts": ["./assets/fonts/Poppins-Regular.ttf"]
+          "fonts": [
+            "./assets/fonts/Poppins-Regular.ttf"
+          ]
         }
       ]
-    ]
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "ec03f813-6c5f-4830-874b-d4ba8f6e27f4"
+      }
+    }
   }
 }
