@@ -2,8 +2,6 @@ import { Stack, useGlobalSearchParams } from "expo-router";
 import React from "react";
 
 export default function HomeLayout() {
-  const { nome } = useGlobalSearchParams();
-  const titulo = nome ? nome.toString() : "";
   return (
     <Stack>
       <Stack.Screen
@@ -19,10 +17,10 @@ export default function HomeLayout() {
       <Stack.Screen
         name="[idturma]"
         options={{
-          title: titulo,
-          headerTitleAlign: "center",
+          title: "",
           headerStyle: { backgroundColor: "black" },
-          headerTintColor: "white",
+          headerShadowVisible: false,
+          headerTintColor: "#1CBA38",
         }}
       />
     </Stack>
