@@ -23,6 +23,16 @@ export default function HomeLayout() {
           headerTintColor: "#1CBA38",
         }}
       />
+      <Stack.Screen
+        name="criarDisciplina"
+        options={{
+          title: "Adicionar Disciplina",
+          headerStyle: { backgroundColor: "black" },
+          headerShadowVisible: false,
+          headerTintColor: "white",
+          headerTitleAlign: "center",
+        }}
+      />
     </Stack>
   );
 }
