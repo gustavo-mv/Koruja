@@ -1,4 +1,6 @@
 export interface TurmaProps {
-  id: number;
+  id: string;
   nome: string;
+  professorId: string;
+  disciplinas: number[];
 }

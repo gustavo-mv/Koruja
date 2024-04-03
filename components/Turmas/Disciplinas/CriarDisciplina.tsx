@@ -2,11 +2,7 @@ import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import React from "react";
 import { router } from "expo-router";
 
-interface idTurma {
-  id: number;
-}
-
-const CriarDisciplina: React.FC<idTurma> = ({ id }) => {
+const CriarDisciplina: React.FC<{ id: string }> = ({ id }) => {
   const [nome, setNome] = React.useState("");
   const [error, setError] = React.useState<string | null>(null);
 

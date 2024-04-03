@@ -1,4 +1,4 @@
 interface CardTurmaProps {
   nomeTurma: string;
-  turmaId: number;
+  turmaId: string;
 }

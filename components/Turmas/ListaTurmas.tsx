@@ -4,7 +4,7 @@ import { View, Text } from "react-native";
 import SemTurmas from "./SemTurmas";
 import CardTurma from "@/components/Turmas/CardTurma";
 interface ListaTurmasProps {
-  idProf: string | null;
+  idProf: string;
 }
 
 const ListaTurmas: React.FC<ListaTurmasProps> = ({ idProf }) => {
@@ -34,7 +34,13 @@ const ListaTurmas: React.FC<ListaTurmasProps> = ({ idProf }) => {
         <Text>Carregando...</Text>
       ) : turmas.length > 0 ? (
         turmas.map((turma) => (
-          <CardTurma key={turma.id} turmaId={turma.id} nomeTurma={turma.nome} />
+          <CardTurma
+            key={turma.id}
+            id={turma.id}
+            nome={turma.nome}
+            professorId={idProf}
+            disciplinas={turma.disciplinas}
+          />
         ))
       ) : (
         <SemTurmas />

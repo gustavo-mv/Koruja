@@ -4,15 +4,25 @@ import TurmaInfo from "@/components/Turmas/Disciplinas/TurmaInfo";
 import { useGlobalSearchParams } from "expo-router";
 
 const turma = () => {
-  const { nome, turmaId } = useGlobalSearchParams();
-  const nomeString: string = nome as string;
-  const turmaIdNumber: number = parseInt(turmaId as string);
+  const { nome, turmaId, disciplinas, professorId } = useGlobalSearchParams();
 
-  return (
-    <View>
-      <TurmaInfo nome={nomeString} id={turmaIdNumber} />
-    </View>
-  );
+  if (
+    typeof nome === "string" &&
+    typeof turmaId === "string" &&
+    typeof disciplinas === "number" &&
+    typeof professorId === "string"
+  ) {
+    return (
+      <View>
+        <TurmaInfo
+          nome={nome}
+          id={turmaId}
+          disciplinas={disciplinas}
+          professorId={professorId}
+        />
+      </View>
+    );
+  } else return null;
 };
 
 export default turma;

@@ -3,15 +3,23 @@ import React from "react";
 import { AntDesign } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { Link } from "expo-router";
+import { TurmaProps } from "@/models/TurmaProps";
 
-const CardTurma: React.FC<CardTurmaProps> = ({ nomeTurma, turmaId }) => {
+const CardTurma: React.FC<TurmaProps> = ({
+  id,
+  nome,
+  professorId,
+  disciplinas,
+}) => {
   return (
     <Link
       href={{
         pathname: "/home/[idturma]",
         params: {
-          nome: nomeTurma,
-          turmaId: turmaId,
+          nome: nome,
+          turmaId: id,
+          professorId: professorId,
+          disciplinas: disciplinas,
         },
       }}
       asChild
@@ -23,11 +31,11 @@ const CardTurma: React.FC<CardTurmaProps> = ({ nomeTurma, turmaId }) => {
               <Ionicons name="school-outline" size={35} color="black" />
             </View>
             <Text className=" text-gray-300">Quantidade Disciplinas:</Text>
-            <Text className=" text-gray-300">3</Text>
+            <Text className=" text-gray-300">{disciplinas.length}</Text>
           </View>
           <View className="flex-row justify-center items-start space-x-20">
             <Text className=" text-white font-bold text-xl w-60 ml-5 mb-5">
-              {nomeTurma}
+              {nome}
             </Text>
             <AntDesign name="right" size={24} color="white" />
           </View>
