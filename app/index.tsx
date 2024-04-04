@@ -19,13 +19,14 @@ const index = () => {
           });
 
           if (!response.ok) {
-            router.replace("/login");
             throw new Error("Token Expirado!");
           }
+
           const data = await response.json();
           dataUser(data);
           router.replace("/home");
         } catch (error) {
+          alert("Seu token expirou, faça o Login novamente, por favor.");
           console.error("Erro ao buscar dados:", error);
           router.replace("/login");
         }

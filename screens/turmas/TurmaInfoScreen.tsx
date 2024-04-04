@@ -7,12 +7,12 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import ListagemDisciplinas from "@/components/Turmas/Disciplinas/ListagemDisciplinas";
 import HeaderDisciplinas from "@/components/Turmas/Disciplinas/HeaderDisciplinas";
 
-const TurmaInfo: React.FC<TurmaProps> = (turma) => {
+const TurmaInfoScreen: React.FC<TurmaProps> = (turma) => {
   if (turma.disciplinas.length > 0) {
     return (
       <View className=" mb-11">
         <ScrollView className="h-full">
-          <HeaderDisciplinas aparecerMenu={false} {...turma} />
+          <HeaderDisciplinas aparecerMenu={true} {...turma} />
           <View className="h-full">
             <Text className=" w-52 text-xl mt-4 pl-5 font-bold border-b-4">
               Lista de Disciplinas
@@ -54,4 +54,4 @@ const TurmaInfo: React.FC<TurmaProps> = (turma) => {
   }
 };
 
-export default TurmaInfo;
+export default TurmaInfoScreen;
