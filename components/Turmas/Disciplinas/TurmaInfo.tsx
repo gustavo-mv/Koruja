@@ -85,9 +85,9 @@ const TurmaInfo: React.FC<TurmaProps> = (turma) => {
             },
           }}
         >
-          <TouchableOpacity className=" flex-row justify-center items-center bg-black rounded-xl space-x-1 bottom-28 w-44 h-10 self-end fixed right-2 z-50">
+          <TouchableOpacity className=" flex-row justify-center items-center bg-black rounded-xl bottom-28 w-44 h-10 self-end fixed right-2 z-50">
             <MaterialCommunityIcons
-              name="account-multiple-plus"
+              name="notebook-edit"
               size={24}
               color="#22c55e"
             />
