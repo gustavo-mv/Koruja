@@ -14,8 +14,10 @@ const SemDisciplina: React.FC<TurmaProps> = ({ id }) => {
       <TouchableOpacity className=" bg-green-400 mt-4 p-2 rounded-xl">
         <Link
           href={{
-            pathname: "/home/criarDisciplina",
-            params: { idTurma: id },
+            pathname: "home/criarDisciplina",
+            params: {
+              turmaId: id,
+            },
           }}
         >
           <Text className=" font-bold text-base">

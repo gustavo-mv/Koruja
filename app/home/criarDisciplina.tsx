@@ -1,11 +1,13 @@
 import React from "react";
-import { useGlobalSearchParams } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import CriarDisciplina from "@/components/Turmas/Disciplinas/CriarDisciplina";
 
 const criarDisciplina = () => {
-  const { idTurma } = useGlobalSearchParams();
-  if (typeof idTurma === "string") {
-    return <CriarDisciplina id={idTurma} />;
+  const { turmaId } = useLocalSearchParams<{
+    turmaId: string;
+  }>();
+  if (typeof turmaId === "string") {
+    return <CriarDisciplina id={turmaId} />;
   } else return null;
 };
 

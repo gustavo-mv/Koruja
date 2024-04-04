@@ -1,8 +1,11 @@
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import React from "react";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 
-const CriarDisciplina: React.FC<{ id: string }> = ({ id }) => {
+const CriarDisciplina = () => {
+  const { turmaId } = useLocalSearchParams<{
+    turmaId: string;
+  }>();
   const [nome, setNome] = React.useState("");
   const [error, setError] = React.useState<string | null>(null);
 
@@ -10,24 +13,24 @@ const CriarDisciplina: React.FC<{ id: string }> = ({ id }) => {
 
   const handleCreation = async () => {
     try {
-      const response = await fetch(`${API_URL}/turmas`, {
+      const response = await fetch(`${API_URL}/disciplinas`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ nome: nome, turmaId: id }),
+        body: JSON.stringify({ nome: nome, turmaId: turmaId }),
       });
 
       if (!response.ok) {
         setError("Algo inesperado aconteceu, erro na criação de turma.");
-        throw new Error("Erro na resposta da API /turmas");
+        throw new Error("Erro na resposta da API /criarDisciplina");
       } else {
         router.replace("/home/(tabs)/turmas");
       }
     } catch (e) {
       if (typeof e === "string") {
         e.toUpperCase();
-        setError(e || "Erro ao fazer login");
+        setError(e || "Erro ao cadastrar Disciplina");
       } else if (e instanceof Error) {
         e.message;
       }
@@ -37,7 +40,6 @@ const CriarDisciplina: React.FC<{ id: string }> = ({ id }) => {
   return (
     <View className="flex-1 justify-center items-center w-100 h-96">
       <View className="mb-5 ">
-        <Text>{id}</Text>
         {error && (
           <Text className="text-center text-lg font-medium text-red-500">
             {error}
