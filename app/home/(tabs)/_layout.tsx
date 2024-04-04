@@ -20,7 +20,7 @@ export default function TabLayout() {
         name="index"
         options={{
           title: "Home",
-          tabBarActiveTintColor: "green",
+          tabBarActiveTintColor: "#10b505",
           tabBarIconStyle: { color: "#FF6464" },
           tabBarIcon: ({ color }) => (
             <Icon name="home" size={32} color={color} />
@@ -33,7 +33,7 @@ export default function TabLayout() {
         options={{
           title: "Turmas",
           headerShown: false,
-          tabBarActiveTintColor: "green",
+          tabBarActiveTintColor: "#10b505",
           tabBarIconStyle: { color: "#FF6464" },
           tabBarIcon: ({ color }) => (
             <Icon name="groups" size={32} color={color} />
@@ -45,7 +45,7 @@ export default function TabLayout() {
         name="scan"
         options={{
           title: "Scan",
-          tabBarActiveTintColor: "green",
+          tabBarActiveTintColor: "#10b505",
           tabBarIconStyle: { color: "white" },
           headerShown: false,
           tabBarIcon: ({ color }) => (
@@ -63,7 +63,7 @@ export default function TabLayout() {
         name="ativ"
         options={{
           title: "Atividades",
-          tabBarActiveTintColor: "green",
+          tabBarActiveTintColor: "#10b505",
           tabBarIconStyle: { color: "#FF6464" },
           headerShown: false,
           tabBarIcon: ({ color }) => (
@@ -75,7 +75,7 @@ export default function TabLayout() {
         name="conf"
         options={{
           title: "Configurações",
-          tabBarActiveTintColor: "green",
+          tabBarActiveTintColor: "#10b505",
           tabBarIconStyle: { color: "#FF6464" },
           tabBarIcon: ({ color }) => (
             <Icon name="settings" size={32} color={color} />
@@ -88,7 +88,7 @@ export default function TabLayout() {
 
 const styles = StyleSheet.create({
   qr: {
-    backgroundColor: "green",
+    backgroundColor: "#10b505",
     borderRadius: 50,
     width: 80,
     height: 60,

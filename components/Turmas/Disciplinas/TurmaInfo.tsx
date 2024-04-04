@@ -13,6 +13,7 @@ import Svg6 from "../../../assets/iconsDisc/Svg6.svg";
 import Svg7 from "../../../assets/iconsDisc/Svg7.svg";
 import Svg8 from "../../../assets/iconsDisc/Svg8.svg";
 import Svg9 from "../../../assets/iconsDisc/Svg9.svg";
+import ButtonHeaderHelp from "./ButtonHeaderHelp";
 
 interface Props {
   disciplinas: disciplinasObj[];
@@ -60,13 +61,42 @@ const DisciplinasList: React.FC<Props> = ({ disciplinas }) => {
 const TurmaInfo: React.FC<TurmaProps> = (turma) => {
   if (turma.disciplinas.length > 0) {
     return (
-      <View className=" mb-44">
-        <View className=" bg-black rounded-b-3xl z-50">
-          <Text className=" text-white text-4xl font-extrabold tracking-wide ml-6 w-96 pr-12 mb-4">
-            {turma.nome}
-          </Text>
-        </View>
+      <View className=" mb-11">
         <ScrollView className="h-full">
+          <View className=" bg-black rounded-b-3xl pb-5 z-50">
+            <Text className=" text-white text-4xl font-extrabold tracking-wide ml-6 w-96 pr-12 mb-4">
+              {turma.nome}
+            </Text>
+            <View className=" flex-column justify-center items-center">
+              <View className=" flex-row w-96 justify-center items-center">
+                <ButtonHeaderHelp
+                  titulo="Editar Nome"
+                  icon="lead-pencil"
+                  bg="#f7ee6d"
+                />
+                <ButtonHeaderHelp
+                  titulo="Histórico de Gabaritos"
+                  icon="qrcode-scan"
+                  bg="#57dff7"
+                />
+              </View>
+              <View>
+                <View className="flex-row">
+                  <ButtonHeaderHelp
+                    titulo="Histórico de Atividades"
+                    icon="note-multiple-outline"
+                    bg="#ffa754"
+                  />
+                  <ButtonHeaderHelp
+                    titulo="Excluir Turma"
+                    icon="delete"
+                    bg="#fa5f81"
+                  />
+                </View>
+              </View>
+            </View>
+          </View>
+
           <View className="h-full">
             <Text className=" w-52 text-xl mt-4 pl-5 font-bold border-b-4">
               Lista de Disciplinas
@@ -85,7 +115,7 @@ const TurmaInfo: React.FC<TurmaProps> = (turma) => {
             },
           }}
         >
-          <TouchableOpacity className=" flex-row justify-center items-center bg-black rounded-xl bottom-28 w-44 h-10 self-end fixed right-2 z-50">
+          <TouchableOpacity className=" flex-row justify-center items-center bg-black rounded-xl bottom-28 6 w-44 h-10 self-end fixed right-2 z-50">
             <MaterialCommunityIcons
               name="notebook-edit"
               size={24}
