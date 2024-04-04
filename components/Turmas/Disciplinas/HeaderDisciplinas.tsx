@@ -23,11 +23,13 @@ const HeaderDisciplinas: React.FC<HeaderDisciplinasProps> = ({
               titulo="Editar Nome"
               icon="lead-pencil"
               bg="#f7ee6d"
+              tipo="tipoEdit"
             />
             <ButtonHeaderHelp
               titulo="Histórico de Gabaritos"
               icon="qrcode-scan"
               bg="#57dff7"
+              tipo="tipoHistoricoGabaritos"
             />
           </View>
           <View>
@@ -36,11 +38,13 @@ const HeaderDisciplinas: React.FC<HeaderDisciplinasProps> = ({
                 titulo="Histórico de Atividades"
                 icon="note-multiple-outline"
                 bg="#ffa754"
+                tipo="tipoHistoricoAtv"
               />
               <ButtonHeaderHelp
                 titulo="Excluir Turma"
                 icon="delete"
                 bg="#fa5f81"
+                tipo="tipoDelete"
               />
             </View>
           </View>
