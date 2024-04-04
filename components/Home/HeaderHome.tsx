@@ -1,9 +1,8 @@
 import { View, Text } from "react-native";
 import React from "react";
 import moment from "moment";
-import { UserProps } from "@/models/UserProps";
 
-const HeaderHome: React.FC<UserProps> = ({ nome }) => {
+const HeaderHome: React.FC<{ nome: string }> = ({ nome }) => {
   const horaAtual = moment().hour();
   let saudacao;
 

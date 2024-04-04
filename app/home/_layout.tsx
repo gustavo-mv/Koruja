@@ -1,6 +1,5 @@
-import { Stack, useGlobalSearchParams } from "expo-router";
+import { Stack } from "expo-router";
 import React from "react";
-import { Button } from "react-native";
 
 export default function HomeLayout() {
   return (

@@ -1,6 +1,5 @@
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import { router } from "expo-router";
-
 import React from "react";
 import { ProfId } from "@/models/ProfId";
 

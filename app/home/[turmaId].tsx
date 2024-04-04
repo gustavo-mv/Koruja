@@ -1,6 +1,6 @@
 import { View } from "react-native";
 import React from "react";
-import TurmaInfo from "@/components/Turmas/Disciplinas/TurmaInfo";
+import TurmaInfoScreen from "@/screens/turmas/TurmaInfoScreen";
 import { useLocalSearchParams } from "expo-router";
 
 const turma = () => {
@@ -23,7 +23,7 @@ const turma = () => {
   ) {
     return (
       <View>
-        <TurmaInfo
+        <TurmaInfoScreen
           nome={params.nome}
           id={params.turmaId}
           disciplinas={disciplinasArray}

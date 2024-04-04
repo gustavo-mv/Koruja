@@ -5,7 +5,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 interface PropsStyleButtons {
   titulo: string;
   bg: string;
-  icon: string;
+  icon: any;
 }
 
 const ButtonHeaderHelp: React.FC<PropsStyleButtons> = ({

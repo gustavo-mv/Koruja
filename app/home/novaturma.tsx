@@ -1,5 +1,5 @@
 import React from "react";
-import NovaTurmaForm from "@/components/Turmas/NovaTurmaForm";
+import NovaTurmaForm from "@/screens/turmas/NovaTurmaForm";
 import { useLocalSearchParams } from "expo-router";
 
 const novaturma = () => {
