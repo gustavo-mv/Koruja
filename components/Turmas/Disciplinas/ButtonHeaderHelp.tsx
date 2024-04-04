@@ -1,6 +1,7 @@
 import { TouchableOpacity, Text, Modal, View } from "react-native";
 import React from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { router } from "expo-router";
 
 interface PropsStyleButtons {
   titulo: string;
@@ -11,6 +12,7 @@ interface PropsStyleButtons {
     | "tipoEdit"
     | "tipoHistoricoGabaritos"
     | "tipoHistoricoAtv";
+  idTurma: string;
 }
 
 const ButtonHeaderHelp: React.FC<PropsStyleButtons> = ({
@@ -18,7 +20,9 @@ const ButtonHeaderHelp: React.FC<PropsStyleButtons> = ({
   bg,
   icon,
   tipo,
+  idTurma,
 }) => {
+  const API_URL = process.env.EXPO_PUBLIC_API_URL;
   const [deletar, setDeletar] = React.useState<boolean>(false);
 
   function handleClick() {
@@ -26,6 +30,30 @@ const ButtonHeaderHelp: React.FC<PropsStyleButtons> = ({
       setDeletar(true);
     }
   }
+
+  const handleDelete = async () => {
+    try {
+      const response = await fetch(`${API_URL}/turmas/${idTurma}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({}),
+      });
+
+      if (!response.ok) {
+        throw new Error("Ocorreu um erro ao excluir a turma.");
+      } else {
+        router.replace("/home/(tabs)/turmas");
+      }
+    } catch (e) {
+      if (typeof e === "string") {
+        e.toUpperCase();
+      } else if (e instanceof Error) {
+        e.message;
+      }
+    }
+  };
 
   return (
     <View>
@@ -42,7 +70,10 @@ const ButtonHeaderHelp: React.FC<PropsStyleButtons> = ({
                 Deseja realmente excluir a turma?
               </Text>
               <View className="flex-row bg-gray-200 w-80 h-14 justify-center items-center rounded-b-xl">
-                <TouchableOpacity className="flex-1 items-center    border-r-2 border-gray-400">
+                <TouchableOpacity
+                  onPress={() => handleDelete()}
+                  className="flex-1 items-center    border-r-2 border-gray-400"
+                >
                   <Text className="text-red-500 text-xl font-bold">
                     Excluir
                   </Text>

@@ -24,12 +24,14 @@ const HeaderDisciplinas: React.FC<HeaderDisciplinasProps> = ({
               icon="lead-pencil"
               bg="#f7ee6d"
               tipo="tipoEdit"
+              idTurma={turma.id}
             />
             <ButtonHeaderHelp
               titulo="Histórico de Gabaritos"
               icon="qrcode-scan"
               bg="#57dff7"
               tipo="tipoHistoricoGabaritos"
+              idTurma={turma.id}
             />
           </View>
           <View>
@@ -39,12 +41,14 @@ const HeaderDisciplinas: React.FC<HeaderDisciplinasProps> = ({
                 icon="note-multiple-outline"
                 bg="#ffa754"
                 tipo="tipoHistoricoAtv"
+                idTurma={turma.id}
               />
               <ButtonHeaderHelp
                 titulo="Excluir Turma"
                 icon="delete"
                 bg="#fa5f81"
                 tipo="tipoDelete"
+                idTurma={turma.id}
               />
             </View>
           </View>
@@ -57,6 +61,22 @@ const HeaderDisciplinas: React.FC<HeaderDisciplinasProps> = ({
       <Text className=" text-white text-4xl font-extrabold tracking-wide ml-6 w-96 pr-12 mb-4">
         {turma.nome}
       </Text>
+      <View className="flex-row pb-5 items-center justify-center">
+        <ButtonHeaderHelp
+          titulo="Editar Nome"
+          icon="lead-pencil"
+          bg="#f7ee6d"
+          tipo="tipoEdit"
+          idTurma={turma.id}
+        />
+        <ButtonHeaderHelp
+          titulo="Excluir Turma"
+          icon="delete"
+          bg="#fa5f81"
+          tipo="tipoDelete"
+          idTurma={turma.id}
+        />
+      </View>
     </View>
   );
 };
