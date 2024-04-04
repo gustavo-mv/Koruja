@@ -17,22 +17,25 @@ const turmas = () => {
           <TurmasIndex {...userGlobalData} />
         </ScrollView>
       </View>
-      <TouchableOpacity className=" flex-row justify-center items-center bg-green-500 rounded-2xl bottom-28 w-40 h-10 self-end fixed right-2 z-50">
-        <MaterialCommunityIcons
-          name="account-multiple-plus"
-          size={24}
-          color="black"
-        />
 
-        <Link
-          href={{
-            pathname: "/home/novaturma",
-            params: { idProfessor: userGlobalData.id },
-          }}
-        >
+      <Link
+        asChild
+        push
+        href={{
+          pathname: "/home/novaturma",
+          params: { idProfessor: userGlobalData.id },
+        }}
+      >
+        <TouchableOpacity className=" flex-row justify-center items-center bg-green-500 rounded-2xl bottom-28 w-40 h-10 self-end fixed right-2 z-50">
+          <MaterialCommunityIcons
+            name="account-multiple-plus"
+            size={24}
+            color="black"
+          />
+
           <Text className=" font-semibold pl-2">Adicionar Turma</Text>
-        </Link>
-      </TouchableOpacity>
+        </TouchableOpacity>
+      </Link>
     </View>
   );
 };
