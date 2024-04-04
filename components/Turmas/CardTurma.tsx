@@ -13,6 +13,7 @@ const CardTurma: React.FC<TurmaProps> = ({
 }) => {
   return (
     <Link
+      push
       href={{
         pathname: "/home/[turmaId]",
         params: {

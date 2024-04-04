@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import React from "react";
 import { Link } from "expo-router";
 import SemDisciplina from "./SemDisciplina";
@@ -54,7 +54,7 @@ const DisciplinasList: React.FC<Props> = ({ disciplinas }) => {
 const TurmaInfo: React.FC<TurmaProps> = (turma) => {
   if (turma.disciplinas.length > 0) {
     return (
-      <View className="h-full">
+      <ScrollView className="h-full">
         <View className=" bg-black rounded-b-3xl z-50">
           <Text className=" text-white text-4xl font-extrabold tracking-wide ml-6 w-96 pr-12 mb-4">
             {turma.nome}
@@ -76,6 +76,7 @@ const TurmaInfo: React.FC<TurmaProps> = (turma) => {
           />
 
           <Link
+            push
             href={{
               pathname: "home/criarDisciplina",
               params: {
@@ -88,7 +89,7 @@ const TurmaInfo: React.FC<TurmaProps> = (turma) => {
             </Text>
           </Link>
         </TouchableOpacity>
-      </View>
+      </ScrollView>
     );
   } else {
     return (
