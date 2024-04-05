@@ -5,14 +5,14 @@ import SemDisciplina from "../../components/Turmas/Disciplinas/SemDisciplina";
 import { TurmaProps } from "@/models/TurmaProps";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import ListagemDisciplinas from "@/components/Turmas/Disciplinas/ListagemDisciplinas";
-import HeaderDisciplinas from "@/components/Turmas/Disciplinas/HeaderDisciplinas";
+import HeaderListaDisciplinas from "@/components/Turmas/Disciplinas/HeaderListaDisciplinas";
 
 const TurmaInfoScreen: React.FC<TurmaProps> = (turma) => {
   if (turma.disciplinas.length > 0) {
     return (
       <View className=" mb-11">
         <ScrollView className="h-full">
-          <HeaderDisciplinas aparecerMenu={true} {...turma} />
+          <HeaderListaDisciplinas aparecerMenu={true} {...turma} />
           <View className="h-full">
             <Text className=" w-52 text-xl mt-4 pl-5 font-bold border-b-4">
               Lista de Disciplinas
@@ -47,7 +47,7 @@ const TurmaInfoScreen: React.FC<TurmaProps> = (turma) => {
   } else {
     return (
       <View>
-        <HeaderDisciplinas aparecerMenu={false} {...turma} />
+        <HeaderListaDisciplinas aparecerMenu={false} {...turma} />
         <SemDisciplina {...turma} />
       </View>
     );

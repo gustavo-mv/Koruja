@@ -3,11 +3,11 @@ import React from "react";
 import { TurmaProps } from "@/models/TurmaProps";
 import ButtonHeaderHelp from "./ButtonHeaderHelp";
 
-interface HeaderDisciplinasProps extends TurmaProps {
+interface HeaderListaDisciplinasProps extends TurmaProps {
   aparecerMenu: boolean;
 }
 
-const HeaderDisciplinas: React.FC<HeaderDisciplinasProps> = ({
+const HeaderListaDisciplinas: React.FC<HeaderListaDisciplinasProps> = ({
   aparecerMenu,
   ...turma
 }) => {
@@ -87,4 +87,4 @@ const HeaderDisciplinas: React.FC<HeaderDisciplinasProps> = ({
   );
 };
 
-export default HeaderDisciplinas;
+export default HeaderListaDisciplinas;

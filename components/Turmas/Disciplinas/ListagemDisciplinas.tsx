@@ -1,6 +1,7 @@
 import { TouchableOpacity, Text, View } from "react-native";
 import IconeDisciplinaProvider from "@/components/Turmas/Disciplinas/IconeDisciplinaProvider";
 import { disciplinasObj } from "@/models/TurmaProps";
+import { Link } from "expo-router";
 
 const ListagemDisciplinas: React.FC<{ disciplinas: disciplinasObj[] }> = ({
   disciplinas,
@@ -20,16 +21,24 @@ const ListagemDisciplinas: React.FC<{ disciplinas: disciplinasObj[] }> = ({
   return (
     <View>
       {cardsDisciplinas.map((disciplina, index) => (
-        <TouchableOpacity
+        <Link
           key={index}
-          className="mt-5 w-11/12 rounded-lg border-2 self-center flex-row overflow-hidden relative justify-start items-center"
-          style={{ backgroundColor: disciplina.cor }}
+          asChild
+          href={{
+            pathname: "/home/disciplina",
+            params: { disciplina: JSON.stringify(disciplina) },
+          }}
         >
-          <Text className=" text-white w-52 text-4xl font-bold left-3">
-            {disciplina.nome}
-          </Text>
-          <IconeDisciplinaProvider indice={index} />
-        </TouchableOpacity>
+          <TouchableOpacity
+            className="mt-5 w-11/12 rounded-lg border-2 self-center flex-row overflow-hidden relative justify-start items-center"
+            style={{ backgroundColor: disciplina.cor }}
+          >
+            <Text className=" text-white w-52 text-4xl font-bold left-3">
+              {disciplina.nome}
+            </Text>
+            <IconeDisciplinaProvider indice={index} />
+          </TouchableOpacity>
+        </Link>
       ))}
     </View>
   );

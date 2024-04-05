@@ -3,7 +3,6 @@ import React from "react";
 import { View, Text } from "react-native";
 import SemTurmas from "./SemTurmas";
 import CardTurma from "@/components/Turmas/CardTurma";
-import { router } from "expo-router";
 interface ListaTurmasProps {
   idProf: string;
 }
