@@ -27,8 +27,9 @@ const ListagemDisciplinas: React.FC<{
           key={index}
           asChild
           href={{
-            pathname: "/home/disciplina",
+            pathname: "/home/(turmas)/disciplina",
             params: {
+              index: index,
               turma: JSON.stringify(turma),
               disciplina: JSON.stringify(disciplinas[index]),
             },

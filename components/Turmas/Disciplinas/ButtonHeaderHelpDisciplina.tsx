@@ -5,7 +5,7 @@ import { router } from "expo-router";
 import LottieView from "lottie-react-native";
 import { TurmaProps } from "@/models/TurmaProps";
 
-interface uttons {
+interface ButtonsProp {
   titulo: string;
   bg: string;
   icon: any;
@@ -17,18 +17,12 @@ interface uttons {
   idDisc: string;
   nomeDisc: string;
   turmaId: string;
+  index: number;
 }
 
-const ButtonHeaderHelpDisciplina: React.FC<uttons & { turma: TurmaProps }> = ({
-  titulo,
-  bg,
-  icon,
-  tipo,
-  idDisc,
-  nomeDisc,
-  turmaId,
-  turma,
-}) => {
+const ButtonHeaderHelpDisciplina: React.FC<
+  ButtonsProp & { turma: TurmaProps }
+> = ({ titulo, bg, icon, tipo, idDisc, nomeDisc, turmaId, turma, index }) => {
   const API_URL = process.env.EXPO_PUBLIC_API_URL;
   const [deletar, setDeletar] = React.useState<boolean>(false);
   const [nomeEdit, setNomeEdit] = React.useState<string>(nomeDisc);
@@ -102,14 +96,23 @@ const ButtonHeaderHelpDisciplina: React.FC<uttons & { turma: TurmaProps }> = ({
       });
 
       if (!response.ok) {
-        console.log("erro");
         throw new Error("Ocorreu um erro ao editar a turma.");
       } else {
+        turma.disciplinas[index].nome = nomeEdit;
         router.replace("/home/(tabs)/turmas");
-        router.push("/home/[turmaId]");
         router.push({
-          pathname: "/home/disciplina",
+          pathname: "/home/(turmas)/[turmaId]",
           params: {
+            nome: turma.nome,
+            turmaId: turmaId,
+            disciplinas: JSON.stringify(turma.disciplinas),
+            professorId: turma.professorId,
+          },
+        });
+        router.push({
+          pathname: "/home/(turmas)/disciplina",
+          params: {
+            index: index,
             disciplina: JSON.stringify({
               nome: nomeEdit,
               id: idDisc,

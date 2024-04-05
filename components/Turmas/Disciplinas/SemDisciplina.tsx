@@ -14,7 +14,7 @@ const SemDisciplina: React.FC<TurmaProps> = ({ id }) => {
       <TouchableOpacity className=" bg-green-400 mt-4 p-2 rounded-xl">
         <Link
           href={{
-            pathname: "home/criarDisciplina",
+            pathname: "/home/(turmas)/criarDisciplina",
             params: {
               turmaId: id,
             },

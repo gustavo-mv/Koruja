@@ -15,7 +15,7 @@ const CardTurma: React.FC<TurmaProps> = ({
     <Link
       push
       href={{
-        pathname: "/home/[turmaId]",
+        pathname: "/home/(turmas)/[turmaId]",
         params: {
           nome: nome,
           turmaId: id,

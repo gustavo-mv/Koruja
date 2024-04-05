@@ -7,7 +7,8 @@ import { TurmaProps } from "@/models/TurmaProps";
 const HeaderDisciplina: React.FC<{
   disciplina: DisciplinasObj;
   turma: TurmaProps;
-}> = ({ disciplina, turma }) => {
+  index: number;
+}> = ({ disciplina, turma, index }) => {
   return (
     <View className=" bg-black rounded-b-3xl pb-5 z-50">
       <Text className=" text-white text-4xl font-extrabold tracking-wide ml-6 w-96 pr-12 mb-4">
@@ -24,6 +25,7 @@ const HeaderDisciplina: React.FC<{
             nomeDisc={disciplina.nome}
             turmaId={disciplina.turmaId}
             turma={turma}
+            index={index}
           />
           <ButtonHeaderHelpDisciplina
             titulo="Gabaritos"
@@ -34,6 +36,7 @@ const HeaderDisciplina: React.FC<{
             nomeDisc={disciplina.nome}
             turmaId={disciplina.turmaId}
             turma={turma}
+            index={index}
           />
         </View>
         <View>
@@ -47,6 +50,7 @@ const HeaderDisciplina: React.FC<{
               nomeDisc={disciplina.nome}
               turmaId={disciplina.turmaId}
               turma={turma}
+              index={index}
             />
             <ButtonHeaderHelpDisciplina
               titulo="Excluir Disciplina"
@@ -57,6 +61,7 @@ const HeaderDisciplina: React.FC<{
               nomeDisc={disciplina.nome}
               turmaId={disciplina.turmaId}
               turma={turma}
+              index={index}
             />
           </View>
         </View>

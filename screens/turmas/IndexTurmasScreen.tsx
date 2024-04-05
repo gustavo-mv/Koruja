@@ -34,7 +34,7 @@ const IndexTurmasScreen: React.FC<User> = ({ id }) => {
         asChild
         push
         href={{
-          pathname: "/home/novaturma",
+          pathname: "home/(turmas)/novaturma",
           params: { idProfessor: id },
         }}
       >

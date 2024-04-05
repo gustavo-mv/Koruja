@@ -7,10 +7,11 @@ import { TurmaProps } from "../../models/TurmaProps";
 const DisciplinaInfoScreen: React.FC<{
   turma: TurmaProps;
   disciplina: DisciplinasObj;
-}> = ({ turma, disciplina }) => {
+  index: number;
+}> = ({ turma, disciplina, index }) => {
   return (
     <View>
-      <HeaderDisciplina turma={turma} disciplina={disciplina} />
+      <HeaderDisciplina index={index} turma={turma} disciplina={disciplina} />
       <Text>oi</Text>
     </View>
   );

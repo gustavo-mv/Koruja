@@ -11,35 +11,9 @@ export default function HomeLayout() {
         }}
       />
       <Stack.Screen
-        name="novaturma"
-        options={{ title: "Adicionar Turma", headerTitleAlign: "center" }}
-      />
-      <Stack.Screen
-        name="[turmaId]"
+        name="(turmas)"
         options={{
-          title: "",
-          headerStyle: { backgroundColor: "black" },
-          headerShadowVisible: false,
-          headerTintColor: "#1CBA38",
-        }}
-      />
-      <Stack.Screen
-        name="disciplina"
-        options={{
-          title: "",
-          headerStyle: { backgroundColor: "black" },
-          headerShadowVisible: false,
-          headerTintColor: "#1CBA38",
-        }}
-      />
-      <Stack.Screen
-        name="criarDisciplina"
-        options={{
-          title: "Adicionar Disciplina",
-          headerStyle: { backgroundColor: "black" },
-          headerShadowVisible: false,
-          headerTintColor: "white",
-          headerTitleAlign: "center",
+          headerShown: false,
         }}
       />
     </Stack>

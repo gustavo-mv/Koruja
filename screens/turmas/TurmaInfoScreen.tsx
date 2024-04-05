@@ -27,7 +27,7 @@ const TurmaInfoScreen: React.FC<TurmaProps> = (turma) => {
           push
           asChild
           href={{
-            pathname: "home/criarDisciplina",
+            pathname: "/home/(turmas)/criarDisciplina",
             params: {
               turmaId: turma.id,
             },
