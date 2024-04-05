@@ -1,13 +1,17 @@
 import { View, Text } from "react-native";
 import React from "react";
-import { disciplinasObj } from "@/models/TurmaProps";
+import { DisciplinasObj } from "@/models/DisciplinasObj";
 import HeaderDisciplina from "@/components/Turmas/Disciplinas/HeaderDisciplina";
+import { TurmaProps } from "../../models/TurmaProps";
 
-const DisciplinaInfoScreen: React.FC<disciplinasObj> = (disciplina) => {
+const DisciplinaInfoScreen: React.FC<{
+  turma: TurmaProps;
+  disciplina: DisciplinasObj;
+}> = ({ turma, disciplina }) => {
   return (
     <View>
-      <HeaderDisciplina {...disciplina} />
-      <Text>{disciplina.nome}</Text>
+      <HeaderDisciplina turma={turma} disciplina={disciplina} />
+      <Text>oi</Text>
     </View>
   );
 };

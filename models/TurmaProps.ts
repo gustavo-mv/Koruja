@@ -1,12 +1,8 @@
-export interface disciplinasObj {
-  id: string;
-  nome: string;
-  turmaId: string;
-}
+import { DisciplinasObj } from "@/models/DisciplinasObj";
 
 export interface TurmaProps {
   id: string;
   nome: string;
   professorId: string;
-  disciplinas: disciplinasObj[];
+  disciplinas: DisciplinasObj[];
 }

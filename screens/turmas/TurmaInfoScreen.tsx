@@ -17,7 +17,10 @@ const TurmaInfoScreen: React.FC<TurmaProps> = (turma) => {
             <Text className=" w-52 text-xl mt-4 pl-5 font-bold border-b-4">
               Lista de Disciplinas
             </Text>
-            <ListagemDisciplinas disciplinas={turma.disciplinas} />
+            <ListagemDisciplinas
+              disciplinas={turma.disciplinas}
+              turma={turma}
+            />
           </View>
         </ScrollView>
         <Link

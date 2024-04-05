@@ -1,9 +1,13 @@
 import { View, Text } from "react-native";
 import React from "react";
-import { disciplinasObj } from "@/models/TurmaProps";
+import { DisciplinasObj } from "@/models/DisciplinasObj";
 import ButtonHeaderHelpDisciplina from "./ButtonHeaderHelpDisciplina";
+import { TurmaProps } from "@/models/TurmaProps";
 
-const HeaderDisciplina: React.FC<disciplinasObj> = (disciplina) => {
+const HeaderDisciplina: React.FC<{
+  disciplina: DisciplinasObj;
+  turma: TurmaProps;
+}> = ({ disciplina, turma }) => {
   return (
     <View className=" bg-black rounded-b-3xl pb-5 z-50">
       <Text className=" text-white text-4xl font-extrabold tracking-wide ml-6 w-96 pr-12 mb-4">
@@ -13,11 +17,13 @@ const HeaderDisciplina: React.FC<disciplinasObj> = (disciplina) => {
         <View className=" flex-row w-96 justify-center items-center">
           <ButtonHeaderHelpDisciplina
             titulo="Editar Nome"
-            icon="lead-pencil"
             bg="#f7ee6d"
+            icon="lead-pencil"
             tipo="tipoEdit"
             idDisc={disciplina.id}
             nomeDisc={disciplina.nome}
+            turmaId={disciplina.turmaId}
+            turma={turma}
           />
           <ButtonHeaderHelpDisciplina
             titulo="Gabaritos"
@@ -26,6 +32,8 @@ const HeaderDisciplina: React.FC<disciplinasObj> = (disciplina) => {
             tipo="tipoHistoricoGabaritos"
             idDisc={disciplina.id}
             nomeDisc={disciplina.nome}
+            turmaId={disciplina.turmaId}
+            turma={turma}
           />
         </View>
         <View>
@@ -37,6 +45,8 @@ const HeaderDisciplina: React.FC<disciplinasObj> = (disciplina) => {
               tipo="tipoHistoricoAtv"
               idDisc={disciplina.id}
               nomeDisc={disciplina.nome}
+              turmaId={disciplina.turmaId}
+              turma={turma}
             />
             <ButtonHeaderHelpDisciplina
               titulo="Excluir Disciplina"
@@ -45,6 +55,8 @@ const HeaderDisciplina: React.FC<disciplinasObj> = (disciplina) => {
               tipo="tipoDelete"
               idDisc={disciplina.id}
               nomeDisc={disciplina.nome}
+              turmaId={disciplina.turmaId}
+              turma={turma}
             />
           </View>
         </View>

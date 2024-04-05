@@ -3,8 +3,9 @@ import React from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import LottieView from "lottie-react-native";
+import { TurmaProps } from "@/models/TurmaProps";
 
-interface PropsStyleButtons {
+interface uttons {
   titulo: string;
   bg: string;
   icon: any;
@@ -15,27 +16,30 @@ interface PropsStyleButtons {
     | "tipoHistoricoAtv";
   idDisc: string;
   nomeDisc: string;
+  turmaId: string;
 }
 
-const ButtonHeaderHelpDisciplina: React.FC<PropsStyleButtons> = ({
+const ButtonHeaderHelpDisciplina: React.FC<uttons & { turma: TurmaProps }> = ({
   titulo,
   bg,
   icon,
   tipo,
   idDisc,
   nomeDisc,
+  turmaId,
+  turma,
 }) => {
   const API_URL = process.env.EXPO_PUBLIC_API_URL;
   const [deletar, setDeletar] = React.useState<boolean>(false);
-  const [editar, setEditar] = React.useState<string>(nomeDisc);
+  const [nomeEdit, setNomeEdit] = React.useState<string>(nomeDisc);
   const [editarView, setEditarView] = React.useState<boolean>(false);
   const [editarDisabled, setEditarDisabled] = React.useState<boolean>(true);
 
   React.useEffect(() => {
-    if (editar === "" || editar === nomeDisc) {
+    if (nomeEdit === "" || nomeEdit === nomeDisc) {
       setEditarDisabled(true);
     }
-  }, [editar]);
+  }, [nomeEdit]);
 
   const animationDel = React.useRef<LottieView>(null);
 
@@ -63,7 +67,7 @@ const ButtonHeaderHelpDisciplina: React.FC<PropsStyleButtons> = ({
 
   const handleDelete = async () => {
     try {
-      const response = await fetch(`${API_URL}/disciplina/${idDisc}`, {
+      const response = await fetch(`${API_URL}/disciplinas/${idDisc}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -87,26 +91,39 @@ const ButtonHeaderHelpDisciplina: React.FC<PropsStyleButtons> = ({
 
   const handleEdit = async () => {
     try {
-      const response = await fetch(`${API_URL}/disciplina/${idDisc}`, {
+      const response = await fetch(`${API_URL}/disciplinas/${idDisc}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          nome: editar,
+          nome: nomeEdit,
         }),
       });
 
       if (!response.ok) {
+        console.log("erro");
         throw new Error("Ocorreu um erro ao editar a turma.");
       } else {
         router.replace("/home/(tabs)/turmas");
+        router.push("/home/[turmaId]");
+        router.push({
+          pathname: "/home/disciplina",
+          params: {
+            disciplina: JSON.stringify({
+              nome: nomeEdit,
+              id: idDisc,
+              turmaId: turmaId,
+            }),
+            turma: JSON.stringify({ turma }),
+          },
+        });
       }
     } catch (e) {
       if (typeof e === "string") {
-        e.toUpperCase();
+        throw new Error("Ocorreu um erro no servidor." + e);
       } else if (e instanceof Error) {
-        e.message;
+        throw new Error("Ocorreu um erro no servidor." + e);
       }
     }
   };
@@ -184,9 +201,9 @@ const ButtonHeaderHelpDisciplina: React.FC<PropsStyleButtons> = ({
               </Text>
               <TextInput
                 className=" font-bold text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg bottom-10 focus:ring-green-500 focus:border-green-500 block w-80 p-2.5"
-                value={editar}
+                value={nomeEdit}
                 onChangeText={(value) => {
-                  setEditar(value);
+                  setNomeEdit(value);
                   setEditarDisabled(false);
                 }}
               />
@@ -195,9 +212,9 @@ const ButtonHeaderHelpDisciplina: React.FC<PropsStyleButtons> = ({
                   disabled={editarDisabled}
                   onPress={() => handleEdit()}
                   className={`${editarDisabled ? "opacity-50" : ""} ${
-                    editar === nomeDisc ? "opacity-50" : ""
+                    nomeEdit === nomeDisc ? "opacity-50" : ""
                   } 
-                  ${editar === "" ? "opacity-70" : ""}
+                  ${nomeEdit === "" ? "opacity-70" : ""}
                   flex-1 items-center bg-green-500 h-14 text-center justify-center border-r-2 border-gray-400`}
                 >
                   <Text className={`text-white text-xl font-bold`}>Salvar</Text>
