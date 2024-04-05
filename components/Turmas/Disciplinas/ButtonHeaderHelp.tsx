@@ -183,7 +183,6 @@ const ButtonHeaderHelp: React.FC<PropsStyleButtons> = ({
                 Editar Nome
               </Text>
               <TextInput
-                autoFocus
                 className=" font-bold text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg bottom-10 focus:ring-green-500 focus:border-green-500 block w-80 p-2.5"
                 value={editar}
                 onChangeText={(value) => {
