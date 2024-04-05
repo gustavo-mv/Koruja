@@ -25,6 +25,7 @@ const HeaderDisciplinas: React.FC<HeaderDisciplinasProps> = ({
               bg="#f7ee6d"
               tipo="tipoEdit"
               idTurma={turma.id}
+              nomeTurma={turma.nome}
             />
             <ButtonHeaderHelp
               titulo="Histórico de Gabaritos"
@@ -32,6 +33,7 @@ const HeaderDisciplinas: React.FC<HeaderDisciplinasProps> = ({
               bg="#57dff7"
               tipo="tipoHistoricoGabaritos"
               idTurma={turma.id}
+              nomeTurma={turma.nome}
             />
           </View>
           <View>
@@ -42,6 +44,7 @@ const HeaderDisciplinas: React.FC<HeaderDisciplinasProps> = ({
                 bg="#ffa754"
                 tipo="tipoHistoricoAtv"
                 idTurma={turma.id}
+                nomeTurma={turma.nome}
               />
               <ButtonHeaderHelp
                 titulo="Excluir Turma"
@@ -49,6 +52,7 @@ const HeaderDisciplinas: React.FC<HeaderDisciplinasProps> = ({
                 bg="#fa5f81"
                 tipo="tipoDelete"
                 idTurma={turma.id}
+                nomeTurma={turma.nome}
               />
             </View>
           </View>
@@ -68,6 +72,7 @@ const HeaderDisciplinas: React.FC<HeaderDisciplinasProps> = ({
           bg="#f7ee6d"
           tipo="tipoEdit"
           idTurma={turma.id}
+          nomeTurma={turma.nome}
         />
         <ButtonHeaderHelp
           titulo="Excluir Turma"
@@ -75,6 +80,7 @@ const HeaderDisciplinas: React.FC<HeaderDisciplinasProps> = ({
           bg="#fa5f81"
           tipo="tipoDelete"
           idTurma={turma.id}
+          nomeTurma={turma.nome}
         />
       </View>
     </View>
