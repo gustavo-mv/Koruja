@@ -3,6 +3,7 @@ import React from "react";
 import { DisciplinasObj } from "@/models/DisciplinasObj";
 import ButtonHeaderHelpDisciplina from "./ButtonHeaderHelpDisciplina";
 import { TurmaProps } from "@/models/TurmaProps";
+import LottieView from "lottie-react-native";
 
 const HeaderDisciplina: React.FC<{
   disciplina: DisciplinasObj;
@@ -10,9 +11,25 @@ const HeaderDisciplina: React.FC<{
   index: number;
 }> = ({ disciplina, turma, index }) => {
   return (
-    <View className=" bg-black rounded-b-3xl pb-5 z-50">
-      <Text className=" text-white text-4xl font-extrabold tracking-wide ml-6 w-96 pr-12 mb-4">
+    <View className=" bg-black h-full items-center justify-center pb-20 z-50 w-full">
+      <LottieView
+        source={require("@/assets/lotties/background.json")}
+        style={{
+          width: 900,
+          height: 900,
+          opacity: 0.8,
+          position: "absolute",
+          bottom: 0,
+          transform: "rotate(270deg)",
+        }}
+        autoPlay
+        loop
+      />
+      <Text className=" text-white text-5xl text-center font-extrabold tracking-wide mb-4">
         {disciplina.nome}
+      </Text>
+      <Text className=" text-emerald-100 text-center text-md font-medium tracking-wider w-64 mb-4">
+        {turma.nome}
       </Text>
       <View className=" flex-column justify-center items-center">
         <View className=" flex-row w-96 justify-center items-center">

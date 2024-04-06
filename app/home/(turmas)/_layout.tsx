@@ -24,19 +24,21 @@ export default function HomeLayout() {
         }}
       />
       <Stack.Screen
-        name="disciplina"
-        options={{
-          title: "",
-          headerStyle: { backgroundColor: "black" },
-          headerShadowVisible: false,
-          headerTintColor: "#1CBA38",
-        }}
-      />
-      <Stack.Screen
         name="criarDisciplina"
         options={{
           title: "Adicionar Disciplina",
           headerStyle: { backgroundColor: "black" },
+          headerShadowVisible: false,
+          headerTintColor: "white",
+          headerTitleAlign: "center",
+        }}
+      />
+      <Stack.Screen
+        name="disciplina"
+        options={{
+          title: "",
+          headerStyle: {},
+          headerTransparent: true,
           headerShadowVisible: false,
           headerTintColor: "white",
           headerTitleAlign: "center",

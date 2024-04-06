@@ -12,7 +12,6 @@ const DisciplinaInfoScreen: React.FC<{
   return (
     <View>
       <HeaderDisciplina index={index} turma={turma} disciplina={disciplina} />
-      <Text>oi</Text>
     </View>
   );
 };

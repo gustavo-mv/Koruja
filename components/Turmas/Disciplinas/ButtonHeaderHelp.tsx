@@ -168,22 +168,23 @@ const ButtonHeaderHelp: React.FC<PropsStyleButtons> = ({
           onRequestClose={() => setEditarView(false)}
         >
           <View className=" bg-black/75 w-full h-full justify-center items-center">
-            <View className="flex bg-white rounded-xl items-center  w-80 overflow-hidden mb-20">
+            <View className="flex justify-end bg-white rounded-xl h-72 w-80 overflow-hidden">
               <LottieView
                 autoPlay
                 style={{
-                  padding: 0,
-                  margin: 0,
                   width: 350,
                   height: 350,
+                  position: "absolute",
+                  bottom: 40,
+                  left: -10,
                 }}
                 source={require("@/assets/lotties/editar.json")}
               />
-              <Text className="block mb-2 text-sm font-medium text-gray-900 dark:text-white bottom-10">
-                Editar Nome
+              <Text className="block text-left pl-3 mb-2 text-lg font-medium text-gray-900 dark:text-white">
+                Editar Nome:
               </Text>
               <TextInput
-                className=" font-bold text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg bottom-10 focus:ring-green-500 focus:border-green-500 block w-80 p-2.5"
+                className=" font-bold text-center bg-yellow-200 border border-gray-300 text-gray-900 text-sm focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
                 value={editar}
                 onChangeText={(value) => {
                   setEditar(value);

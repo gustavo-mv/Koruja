@@ -118,7 +118,11 @@ const ButtonHeaderHelpDisciplina: React.FC<
               id: idDisc,
               turmaId: turmaId,
             }),
-            turma: JSON.stringify({ turma }),
+            turma: JSON.stringify({
+              id: turma.id,
+              nome: turma.nome,
+              professorId: turma.professorId,
+            }),
           },
         });
       }
@@ -188,22 +192,23 @@ const ButtonHeaderHelpDisciplina: React.FC<
           onRequestClose={() => setEditarView(false)}
         >
           <View className=" bg-black/75 w-full h-full justify-center items-center">
-            <View className="flex bg-white rounded-xl items-center  w-80 overflow-hidden mb-20">
+            <View className="flex justify-end bg-white rounded-xl h-72 w-80 overflow-hidden">
               <LottieView
                 autoPlay
                 style={{
-                  padding: 0,
-                  margin: 0,
                   width: 350,
                   height: 350,
+                  position: "absolute",
+                  bottom: 40,
+                  left: -10,
                 }}
                 source={require("@/assets/lotties/editar.json")}
               />
-              <Text className="block mb-2 text-sm font-medium text-gray-900 dark:text-white bottom-10">
-                Editar Nome
+              <Text className="block text-left pl-3 mb-2 text-lg font-medium text-gray-900 dark:text-white">
+                Editar Nome:
               </Text>
               <TextInput
-                className=" font-bold text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg bottom-10 focus:ring-green-500 focus:border-green-500 block w-80 p-2.5"
+                className=" font-bold text-center bg-yellow-200 border border-gray-300 text-gray-900 text-sm focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
                 value={nomeEdit}
                 onChangeText={(value) => {
                   setNomeEdit(value);
@@ -238,11 +243,11 @@ const ButtonHeaderHelpDisciplina: React.FC<
 
       <TouchableOpacity
         onPress={handleClick}
-        className={`flex-row w-44 rounded-lg m-1 h-12 items-center pl-2  `}
+        className={`flex-column justify-center w-44 rounded-lg m-2 h-32 items-center  `}
         style={{ backgroundColor: `${bg}` }}
       >
-        <MaterialCommunityIcons name={`${icon}`} size={24} color="black" />
-        <Text className="pl-3 w-32 font-medium">{titulo}</Text>
+        <MaterialCommunityIcons name={`${icon}`} size={50} color="black" />
+        <Text className=" pt-2 font-xl font-bold">{titulo}</Text>
       </TouchableOpacity>
     </View>
   );
