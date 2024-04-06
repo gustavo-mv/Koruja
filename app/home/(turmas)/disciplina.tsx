@@ -11,15 +11,12 @@ const disciplina = () => {
     disciplina: string;
   }>();
 
-  console.log(disciplina);
-
   if (!disciplina || !turma || !index) {
     return null;
   }
   let indexConvert = parseInt(index) as number;
   let novaDisciplina = JSON.parse(disciplina) as DisciplinasObj;
   let novaTurma = JSON.parse(turma) as TurmaProps;
-  console.log(turma);
 
   return (
     <DisciplinaInfoScreen

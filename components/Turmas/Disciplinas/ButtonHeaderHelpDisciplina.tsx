@@ -28,14 +28,22 @@ const ButtonHeaderHelpDisciplina: React.FC<
   const [nomeEdit, setNomeEdit] = React.useState<string>(nomeDisc);
   const [editarView, setEditarView] = React.useState<boolean>(false);
   const [editarDisabled, setEditarDisabled] = React.useState<boolean>(true);
+  const [backDisabled, setBackDisabled] = React.useState<boolean>(false);
+
+  const [editarLottie, setEditarLottie] = React.useState<boolean>(false);
+  const [opacidade, setOpacidade] = React.useState<string>("opacity-50");
 
   React.useEffect(() => {
     if (nomeEdit === "" || nomeEdit === nomeDisc) {
       setEditarDisabled(true);
+      setOpacidade("opacity-50");
+    } else {
+      setOpacidade("");
     }
-  }, [nomeEdit]);
+  }, [nomeEdit, editarDisabled]);
 
   const animationDel = React.useRef<LottieView>(null);
+  const animationEdit = React.useRef<LottieView>(null);
 
   React.useEffect(() => {
     if (deletar === true) {
@@ -48,6 +56,18 @@ const ButtonHeaderHelpDisciplina: React.FC<
     }
 
     [deletar];
+  });
+
+  React.useEffect(() => {
+    if (editarLottie === true) {
+      animationEdit.current?.play(0, 71);
+
+      setTimeout(() => {
+        animationEdit.current?.pause();
+        animationEdit.current?.play(71, 71);
+      }, 2000);
+    }
+    [editarLottie];
   });
 
   function handleClick() {
@@ -84,55 +104,63 @@ const ButtonHeaderHelpDisciplina: React.FC<
   };
 
   const handleEdit = async () => {
-    try {
-      const response = await fetch(`${API_URL}/disciplinas/${idDisc}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          nome: nomeEdit,
-        }),
-      });
+    setEditarDisabled(true);
+    setBackDisabled(true);
+    setEditarLottie(true);
 
-      if (!response.ok) {
-        throw new Error("Ocorreu um erro ao editar a turma.");
-      } else {
-        turma.disciplinas[index].nome = nomeEdit;
-        router.replace("/home/(tabs)/turmas");
-        router.push({
-          pathname: "/home/(turmas)/[turmaId]",
-          params: {
-            nome: turma.nome,
-            turmaId: turmaId,
-            disciplinas: JSON.stringify(turma.disciplinas),
-            professorId: turma.professorId,
+    setTimeout(async () => {
+      try {
+        const response = await fetch(`${API_URL}/disciplinas/${idDisc}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
           },
+          body: JSON.stringify({
+            nome: nomeEdit,
+          }),
         });
-        router.push({
-          pathname: "/home/(turmas)/disciplina",
-          params: {
-            index: index,
-            disciplina: JSON.stringify({
-              nome: nomeEdit,
-              id: idDisc,
-              turmaId: turmaId,
-            }),
-            turma: JSON.stringify({
-              id: turma.id,
+
+        if (!response.ok) {
+          throw new Error("Ocorreu um erro ao editar a turma.");
+        } else {
+          turma.disciplinas[index].nome = nomeEdit;
+          router.replace("/home/(tabs)/turmas");
+          router.push({
+            pathname: "/home/(turmas)/[turmaId]",
+            params: {
               nome: turma.nome,
+              turmaId: turmaId,
+              disciplinas: JSON.stringify(turma.disciplinas),
               professorId: turma.professorId,
-            }),
-          },
-        });
+            },
+          });
+
+          router.push({
+            pathname: "/home/(turmas)/disciplina",
+            params: {
+              index: index,
+              disciplina: JSON.stringify({
+                id: idDisc,
+                nome: nomeEdit,
+                turmaId: turmaId,
+              }),
+              turma: JSON.stringify({
+                id: turma.id,
+                nome: turma.nome,
+                professorId: turma.professorId,
+                disciplinas: turma.disciplinas,
+              }),
+            },
+          });
+        }
+      } catch (e) {
+        if (typeof e === "string") {
+          throw new Error("Ocorreu um erro no servidor." + e);
+        } else if (e instanceof Error) {
+          throw new Error("Ocorreu um erro no servidor." + e);
+        }
       }
-    } catch (e) {
-      if (typeof e === "string") {
-        throw new Error("Ocorreu um erro no servidor." + e);
-      } else if (e instanceof Error) {
-        throw new Error("Ocorreu um erro no servidor." + e);
-      }
-    }
+    }, 2000);
   };
 
   return (
@@ -193,17 +221,34 @@ const ButtonHeaderHelpDisciplina: React.FC<
         >
           <View className=" bg-black/75 w-full h-full justify-center items-center">
             <View className="flex justify-end bg-white rounded-xl h-72 w-80 overflow-hidden">
-              <LottieView
-                autoPlay
-                style={{
-                  width: 350,
-                  height: 350,
-                  position: "absolute",
-                  bottom: 40,
-                  left: -10,
-                }}
-                source={require("@/assets/lotties/editar.json")}
-              />
+              {!editarLottie ? (
+                <LottieView
+                  autoPlay
+                  style={{
+                    width: 350,
+                    height: 350,
+                    position: "absolute",
+                    bottom: 40,
+                    left: -10,
+                  }}
+                  source={require("@/assets/lotties/editar.json")}
+                />
+              ) : (
+                <LottieView
+                  loop={false}
+                  autoPlay={false}
+                  ref={animationEdit}
+                  style={{
+                    width: 150,
+                    height: 150,
+                    position: "absolute",
+                    top: 10,
+                    left: 85,
+                  }}
+                  source={require("@/assets/lotties/checked.json")}
+                />
+              )}
+
               <Text className="block text-left pl-3 mb-2 text-lg font-medium text-gray-900 dark:text-white">
                 Editar Nome:
               </Text>
@@ -219,15 +264,12 @@ const ButtonHeaderHelpDisciplina: React.FC<
                 <TouchableOpacity
                   disabled={editarDisabled}
                   onPress={() => handleEdit()}
-                  className={`${editarDisabled ? "opacity-50" : ""} ${
-                    nomeEdit === nomeDisc ? "opacity-50" : ""
-                  } 
-                  ${nomeEdit === "" ? "opacity-70" : ""}
-                  flex-1 items-center bg-green-500 h-14 text-center justify-center border-r-2 border-gray-400`}
+                  className={`${opacidade} flex-1 items-center bg-green-500 h-14 text-center justify-center border-r-2 border-gray-400`}
                 >
                   <Text className={`text-white text-xl font-bold`}>Salvar</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
+                  disabled={backDisabled}
                   className="flex-1 items-center"
                   onPress={() => setEditarView(false)}
                 >
