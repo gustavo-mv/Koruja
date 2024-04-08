@@ -33,7 +33,7 @@ const ListaTurmas: React.FC<ListaTurmasProps> = ({ idProf }) => {
       {isLoading ? (
         <Text>Carregando...</Text>
       ) : turmas.length > 0 ? (
-        turmas.map((turma) => (
+        turmas.map((turma, index) => (
           <CardTurma
             key={turma.id}
             id={turma.id}

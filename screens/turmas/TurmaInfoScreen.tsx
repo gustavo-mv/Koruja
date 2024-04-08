@@ -11,7 +11,7 @@ const TurmaInfoScreen: React.FC<TurmaProps> = (turma) => {
   return (
     <View>
       {turma.disciplinas.length > 0 ? (
-        <View className=" mb-11">
+        <View className=" mb-24">
           <ScrollView className="h-full">
             <HeaderListaDisciplinas aparecerMenu={true} {...turma} />
             <View className="h-full">

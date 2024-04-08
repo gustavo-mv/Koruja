@@ -8,10 +8,18 @@ const CriarDisciplina = () => {
   }>();
   const [nome, setNome] = React.useState("");
   const [error, setError] = React.useState<string | null>(null);
+  const [createDisabled, setCreateDisabled] = React.useState<boolean>(true);
 
   const API_URL = process.env.EXPO_PUBLIC_API_URL;
 
+  React.useEffect(() => {
+    if (nome.length > 4) {
+      setCreateDisabled(false);
+    }
+  }, [nome]);
+
   const handleCreation = async () => {
+    setCreateDisabled(true);
     try {
       const response = await fetch(`${API_URL}/disciplinas`, {
         method: "POST",
@@ -59,12 +67,12 @@ const CriarDisciplina = () => {
 
       <TouchableOpacity
         className=""
-        disabled={nome.length > 4 ? false : true}
+        disabled={createDisabled}
         onPress={handleCreation}
       >
         <Text
           className={`  ${
-            nome.length > 4 ? "opacity-100" : "opacity-40"
+            createDisabled ? "opacity-40" : "opacity-100"
           } bg-green-500 text-gray-900  rounded-xl p-3 text-xl font-bold text-center`}
         >
           Adicionar Disciplina

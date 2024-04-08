@@ -6,10 +6,19 @@ import { ProfId } from "@/models/ProfId";
 const NovaTurmaForm: React.FC<ProfId> = ({ id }) => {
   const [nome, setNome] = React.useState("");
   const [error, setError] = React.useState<string | null>(null);
+  const [createDisabled, setCreateDisabled] = React.useState<boolean>(true);
+
+  React.useEffect(() => {
+    if (nome.length > 4) {
+      setCreateDisabled(false);
+    }
+  }, [nome]);
 
   const API_URL = process.env.EXPO_PUBLIC_API_URL;
 
   const handleCreation = async () => {
+    setCreateDisabled(true);
+
     try {
       const response = await fetch(`${API_URL}/turmas`, {
         method: "POST",
@@ -57,12 +66,12 @@ const NovaTurmaForm: React.FC<ProfId> = ({ id }) => {
 
       <TouchableOpacity
         className="w-32"
-        disabled={nome.length > 4 ? false : true}
+        disabled={createDisabled}
         onPress={handleCreation}
       >
         <Text
           className={` w-32 ${
-            nome.length > 4 ? "opacity-100" : "opacity-40"
+            createDisabled ? "opacity-40" : "opacity-100"
           } bg-green-500 text-gray-900  pt-1 rounded-xl h-10 text-lg font-bold text-center`}
         >
           Criar Turma

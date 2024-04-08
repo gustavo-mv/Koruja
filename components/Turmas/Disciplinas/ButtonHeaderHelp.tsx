@@ -3,6 +3,7 @@ import React from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import LottieView from "lottie-react-native";
+import { DisciplinasObj } from "@/models/DisciplinasObj";
 
 interface PropsStyleButtons {
   titulo: string;
@@ -15,6 +16,8 @@ interface PropsStyleButtons {
     | "tipoHistoricoAtv";
   idTurma: string;
   nomeTurma: string;
+  professorId: string;
+  disciplinas: DisciplinasObj[];
 }
 
 const ButtonHeaderHelp: React.FC<PropsStyleButtons> = ({
@@ -24,12 +27,17 @@ const ButtonHeaderHelp: React.FC<PropsStyleButtons> = ({
   tipo,
   idTurma,
   nomeTurma,
+  disciplinas,
+  professorId,
 }) => {
   const API_URL = process.env.EXPO_PUBLIC_API_URL;
   const [deletar, setDeletar] = React.useState<boolean>(false);
   const [editar, setEditar] = React.useState<string>(nomeTurma);
   const [editarView, setEditarView] = React.useState<boolean>(false);
   const [editarDisabled, setEditarDisabled] = React.useState<boolean>(true);
+  const [backDisabled, setBackDisabled] = React.useState<boolean>(false);
+
+  const [editarLottie, setEditarLottie] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     if (editar === "" || editar === nomeTurma) {
@@ -38,6 +46,7 @@ const ButtonHeaderHelp: React.FC<PropsStyleButtons> = ({
   }, [editar]);
 
   const animationDel = React.useRef<LottieView>(null);
+  const animationEdit = React.useRef<LottieView>(null);
 
   React.useEffect(() => {
     if (deletar === true) {
@@ -50,6 +59,18 @@ const ButtonHeaderHelp: React.FC<PropsStyleButtons> = ({
     }
 
     [deletar];
+  });
+
+  React.useEffect(() => {
+    if (editarLottie === true) {
+      animationEdit.current?.play(0, 71);
+
+      setTimeout(() => {
+        animationEdit.current?.pause();
+        animationEdit.current?.play(71, 71);
+      }, 2000);
+    }
+    [editarLottie];
   });
 
   function handleClick() {
@@ -86,6 +107,9 @@ const ButtonHeaderHelp: React.FC<PropsStyleButtons> = ({
   };
 
   const handleEdit = async () => {
+    setEditarDisabled(true);
+    setBackDisabled(true);
+    setEditarLottie(true);
     try {
       const response = await fetch(`${API_URL}/turmas/${idTurma}`, {
         method: "PATCH",
@@ -101,6 +125,15 @@ const ButtonHeaderHelp: React.FC<PropsStyleButtons> = ({
         throw new Error("Ocorreu um erro ao editar a turma.");
       } else {
         router.replace("/home/(tabs)/turmas");
+        router.push({
+          pathname: "/home/(turmas)/[turmaId]",
+          params: {
+            nome: editar,
+            turmaId: idTurma,
+            disciplinas: JSON.stringify(disciplinas),
+            professorId: professorId,
+          },
+        });
       }
     } catch (e) {
       if (typeof e === "string") {
@@ -133,7 +166,7 @@ const ButtonHeaderHelp: React.FC<PropsStyleButtons> = ({
                 source={require("@/assets/lotties/delete.json")}
               />
               <Text className="text-lg font-medium mb-5">
-                Deseja realmente excluir a turma?
+                Deseja realmente excluir a Turma?
               </Text>
               <View className="flex-row bg-gray-200 w-80 h-14 justify-center items-center rounded-b-xl">
                 <TouchableOpacity
@@ -169,17 +202,34 @@ const ButtonHeaderHelp: React.FC<PropsStyleButtons> = ({
         >
           <View className=" bg-black/75 w-full h-full justify-center items-center">
             <View className="flex justify-end bg-white rounded-xl h-72 w-80 overflow-hidden">
-              <LottieView
-                autoPlay
-                style={{
-                  width: 350,
-                  height: 350,
-                  position: "absolute",
-                  bottom: 40,
-                  left: -10,
-                }}
-                source={require("@/assets/lotties/editar.json")}
-              />
+              {!editarLottie ? (
+                <LottieView
+                  autoPlay
+                  style={{
+                    width: 350,
+                    height: 350,
+                    position: "absolute",
+                    bottom: 40,
+                    left: -10,
+                  }}
+                  source={require("@/assets/lotties/editar.json")}
+                />
+              ) : (
+                <LottieView
+                  loop={false}
+                  autoPlay={false}
+                  ref={animationEdit}
+                  style={{
+                    width: 150,
+                    height: 150,
+                    position: "absolute",
+                    top: 10,
+                    left: 85,
+                  }}
+                  source={require("@/assets/lotties/checked.json")}
+                />
+              )}
+
               <Text className="block text-left pl-3 mb-2 text-lg font-medium text-gray-900 dark:text-white">
                 Editar Nome:
               </Text>
@@ -195,16 +245,17 @@ const ButtonHeaderHelp: React.FC<PropsStyleButtons> = ({
                 <TouchableOpacity
                   disabled={editarDisabled}
                   onPress={() => handleEdit()}
-                  className={`${editarDisabled ? "opacity-50" : ""} ${
-                    editar === nomeTurma ? "opacity-50" : ""
-                  } 
-                  ${editar === "" ? "opacity-70" : ""}
-                  flex-1 items-center bg-green-500 h-14 text-center justify-center border-r-2 border-gray-400`}
+                  className={`${
+                    editarDisabled ? "opacity-50" : ""
+                  } flex-1 items-center bg-green-500 h-14 text-center justify-center border-r-2 border-gray-400`}
                 >
                   <Text className={`text-white text-xl font-bold`}>Salvar</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  className="flex-1 items-center"
+                  disabled={backDisabled}
+                  className={`${
+                    backDisabled ? "opacity-50" : ""
+                  } flex-1 items-center`}
                   onPress={() => setEditarView(false)}
                 >
                   <Text className=" text-blue-500 text-xl font-bold">

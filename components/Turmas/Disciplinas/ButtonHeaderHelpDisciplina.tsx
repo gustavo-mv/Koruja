@@ -31,14 +31,10 @@ const ButtonHeaderHelpDisciplina: React.FC<
   const [backDisabled, setBackDisabled] = React.useState<boolean>(false);
 
   const [editarLottie, setEditarLottie] = React.useState<boolean>(false);
-  const [opacidade, setOpacidade] = React.useState<string>("opacity-50");
 
   React.useEffect(() => {
     if (nomeEdit === "" || nomeEdit === nomeDisc) {
       setEditarDisabled(true);
-      setOpacidade("opacity-50");
-    } else {
-      setOpacidade("");
     }
   }, [nomeEdit, editarDisabled]);
 
@@ -90,9 +86,22 @@ const ButtonHeaderHelpDisciplina: React.FC<
       });
 
       if (!response.ok) {
-        throw new Error("Ocorreu um erro ao excluir a turma.");
+        throw new Error("Ocorreu um erro ao excluir a disciplina.");
       } else {
+        const disciplinasExcluidas = turma.disciplinas.filter(
+          (_, i) => i !== index
+        );
+
         router.replace("/home/(tabs)/turmas");
+        router.push({
+          pathname: "/home/(turmas)/[turmaId]",
+          params: {
+            nome: turma.nome,
+            turmaId: turmaId,
+            disciplinas: JSON.stringify(disciplinasExcluidas),
+            professorId: turma.professorId,
+          },
+        });
       }
     } catch (e) {
       if (typeof e === "string") {
@@ -185,7 +194,7 @@ const ButtonHeaderHelpDisciplina: React.FC<
                 source={require("@/assets/lotties/delete.json")}
               />
               <Text className="text-lg font-medium mb-5">
-                Deseja realmente excluir a turma?
+                Deseja realmente excluir a disciplina?
               </Text>
               <View className="flex-row bg-gray-200 w-80 h-14 justify-center items-center rounded-b-xl">
                 <TouchableOpacity
@@ -264,13 +273,17 @@ const ButtonHeaderHelpDisciplina: React.FC<
                 <TouchableOpacity
                   disabled={editarDisabled}
                   onPress={() => handleEdit()}
-                  className={`${opacidade} flex-1 items-center bg-green-500 h-14 text-center justify-center border-r-2 border-gray-400`}
+                  className={`${
+                    editarDisabled ? "opacity-50" : ""
+                  } flex-1 items-center bg-green-500 h-14 text-center justify-center border-r-2 border-gray-400`}
                 >
                   <Text className={`text-white text-xl font-bold`}>Salvar</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   disabled={backDisabled}
-                  className="flex-1 items-center"
+                  className={`${
+                    backDisabled ? "opacity-50" : ""
+                  } flex-1 items-center`}
                   onPress={() => setEditarView(false)}
                 >
                   <Text className=" text-blue-500 text-xl font-bold">

@@ -26,6 +26,8 @@ const HeaderListaDisciplinas: React.FC<HeaderListaDisciplinasProps> = ({
               tipo="tipoEdit"
               idTurma={turma.id}
               nomeTurma={turma.nome}
+              disciplinas={turma.disciplinas}
+              professorId={turma.professorId}
             />
             <ButtonHeaderHelp
               titulo="Histórico de Gabaritos"
@@ -34,6 +36,8 @@ const HeaderListaDisciplinas: React.FC<HeaderListaDisciplinasProps> = ({
               tipo="tipoHistoricoGabaritos"
               idTurma={turma.id}
               nomeTurma={turma.nome}
+              disciplinas={turma.disciplinas}
+              professorId={turma.professorId}
             />
           </View>
           <View>
@@ -45,6 +49,8 @@ const HeaderListaDisciplinas: React.FC<HeaderListaDisciplinasProps> = ({
                 tipo="tipoHistoricoAtv"
                 idTurma={turma.id}
                 nomeTurma={turma.nome}
+                disciplinas={turma.disciplinas}
+                professorId={turma.professorId}
               />
               <ButtonHeaderHelp
                 titulo="Excluir Turma"
@@ -53,6 +59,8 @@ const HeaderListaDisciplinas: React.FC<HeaderListaDisciplinasProps> = ({
                 tipo="tipoDelete"
                 idTurma={turma.id}
                 nomeTurma={turma.nome}
+                disciplinas={turma.disciplinas}
+                professorId={turma.professorId}
               />
             </View>
           </View>
@@ -73,6 +81,8 @@ const HeaderListaDisciplinas: React.FC<HeaderListaDisciplinasProps> = ({
           tipo="tipoEdit"
           idTurma={turma.id}
           nomeTurma={turma.nome}
+          disciplinas={turma.disciplinas}
+          professorId={turma.professorId}
         />
         <ButtonHeaderHelp
           titulo="Excluir Turma"
@@ -81,6 +91,8 @@ const HeaderListaDisciplinas: React.FC<HeaderListaDisciplinasProps> = ({
           tipo="tipoDelete"
           idTurma={turma.id}
           nomeTurma={turma.nome}
+          disciplinas={turma.disciplinas}
+          professorId={turma.professorId}
         />
       </View>
     </View>
