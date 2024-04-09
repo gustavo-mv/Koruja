@@ -1,10 +1,10 @@
 import { TurmaProps } from "@/models/TurmaProps";
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 
-import CardTurma from "@/components/Turmas/CardTurma";
+import CardPickDisciplina from "./CardPickDisciplina";
 
-const ListaTurmas: React.FC<{ idProf: string }> = ({ idProf }) => {
+const EscolherTurma: React.FC<{ idProf: string }> = ({ idProf }) => {
   const [turmas, setTurmas] = React.useState<TurmaProps[]>([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const API_URL = process.env.EXPO_PUBLIC_API_URL;
@@ -26,13 +26,14 @@ const ListaTurmas: React.FC<{ idProf: string }> = ({ idProf }) => {
   };
 
   return (
-    <View className="w-full mb-10">
+    <ScrollView className="bg-black w-full h-96 mt-20 ">
       {isLoading ? (
         <Text>Carregando...</Text>
       ) : turmas.length > 0 ? (
         turmas.map((turma, index) => (
-          <CardTurma
+          <CardPickDisciplina
             key={turma.id}
+            index={index}
             id={turma.id}
             nome={turma.nome}
             professorId={idProf}
@@ -44,7 +45,7 @@ const ListaTurmas: React.FC<{ idProf: string }> = ({ idProf }) => {
           Você não possui turmas ou disciplinas, crie na aba "Turmas".
         </Text>
       )}
-    </View>
+    </ScrollView>
   );
 };
-export default ListaTurmas;
+export default EscolherTurma;
