@@ -26,7 +26,7 @@ const EscolherTurma: React.FC<{ idProf: string }> = ({ idProf }) => {
   };
 
   return (
-    <ScrollView className="bg-black w-full h-96 mt-20 ">
+    <ScrollView className="bg-black w-full h-full  ">
       {isLoading ? (
         <Text>Carregando...</Text>
       ) : turmas.length > 0 ? (

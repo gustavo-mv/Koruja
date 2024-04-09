@@ -38,6 +38,13 @@ const ButtonHeaderHelpDisciplina: React.FC<
     }
   }, [nomeEdit, editarDisabled]);
 
+  const handleChangeText = (nomeEditar: string) => {
+    if (/^(?!.*\s$)(?!^\s).*$/g.test(nomeEditar)) {
+      setNomeEdit(nomeEditar);
+      setEditarDisabled(false);
+    }
+  };
+
   const animationDel = React.useRef<LottieView>(null);
   const animationEdit = React.useRef<LottieView>(null);
 
@@ -264,10 +271,7 @@ const ButtonHeaderHelpDisciplina: React.FC<
               <TextInput
                 className=" font-bold text-center bg-yellow-200 border border-gray-300 text-gray-900 text-sm focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
                 value={nomeEdit}
-                onChangeText={(value) => {
-                  setNomeEdit(value);
-                  setEditarDisabled(false);
-                }}
+                onChangeText={handleChangeText}
               />
               <View className="flex-row bg-gray-200 w-80 h-14 justify-center items-center rounded-b-xl">
                 <TouchableOpacity

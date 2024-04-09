@@ -16,6 +16,12 @@ const NovaTurmaForm: React.FC<ProfId> = ({ id }) => {
 
   const API_URL = process.env.EXPO_PUBLIC_API_URL;
 
+  const handleChangeText = (nomeTurma: string) => {
+    if (/^(?!.*\s$)(?!^\s).*$/g.test(nomeTurma)) {
+      setNome(nomeTurma);
+    }
+  };
+
   const handleCreation = async () => {
     setCreateDisabled(true);
 
@@ -59,7 +65,7 @@ const NovaTurmaForm: React.FC<ProfId> = ({ id }) => {
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-80 p-2.5"
           placeholder="Exemplo: 8º Ano - Escola Nota 10"
           value={nome}
-          onChangeText={setNome}
+          onChangeText={handleChangeText}
           autoCapitalize="words"
         />
       </View>

@@ -22,8 +22,8 @@ const CardPickDisciplina: React.FC<TurmaProps & { index: number }> = ({
         <View className=" bg-black/75 w-full h-full justify-center items-center">
           <View className="flex justify-end h-96 bg-gray-200 rounded-xl items-center w-80">
             {disciplinas.length > 0 ? (
-              <View className="h-80 items-center mb-6">
-                <Text className=" bg-black w-80 text-center h-12 pt-2 rounded-xl text-white text-lg font-medium">
+              <View className="h-96 items-center mb-5">
+                <Text className=" bg-black w-80 text-center h-16 pt-4 mt-5 rounded-xl text-white text-2xl font-medium">
                   Escolha a Disciplina:
                 </Text>
                 <ScrollView>
@@ -42,16 +42,17 @@ const CardPickDisciplina: React.FC<TurmaProps & { index: number }> = ({
                         }}
                       >
                         <TouchableOpacity
-                          className=" flex-row pt-3 space-x-28 pr-2 justify-center pl-3 bg-white w-72 m-2 h-12 rounded-md"
+                          onPress={() => setModalDisciplinasVisivel(false)}
+                          className=" flex-row pt-3 pb-3 h-20 m-3 items-center space-x-20 pr-2 justify-center pl-3 bg-green-600 w-72 rounded-md"
                           key={disciplina.id}
                         >
-                          <Text className="font-bold w-32">
+                          <Text className="font-bold text-white text-xl w-40">
                             {disciplina.nome}
                           </Text>
                           <AntDesign
                             name="rightcircleo"
                             size={24}
-                            color="green"
+                            color="black"
                           />
                         </TouchableOpacity>
                       </Link>

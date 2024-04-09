@@ -21,6 +21,12 @@ const CriarDisciplina = () => {
 
   const API_URL = process.env.EXPO_PUBLIC_API_URL;
 
+  const handleChangeText = (nomeDisciplina: string) => {
+    if (/^(?!.*\s$)(?!^\s).*$/g.test(nomeDisciplina)) {
+      setNome(nomeDisciplina);
+    }
+  };
+
   React.useEffect(() => {
     if (nome.length > 4) {
       setCreateDisabled(false);
@@ -85,7 +91,7 @@ const CriarDisciplina = () => {
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-80 p-2.5"
           placeholder="Exemplo: Matématica"
           value={nome}
-          onChangeText={setNome}
+          onChangeText={handleChangeText}
           autoCapitalize="words"
         />
       </View>

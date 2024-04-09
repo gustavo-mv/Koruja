@@ -1,12 +1,11 @@
 import { View, Text, ScrollView } from "react-native";
 import React from "react";
 import EscolherTurma from "@/components/Scan/Criar Prova/EscolherTurma";
-import Background from "@/assets/bg-school.svg";
 import LottieView from "lottie-react-native";
 
 const CriarProvaScreen: React.FC<{ idProf: string }> = ({ idProf }) => {
   return (
-    <View className="pt-10">
+    <View className="h-full pt-10">
       <Text className=" mt-3 font-bold text-center text-5xl">
         Escolha uma Turma!
       </Text>
@@ -22,9 +21,10 @@ const CriarProvaScreen: React.FC<{ idProf: string }> = ({ idProf }) => {
         }}
         source={require("@/assets/lotties/students.json")}
       />
-      <View className="mt-36 bg-black">
+      <View className="h-32 bg-black top-40"></View>
+      <ScrollView className="mt-20 h-full bg-black">
         <EscolherTurma idProf={idProf} />
-      </View>
+      </ScrollView>
     </View>
   );
 };
