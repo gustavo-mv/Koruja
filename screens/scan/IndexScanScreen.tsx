@@ -4,13 +4,16 @@ import Criar from "@/components/Scan/Criar";
 import MainScannerVector from "@/assets/Scan.svg";
 import Corrigir from "@/components/Scan/Corrigir";
 import VerGabaritos from "@/components/Scan/VerGabaritos";
+import { Link } from "expo-router";
 
 const IndexScanScreen = () => {
   return (
     <View className="flex items-center justify-center pt-12">
       <MainScannerVector width={500} height={350} />
       <Corrigir />
+
       <Criar />
+
       <VerGabaritos />
     </View>
   );

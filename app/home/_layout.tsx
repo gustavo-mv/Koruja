@@ -16,6 +16,12 @@ export default function HomeLayout() {
           headerShown: false,
         }}
       />
+      <Stack.Screen
+        name="(scan)"
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack>
   );
 }
