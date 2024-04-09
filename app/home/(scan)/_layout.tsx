@@ -13,6 +13,16 @@ export default function HomeLayout() {
           headerTitleAlign: "center",
         }}
       />
+      <Stack.Screen
+        name="dadosProvaCriar"
+        options={{
+          title: "Nome e Assunto",
+          headerStyle: { backgroundColor: "black" },
+          headerShadowVisible: false,
+          headerTintColor: "white",
+          headerTitleAlign: "center",
+        }}
+      />
     </Stack>
   );
 }

@@ -2,6 +2,7 @@ import { View, Text, TouchableOpacity, Modal, ScrollView } from "react-native";
 import React from "react";
 import { TurmaProps } from "@/models/TurmaProps";
 import { AntDesign } from "@expo/vector-icons";
+import { Link } from "expo-router";
 
 const CardPickDisciplina: React.FC<TurmaProps & { index: number }> = ({
   nome,
@@ -26,21 +27,34 @@ const CardPickDisciplina: React.FC<TurmaProps & { index: number }> = ({
                   Escolha a Disciplina:
                 </Text>
                 <ScrollView>
-                  {disciplinas.map((disciplina) => {
+                  {disciplinas.map((disciplina, index) => {
                     return (
-                      <TouchableOpacity
-                        className=" flex-row pt-3 space-x-28 pr-2 justify-center pl-3 bg-white w-72 m-2 h-12 rounded-md"
-                        key={disciplina.id}
+                      <Link
+                        key={index}
+                        asChild
+                        href={{
+                          pathname: "/home/(scan)/dadosProvaCriar",
+                          params: {
+                            turmaId: disciplina.turmaId,
+                            disciplinaNome: disciplina.nome,
+                            disciplinaId: disciplina.id,
+                          },
+                        }}
                       >
-                        <Text className="font-bold w-32">
-                          {disciplina.nome}
-                        </Text>
-                        <AntDesign
-                          name="rightcircleo"
-                          size={24}
-                          color="green"
-                        />
-                      </TouchableOpacity>
+                        <TouchableOpacity
+                          className=" flex-row pt-3 space-x-28 pr-2 justify-center pl-3 bg-white w-72 m-2 h-12 rounded-md"
+                          key={disciplina.id}
+                        >
+                          <Text className="font-bold w-32">
+                            {disciplina.nome}
+                          </Text>
+                          <AntDesign
+                            name="rightcircleo"
+                            size={24}
+                            color="green"
+                          />
+                        </TouchableOpacity>
+                      </Link>
                     );
                   })}
                 </ScrollView>
