@@ -3,9 +3,18 @@ import React from "react";
 import { router, useLocalSearchParams } from "expo-router";
 
 const CriarDisciplina = () => {
-  const { turmaId } = useLocalSearchParams<{
+  const params = useLocalSearchParams<{
+    nome: string;
     turmaId: string;
+    disciplinas: string;
+    professorId: string;
   }>();
+
+  let disciplinasArray: any[];
+  if (params.disciplinas) {
+    disciplinasArray = JSON.parse(params.disciplinas);
+  }
+
   const [nome, setNome] = React.useState("");
   const [error, setError] = React.useState<string | null>(null);
   const [createDisabled, setCreateDisabled] = React.useState<boolean>(true);
@@ -26,14 +35,30 @@ const CriarDisciplina = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ nome: nome, turmaId: turmaId }),
+        body: JSON.stringify({ nome: nome, turmaId: params.turmaId }),
       });
 
       if (!response.ok) {
         setError("Algo inesperado aconteceu, erro na criação de turma.");
         throw new Error("Erro na resposta da API /criarDisciplina");
       } else {
+        const data = await response.json();
+
+        disciplinasArray.push({
+          id: data.id,
+          nome: nome,
+          turmaId: params.turmaId,
+        });
         router.replace("/home/(tabs)/turmas");
+        router.push({
+          pathname: "/home/(turmas)/[turmaId]",
+          params: {
+            nome: params.nome,
+            turmaId: params.turmaId,
+            disciplinas: JSON.stringify(disciplinasArray),
+            professorId: params.professorId,
+          },
+        });
       }
     } catch (e) {
       if (typeof e === "string") {

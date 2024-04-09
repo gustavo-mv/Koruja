@@ -30,7 +30,10 @@ const TurmaInfoScreen: React.FC<TurmaProps> = (turma) => {
             href={{
               pathname: "/home/(turmas)/criarDisciplina",
               params: {
+                nome: turma.nome,
                 turmaId: turma.id,
+                disciplinas: JSON.stringify(turma.disciplinas),
+                professorId: turma.professorId,
               },
             }}
           >
