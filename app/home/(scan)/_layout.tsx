@@ -23,6 +23,16 @@ export default function HomeLayout() {
           headerTitleAlign: "center",
         }}
       />
+      <Stack.Screen
+        name="infoCriarQuestoes"
+        options={{
+          title: "Questões e Alternativas",
+          headerStyle: { backgroundColor: "black" },
+          headerShadowVisible: false,
+          headerTintColor: "white",
+          headerTitleAlign: "center",
+        }}
+      />
     </Stack>
   );
 }
