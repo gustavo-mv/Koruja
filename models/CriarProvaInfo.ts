@@ -1,9 +1,13 @@
 import { DisciplinaInfo } from "./DisciplinaInfo";
 
-export interface CriarProvaInfo extends DisciplinaInfo {
+export interface CriarProvaInfo {
+  turmaId: string;
   nomeProva?: string;
+  disciplinaId: string;
+  disciplinaNome: string;
   assunto?: string;
   nQuestoes?: number;
   nAlternativas?: number;
-  nVariações?: number;
+  nVariacoes?: number;
+  index?: number;
 }

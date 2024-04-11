@@ -17,7 +17,6 @@ const DadosProvaCriar = () => {
     turmaId: params.turmaId as string,
     disciplinaNome: params.disciplinaNome as string,
     disciplinaId: params.disciplinaId as string,
-    turmaNome: params.turmaNome as string,
     assunto: params.assunto as string,
     nomeProva: params.nomeProva as string,
   };

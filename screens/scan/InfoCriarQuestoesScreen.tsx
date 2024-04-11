@@ -23,16 +23,16 @@ const InfoCriarQuestoesScreen: React.FC<CriarProvaInfo> = (disciplina) => {
     }
   }, [questoes, alternativas]);
 
-  const questoesOptions = Array.from({ length: 50 }, (_, i) => ({
+  const questoesOptions = Array.from({ length: 20 }, (_, i) => ({
     label: (i + 1).toString(),
     value: i + 1,
   }));
   const alternativasOptions = [
-    { label: "A, B", value: "A,B" },
-    { label: "A, B, C", value: "A,B,C" },
-    { label: "A, B, C, D", value: "A,B,C,D" },
-    { label: "A, B, C, D, E", value: "A,B,C,D,E" },
-    { label: "A, B, C, D, E, F", value: "A,B,C,D,E,F" },
+    { label: "A, B", value: 2 },
+    { label: "A, B, C", value: 3 },
+    { label: "A, B, C, D", value: 4 },
+    { label: "A, B, C, D, E", value: 5 },
+    { label: "A, B, C, D, E, F", value: 6 },
   ];
 
   return (
@@ -98,12 +98,15 @@ const InfoCriarQuestoesScreen: React.FC<CriarProvaInfo> = (disciplina) => {
         <Link
           asChild
           href={{
-            pathname: "/home/(scan)/infoCriarQuestoes",
+            pathname: "/home/(scan)/selecionarVariacoes",
             params: {
               turmaId: disciplina.turmaId,
               disciplinaNome: disciplina.disciplinaNome,
               disciplinaId: disciplina.disciplinaId,
-              turmaNome: disciplina.turmaNome,
+              assunto: disciplina.assunto,
+              nomeProva: disciplina.nomeProva,
+              nQuestoes: questoes,
+              nAlternativas: alternativas,
             },
           }}
         >
