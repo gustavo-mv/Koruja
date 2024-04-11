@@ -2,7 +2,6 @@ import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import React from "react";
 import { CriarProvaInfo } from "@/models/CriarProvaInfo";
 import { Link } from "expo-router";
-import RNPickerSelect from "react-native-picker-select";
 import Checkbox from "expo-checkbox";
 
 const MarcarGabaritoScreen: React.FC<CriarProvaInfo> = (gabarito) => {
@@ -35,7 +34,6 @@ const MarcarGabaritoScreen: React.FC<CriarProvaInfo> = (gabarito) => {
           ))}
         </View>
       );
-
       for (let i = 0; i < (gabarito.nQuestoes || 0); i++) {
         const questao = [];
         for (let j = 0; j < (gabarito.nAlternativas || 0); j++) {
@@ -50,6 +48,8 @@ const MarcarGabaritoScreen: React.FC<CriarProvaInfo> = (gabarito) => {
                 height: 45,
                 marginLeft: 5,
                 marginRight: 5,
+                marginTop: 5,
+                marginBottom: 5,
               }}
               value={respostas[i] === alternativas[j]}
               onValueChange={() => selecionarResposta(i, alternativas[j])}
@@ -60,7 +60,9 @@ const MarcarGabaritoScreen: React.FC<CriarProvaInfo> = (gabarito) => {
         }
         checkboxesArray.push(
           <View className=" flex-row m-2 justify-center" key={`questao-${i}`}>
-            <Text className=" font-bold text-4xl pt-1">{`${i + 1}. `}</Text>
+            <Text className=" w-14 text-center pl-1 text font-bold text-4xl pt-2">{`${
+              i + 1
+            }. `}</Text>
             {questao}
           </View>
         );
@@ -97,82 +99,31 @@ const MarcarGabaritoScreen: React.FC<CriarProvaInfo> = (gabarito) => {
         <Text className="w-44 text-center bg-green-200 text-3xl rounded-md p-3 text-black font-bold mb-4">
           Gabarito Não Único {gabarito.index} e {gabarito.nVariacoes}
         </Text>
-        <View
-          style={{
-            borderRadius: 10,
-            backgroundColor: "white",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Text className=" p-2 font-bold">Quantidade de questões:</Text>
-          <RNPickerSelect
-            placeholder={{ label: "Selecione", value: null }}
-            value={questoes}
-            onValueChange={(value) => setQuestoes(value)}
-            items={questoesOptions}
-            style={{
-              inputAndroid: {
-                height: 50,
-                width: 200,
-              },
-            }}
-          />
-        </View>
-
-        <View
-          style={{
-            borderRadius: 10,
-            marginTop: 20,
-            backgroundColor: "white",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Text className=" p-2 font-bold">Quantidade de alternativas:</Text>
-          <RNPickerSelect
-            placeholder={{ label: "Selecione", value: null }}
-            value={alternativas}
-            onValueChange={(value) => setAlternativas(value)}
-            items={alternativasOptions}
-            style={{
-              inputAndroid: {
-                display: "flex",
-                justifyContent: "center",
-                alignSelf: "center",
-                alignItems: "center",
-                height: 50,
-                width: 200,
-                textAlign: "center",
-              },
-            }}
-          />
-        </View>
-        <Link
-          asChild
-          href={{
-            pathname: "/home/(scan)/selecionarVariacoes",
-            params: {
-              turmaId: gabarito.turmaId,
-              disciplinaNome: gabarito.disciplinaNome,
-              disciplinaId: gabarito.disciplinaId,
-              assunto: gabarito.assunto,
-              nomeProva: gabarito.nomeProva,
-              nQuestoes: questoes,
-              nAlternativas: alternativas,
-            },
-          }}
-        >
-          <TouchableOpacity
-            disabled={disabledNext}
-            className={`${
-              disabledNext ? "opacity-50" : ""
-            } bg-green-500 mt-5 w-32 rounded-md p-3 mb-5`}
-          >
-            <Text className=" text-center text-base font-bold">Próximo</Text>
-          </TouchableOpacity>
-        </Link>
       </View>
+      <Link
+        asChild
+        href={{
+          pathname: "/home/(scan)/selecionarVariacoes",
+          params: {
+            turmaId: gabarito.turmaId,
+            disciplinaNome: gabarito.disciplinaNome,
+            disciplinaId: gabarito.disciplinaId,
+            assunto: gabarito.assunto,
+            nomeProva: gabarito.nomeProva,
+            nQuestoes: questoes,
+            nAlternativas: alternativas,
+          },
+        }}
+      >
+        <TouchableOpacity
+          disabled={disabledNext}
+          className={`${
+            disabledNext ? "opacity-50" : ""
+          } bg-green-500 mt-5 w-32 rounded-md p-3 mb-5`}
+        >
+          <Text className=" text-center text-base font-bold">Próximo</Text>
+        </TouchableOpacity>
+      </Link>
     </View>
   );
 };
