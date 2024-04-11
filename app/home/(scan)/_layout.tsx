@@ -37,7 +37,7 @@ export default function HomeLayout() {
         name="telaGabarito"
         options={{
           title: "",
-          headerStyle: { backgroundColor: "black" },
+          headerStyle: { backgroundColor: "#16a34a" },
           headerShadowVisible: false,
           headerTintColor: "white",
           headerTitleAlign: "center",

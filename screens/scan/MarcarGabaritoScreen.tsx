@@ -7,7 +7,21 @@ import Checkbox from "expo-checkbox";
 const MarcarGabaritoScreen: React.FC<CriarProvaInfo> = (gabarito) => {
   const todasAlternativas = "ABCDEF";
   const alternativas = todasAlternativas.slice(0, gabarito.nAlternativas);
-  const [respostas, setRespostas] = React.useState([]);
+  const [respostas, setRespostas] = React.useState<string[]>([]);
+  const [proximoDisabled, setProximoDisabled] = React.useState<boolean>(true);
+
+  React.useEffect(() => {
+    if (gabarito.nQuestoes) {
+      const setDisabled =
+        respostas.some((element) => element === undefined) ||
+        respostas.length < gabarito.nQuestoes;
+      if (setDisabled) {
+        setProximoDisabled(true);
+      } else {
+        setProximoDisabled(false);
+      }
+    }
+  }, [respostas]);
 
   if (gabarito && gabarito.nVariacoes === 1 && gabarito.index === 1) {
     const renderizarCheckboxes = () => {
@@ -20,12 +34,12 @@ const MarcarGabaritoScreen: React.FC<CriarProvaInfo> = (gabarito) => {
             alignItems: "center",
             marginBottom: 10,
             justifyContent: "center",
-            paddingLeft: 12,
+            paddingLeft: 25,
           }}
         >
           {alternativas.split("").map((alternativa, index) => (
             <Text
-              className=" text-3xl ml-8 mr-8 font-bold"
+              className=" text-4xl ml-7 mr-7 font-bold"
               key={`cabecalho-${index}`}
               style={{ marginRight: 5 }}
             >
@@ -69,26 +83,60 @@ const MarcarGabaritoScreen: React.FC<CriarProvaInfo> = (gabarito) => {
       }
       return checkboxesArray;
     };
-    const selecionarResposta = (questaoIndex, respostaSelecionada) => {
+    const selecionarResposta = (
+      questaoIndex: number,
+      respostaSelecionada: string
+    ) => {
       setRespostas((prevRespostas) => {
         const novasRespostas = [...prevRespostas];
         novasRespostas[questaoIndex] = respostaSelecionada;
         return novasRespostas;
       });
     };
-
+    console.log(respostas);
     return (
       <ScrollView>
-        <View className=" h-24 bg-black w-full justify-center items-center mb-5">
-          <Text className=" font-bold text-white text-3xl">Gabarito Único</Text>
+        <View className=" h-24 bg-green-600 w-full justify-center items-center mb-5">
+          <Text className=" font-bold text-white text-4xl">Gabarito Único</Text>
         </View>
         {renderizarCheckboxes()}
         <Text>Respostas selecionadas:</Text>
+
         {respostas.map((resposta, index) => (
           <Text key={`resposta-${index}`}>{`Questão ${index + 1}: ${
             resposta || "Nenhuma resposta selecionada"
           }`}</Text>
         ))}
+
+        <Link
+          asChild
+          href={{
+            pathname: "/home/(scan)/provaCriada",
+            params: {
+              turmaId: gabarito.turmaId,
+              disciplinaNome: gabarito.disciplinaNome,
+              disciplinaId: gabarito.disciplinaId,
+              assunto: gabarito.assunto,
+              nomeProva: gabarito.nomeProva,
+              nQuestoes: gabarito.nQuestoes,
+              nAlternativas: gabarito.nAlternativas,
+              nVariacoes: gabarito.nVariacoes,
+              respostas: JSON.stringify(respostas),
+              index: 1,
+            },
+          }}
+        >
+          <TouchableOpacity
+            disabled={proximoDisabled}
+            className={`
+         ${proximoDisabled ? "opacity-40" : ""}
+         bg-green-500 mt-5 w-32 rounded-md p-3 mb-5`}
+          >
+            <Text className=" text-center text-base font-bold">
+              Criar Prova
+            </Text>
+          </TouchableOpacity>
+        </Link>
       </ScrollView>
     );
   }
