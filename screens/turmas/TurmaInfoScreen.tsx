@@ -12,10 +12,10 @@ const TurmaInfoScreen: React.FC<TurmaProps> = (turma) => {
     <View>
       {turma.disciplinas.length > 0 ? (
         <View className=" mb-24">
-          <ScrollView className="h-full">
+          <View className="h-full">
             <HeaderListaDisciplinas aparecerMenu={true} {...turma} />
-            <View className="h-full">
-              <Text className=" w-52 text-xl mt-4 pl-5 font-bold border-b-4">
+            <View className="h-full pb-60">
+              <Text className=" w-52 text-xl mt-4 mb-2  pl-5 font-bold border-b-4">
                 Lista de Disciplinas
               </Text>
               <ListagemDisciplinas
@@ -23,7 +23,7 @@ const TurmaInfoScreen: React.FC<TurmaProps> = (turma) => {
                 turma={turma}
               />
             </View>
-          </ScrollView>
+          </View>
           <Link
             push
             asChild
