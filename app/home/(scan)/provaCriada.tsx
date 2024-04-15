@@ -65,26 +65,25 @@ const selecionarVariacoes = () => {
   let modelos = [];
 
   for (let i = 0; i < parseInt(index); i++) {
-    modelos.push({ modelo: i + 1 }); // Use i + 1 para começar em 1, ou i para começar em 0
+    modelos.push({ modelo: i + 1 });
+
+    const disciplinaFromParams: CriarProvaInfoFinal = {
+      turmaId: turmaId as string,
+      disciplinaNome: disciplinaNome as string,
+      disciplinaId: disciplinaId as string,
+      assunto: assunto as string,
+      nomeProva: nomeProva as string,
+      nQuestoes: parseInt(nQuestoes) as number,
+      nAlternativas: parseInt(nAlternativas) as number,
+      nVariacoes: parseInt(nVariacoes) as number,
+      modelos: modelos,
+      gabaritos: gabarito,
+      index: parseInt(index) as number,
+    };
+
+    console.log(disciplinaFromParams.gabaritos);
+
+    return <ConcluidoScreen {...disciplinaFromParams} />;
   }
-
-  const disciplinaFromParams: CriarProvaInfoFinal = {
-    turmaId: turmaId as string,
-    disciplinaNome: disciplinaNome as string,
-    disciplinaId: disciplinaId as string,
-    assunto: assunto as string,
-    nomeProva: nomeProva as string,
-    nQuestoes: parseInt(nQuestoes) as number,
-    nAlternativas: parseInt(nAlternativas) as number,
-    nVariacoes: parseInt(nVariacoes) as number,
-    modelos: modelos,
-    gabaritos: gabarito,
-    index: parseInt(index) as number,
-  };
-
-  console.log(disciplinaFromParams.gabaritos);
-
-  return <ConcluidoScreen {...disciplinaFromParams} />;
 };
-
 export default selecionarVariacoes;

@@ -43,6 +43,37 @@ export default function HomeLayout() {
           headerTitleAlign: "center",
         }}
       />
+      <Stack.Screen
+        name="provaCriada"
+        options={{
+          title: "",
+          headerStyle: { backgroundColor: "#16a34a" },
+          headerShadowVisible: false,
+          headerTintColor: "white",
+          headerTitleAlign: "center",
+          headerBackButtonMenuEnabled: false,
+        }}
+      />
+      <Stack.Screen
+        name="listaDeGabaritos"
+        options={{
+          title: "",
+          headerStyle: { backgroundColor: "black" },
+          headerShadowVisible: false,
+          headerTintColor: "white",
+          headerTitleAlign: "center",
+        }}
+      />
+      <Stack.Screen
+        name="provaInfo"
+        options={{
+          title: "",
+          headerStyle: { backgroundColor: "black" },
+          headerShadowVisible: false,
+          headerTintColor: "white",
+          headerTitleAlign: "center",
+        }}
+      />
     </Stack>
   );
 }
