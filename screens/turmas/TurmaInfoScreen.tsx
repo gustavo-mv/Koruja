@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, ScrollView } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import { Link } from "expo-router";
 import SemDisciplina from "../../components/Turmas/Disciplinas/SemDisciplina";

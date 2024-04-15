@@ -1,7 +1,15 @@
-import { View, Text, FlatList, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  ActivityIndicator,
+  ScrollView,
+} from "react-native";
 import React, { useState, useEffect } from "react";
 import { ProvaModel } from "@/models/ProvaModel";
 import { Link } from "expo-router";
+import LottieView from "lottie-react-native";
 
 const ListaDeGabaritosScreen: React.FC<{ idProf: string }> = ({ idProf }) => {
   const [data, setData] = useState<ProvaModel[]>([]);
@@ -107,16 +115,38 @@ const ListaDeGabaritosScreen: React.FC<{ idProf: string }> = ({ idProf }) => {
     fetchData();
   };
 
+  const renderHeader = () => {
+    return (
+      <View className=" h-72 bg-black items-center justify-center">
+        <LottieView
+          source={require("@/assets/lotties/Provas.json")}
+          style={{ width: 400, height: 280, bottom: 5 }}
+          autoPlay
+          loop
+        />
+        <Text className="text-white font-bold text-2xl bottom-7">
+          Gerencie seus Gabaritos
+        </Text>
+      </View>
+    );
+  };
+
   return (
-    <View>
+    <View className="flex-1">
       <FlatList
         data={data}
+        ListHeaderComponent={renderHeader}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         onEndReached={handleEndReached}
         onEndReachedThreshold={0.1}
       />
-      {loading && <Text>Carregando...</Text>}
+      {loading && (
+        <View className=" p-3 flex-row space-x-5 items-center justify-center m-4 rounded-lg bg-green-400">
+          <ActivityIndicator size={"large"} color={"black"} />
+          <Text className=" text-xl font-bold">Carregando Gabaritos</Text>
+        </View>
+      )}
     </View>
   );
 };
