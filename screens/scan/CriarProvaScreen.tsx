@@ -14,15 +14,15 @@ const CriarProvaScreen: React.FC<{ idProf: string }> = ({ idProf }) => {
         style={{
           position: "absolute",
           width: 450,
-          height: 550,
+          height: 450,
           right: -30,
-          top: -139,
+          top: -113,
           zIndex: 10,
         }}
         source={require("@/assets/lotties/students.json")}
       />
-      <View className="h-32 bg-black top-40"></View>
-      <ScrollView className="mt-20 h-full bg-black">
+      <View className="mt-10 top-20 h-32 bg-black"></View>
+      <ScrollView className="pt-10 mt-5 h-full bg-black">
         <EscolherTurma idProf={idProf} />
       </ScrollView>
     </View>
