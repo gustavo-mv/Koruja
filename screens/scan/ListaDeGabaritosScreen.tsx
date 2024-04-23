@@ -82,28 +82,24 @@ const ListaDeGabaritosScreen: React.FC<{ idProf: string }> = ({ idProf }) => {
         }}
       >
         <TouchableOpacity className=" rounded-lg bg-black m-4">
-          <View className="p-5  justify-center items-center ">
-            <Text className="text-white self-center text-3xl pl-2 pr-2 font-bold">
-              {item.nome}
-            </Text>
-            <Text className="text-gray-300 text-xl"> {item.assunto}</Text>
+          <View className="p-5 flex-row">
+            <View className=" flex-col h-32 w-1/2 items-start justify-center">
+              <Text className="text-white text-3xl pl-2 pr-2 font-bold">
+                {item.nome}
+              </Text>
+              <Text className="text-gray-300 text-xl"> {item.assunto}</Text>
+            </View>
 
-            <View className="bg-white mt-5 mb-5 p-5 rounded-md w-full items-center">
-              <Text className="text-black font-bold text-lg">
-                Questões: {item.nQuestoes}
+            <View className="flex-col w-1/2 items-center">
+              <Text className=" self-end text-gray-300 font-bold text-md mb-5">
+                {formatDate(new Date(item.createdAt))}
               </Text>
-              <Text className="text-black font-bold text-lg">
-                Alternativas: {item.nAlternativas}
-              </Text>
-              <Text className="text-black font-bold text-lg">
-                Variações: {item.nVariacoes}
-              </Text>
-              <Text className="text-black font-bold text-lg">
-                Criado em: {formatDate(new Date(item.createdAt))}
-              </Text>
-              <Text className="text-black font-bold text-lg">
-                Disciplina: {item.disciplina.nome}
-              </Text>
+              <View className="pl-20 items-center w-full">
+                <Text className="text-white text-5xl font-bold">
+                  {item.nQuestoes}
+                </Text>
+                <Text className="text-white">Questões</Text>
+              </View>
             </View>
           </View>
         </TouchableOpacity>
@@ -132,7 +128,7 @@ const ListaDeGabaritosScreen: React.FC<{ idProf: string }> = ({ idProf }) => {
   };
 
   return (
-    <View className="flex-1">
+    <View className="flex-1 bg-green-600">
       <FlatList
         data={data}
         ListHeaderComponent={renderHeader}
@@ -142,7 +138,7 @@ const ListaDeGabaritosScreen: React.FC<{ idProf: string }> = ({ idProf }) => {
         onEndReachedThreshold={0.1}
       />
       {loading && (
-        <View className=" p-3 flex-row space-x-5 items-center justify-center m-4 rounded-lg bg-green-400">
+        <View className=" p-3 flex-row space-x-5 items-center justify-center m-4 rounded-lg bg-white">
           <ActivityIndicator size={"large"} color={"black"} />
           <Text className=" text-xl font-bold">Carregando Gabaritos</Text>
         </View>

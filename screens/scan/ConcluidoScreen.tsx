@@ -6,14 +6,16 @@ import { router } from "expo-router";
 
 const ConcluidoScreen: React.FC<CriarProvaInfoFinal> = (prova) => {
   const [error, setError] = React.useState<string | null>(null);
-  const [okMessage, setOkMessage] = React.useState("Carregando...");
+  const [loading, setLoading] = React.useState<boolean>(true);
+
+  const [okMessage, setOkMessage] = React.useState<null | string>(null);
 
   const API_URL = process.env.EXPO_PUBLIC_API_URL;
 
   const animationConfetti = React.useRef<LottieView>(null);
 
   React.useEffect(() => {
-    if (okMessage !== "Carregando...") {
+    if (okMessage) {
       animationConfetti.current?.play(0, 241);
       setTimeout(() => {
         animationConfetti.current?.pause();
@@ -48,6 +50,7 @@ const ConcluidoScreen: React.FC<CriarProvaInfoFinal> = (prova) => {
           setError("Algo inesperado aconteceu, erro na criação da prova.");
           throw new Error("Erro na resposta da API /criarProva");
         } else {
+          setLoading(false);
           setOkMessage("Prova Criada com Sucesso!");
         }
       } catch (e) {
@@ -70,6 +73,14 @@ const ConcluidoScreen: React.FC<CriarProvaInfoFinal> = (prova) => {
   return (
     <View className="h-full items-center justify-center">
       {error && <Text>{error}</Text>}
+      {loading && (
+        <View className=" items-center h-full">
+          <Text className=" w-52 text-center text-3xl font-bold mb-10">
+            Carregando...
+          </Text>
+        </View>
+      )}
+
       {okMessage && (
         <View className=" items-center">
           <LottieView
