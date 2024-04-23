@@ -16,7 +16,7 @@ export default function HomeLayout() {
       <Stack.Screen
         name="dadosProvaCriar"
         options={{
-          title: "Nome e Assunto",
+          title: "",
           headerStyle: { backgroundColor: "black" },
           headerShadowVisible: false,
           headerTintColor: "white",
@@ -26,7 +26,7 @@ export default function HomeLayout() {
       <Stack.Screen
         name="infoCriarQuestoes"
         options={{
-          title: "Questões e Alternativas",
+          title: "",
           headerStyle: { backgroundColor: "black" },
           headerShadowVisible: false,
           headerTintColor: "white",
@@ -53,7 +53,7 @@ export default function HomeLayout() {
         name="selecionarVariacoes"
         options={{
           title: "",
-          headerStyle: { backgroundColor: "#16a34a" },
+          headerStyle: { backgroundColor: "black" },
           headerShadowVisible: false,
           headerTintColor: "white",
           headerTitleAlign: "center",

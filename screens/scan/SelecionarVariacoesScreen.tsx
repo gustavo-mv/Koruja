@@ -6,6 +6,7 @@ import RNPickerSelect from "react-native-picker-select";
 
 const SelecionarVariacoesScreen: React.FC<CriarProvaInfo> = (disciplina) => {
   const [variacoes, setVariacoes] = React.useState<null | number>(1);
+  const [letras, setLetras] = React.useState<string>("");
 
   const variacoesOptions = [
     { label: "Sem Variações, Gabarito Único", value: 1 },
@@ -15,30 +16,53 @@ const SelecionarVariacoesScreen: React.FC<CriarProvaInfo> = (disciplina) => {
     { label: "5 Variações", value: 5 },
   ];
 
+  const gerarLetras = () => {
+    if (
+      disciplina.nAlternativas &&
+      disciplina.nAlternativas > 0 &&
+      disciplina.nAlternativas <= 6
+    ) {
+      const letrasArray = "ABCDEF".split("");
+      setLetras(letrasArray.slice(0, disciplina.nAlternativas).join(""));
+    }
+  };
+
+  React.useEffect(() => {
+    gerarLetras();
+  }, [disciplina.nAlternativas]);
+
   return (
     <View className="h-full w-full">
       <View className=" h-full  bg-black items-center pt-20">
-        <Text className="w-44 text-center bg-green-200 text-3xl rounded-md p-3 text-black font-bold mb-4">
-          {disciplina.nomeProva} {disciplina.nQuestoes}{" "}
-          {disciplina.nAlternativas}
+        <Text className="w-44 text-center bg-green-200 text-4xl rounded-md p-3 text-black font-bold mb-4">
+          {disciplina.nomeProva}
         </Text>
-        <Text className="w-44 text-center text-gray-300 rounded-md font-bold text-md mb-8">
+        <Text className="w-44 text-center text-gray-100 rounded-md font-bold text-xl mb-2">
           {disciplina.assunto}
         </Text>
-
+        <View className="flex-row items-center justify-center mb-10">
+          <Text className="w-28 text-center border-r-gray-200 border-r-2 text-gray-300 font-bold text-md">
+            {disciplina.nQuestoes} Questões
+          </Text>
+          <Text className="w-20 text-center text-gray-300 font-bold text-md">
+            {letras}
+          </Text>
+        </View>
         <View
           style={{
             borderRadius: 10,
-            marginTop: 20,
+            marginTop: 10,
             backgroundColor: "white",
             flexDirection: "column",
             alignItems: "center",
+            marginBottom: 20,
           }}
         >
           <Text className=" p-2 font-bold">
             Deseja que o gabarito tenha variações?
           </Text>
           <RNPickerSelect
+            placeholder={{}}
             value={variacoes}
             onValueChange={(value) => setVariacoes(value)}
             items={variacoesOptions}

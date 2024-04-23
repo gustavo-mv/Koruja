@@ -37,63 +37,124 @@ const InfoCriarQuestoesScreen: React.FC<CriarProvaInfo> = (disciplina) => {
 
   return (
     <View className="h-full w-full">
-      <View className=" h-full  bg-black items-center pt-20">
+      <View className=" h-full  bg-black items-center">
         <Text className="w-44 text-center bg-green-200 text-3xl rounded-md p-3 text-black font-bold mb-4">
           {disciplina.nomeProva}
         </Text>
         <Text className="w-44 text-center text-gray-300 rounded-md font-bold text-md mb-8">
           {disciplina.assunto}
         </Text>
-        <View
-          style={{
-            borderRadius: 10,
-            backgroundColor: "white",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Text className=" p-2 font-bold">Quantidade de questões:</Text>
-          <RNPickerSelect
-            placeholder={{ label: "Selecione", value: null }}
-            value={questoes}
-            onValueChange={(value) => setQuestoes(value)}
-            items={questoesOptions}
-            style={{
-              inputAndroid: {
-                height: 50,
-                width: 200,
-              },
-            }}
-          />
-        </View>
+        <View className=" items-end mb-7">
+          <View className=" flex-row justify-center">
+            <Text className=" p-2 text-3xl font-bold text-white tracking-wider">
+              Questões:
+            </Text>
+            <RNPickerSelect
+              placeholder={{ label: "Selecione", value: null }}
+              value={questoes}
+              onValueChange={(value) => setQuestoes(value)}
+              items={questoesOptions}
+              style={{
+                inputIOS: {
+                  fontSize: 16,
+                  paddingVertical: 12,
+                  paddingHorizontal: 10,
+                  borderWidth: 1,
+                  borderColor: "gray",
+                  borderRadius: 4,
+                  color: "black",
+                  paddingRight: 30,
+                },
+                inputAndroid: {
+                  fontSize: 16,
+                  paddingHorizontal: 10,
+                  paddingVertical: 8,
+                  borderWidth: 0.5,
+                  borderColor: "purple",
+                  borderRadius: 8,
+                  color: "black",
+                  paddingRight: 30,
+                },
+                placeholder: {
+                  color: "gray",
+                },
+                iconContainer: {
+                  top: 10,
+                  right: 12,
+                },
 
-        <View
-          style={{
-            borderRadius: 10,
-            marginTop: 20,
-            backgroundColor: "white",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Text className=" p-2 font-bold">Quantidade de alternativas:</Text>
-          <RNPickerSelect
-            placeholder={{ label: "Selecione", value: null }}
-            value={alternativas}
-            onValueChange={(value) => setAlternativas(value)}
-            items={alternativasOptions}
-            style={{
-              inputAndroid: {
-                display: "flex",
-                justifyContent: "center",
-                alignSelf: "center",
-                alignItems: "center",
-                height: 50,
-                width: 200,
-                textAlign: "center",
-              },
-            }}
-          />
+                viewContainer: {
+                  borderWidth: 1,
+                  borderRadius: 8,
+                  width: 180,
+                  backgroundColor: "white",
+                },
+
+                chevronContainer: {
+                  display: "none",
+                },
+                modalViewMiddle: {
+                  backgroundColor: "yellow",
+                },
+                done: {
+                  color: "green",
+                },
+              }}
+            />
+          </View>
+
+          <View className="flex-row mt-5">
+            <Text className=" p-2 font-bold text-white text-3xl">
+              Alternativas:
+            </Text>
+            <RNPickerSelect
+              placeholder={{ label: "Selecione", value: null }}
+              value={alternativas}
+              onValueChange={(value) => setAlternativas(value)}
+              items={alternativasOptions}
+              style={{
+                inputIOS: {
+                  fontSize: 16,
+                  paddingVertical: 12,
+                  paddingHorizontal: 10,
+                  borderWidth: 1,
+                  borderColor: "gray",
+                  borderRadius: 4,
+                  color: "black",
+                  paddingRight: 30,
+                },
+                inputAndroid: {
+                  fontSize: 16,
+                  paddingHorizontal: 10,
+                  paddingVertical: 8,
+                  borderWidth: 0.5,
+                  borderColor: "purple",
+                  borderRadius: 8,
+                  color: "black",
+                  paddingRight: 30,
+                },
+                placeholder: {
+                  color: "gray",
+                },
+
+                viewContainer: {
+                  borderWidth: 1,
+                  borderRadius: 8,
+                  width: 180,
+                  backgroundColor: "white",
+                },
+                chevronContainer: {
+                  display: "none",
+                },
+                modalViewMiddle: {
+                  backgroundColor: "yellow",
+                },
+                done: {
+                  color: "green",
+                },
+              }}
+            />
+          </View>
         </View>
         <Link
           asChild
