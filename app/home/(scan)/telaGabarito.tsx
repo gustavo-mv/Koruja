@@ -13,6 +13,7 @@ const selecionarVariacoes = () => {
     nQuestoes?: string;
     nAlternativas?: string;
     nVariacoes: string;
+    respostas?: string;
     index: string;
   }>();
 
@@ -29,6 +30,7 @@ const selecionarVariacoes = () => {
     nQuestoes,
     nAlternativas,
     nVariacoes,
+    respostas,
     index,
   } = params;
 
@@ -45,6 +47,21 @@ const selecionarVariacoes = () => {
   ) {
     return null;
   }
+  if (respostas) {
+    const disciplinaFromParams: CriarProvaInfo = {
+      turmaId: turmaId as string,
+      disciplinaNome: disciplinaNome as string,
+      disciplinaId: disciplinaId as string,
+      assunto: assunto as string,
+      nomeProva: nomeProva as string,
+      nQuestoes: parseInt(nQuestoes) as number,
+      nAlternativas: parseInt(nAlternativas) as number,
+      nVariacoes: parseInt(nVariacoes) as number,
+      respostas: JSON.parse(respostas),
+      index: parseInt(index) as number,
+    };
+    return <MarcarGabaritoScreen {...disciplinaFromParams} />;
+  }
 
   const disciplinaFromParams: CriarProvaInfo = {
     turmaId: turmaId as string,
@@ -55,6 +72,7 @@ const selecionarVariacoes = () => {
     nQuestoes: parseInt(nQuestoes) as number,
     nAlternativas: parseInt(nAlternativas) as number,
     nVariacoes: parseInt(nVariacoes) as number,
+    respostas: [],
     index: parseInt(index) as number,
   };
 

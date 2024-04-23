@@ -1,10 +1,4 @@
-import {
-  View,
-  Text,
-  TouchableWithoutFeedback,
-  Keyboard,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import { CriarProvaInfo } from "@/models/CriarProvaInfo";
 import { Link } from "expo-router";
@@ -80,8 +74,7 @@ const SelecionarVariacoesScreen: React.FC<CriarProvaInfo> = (disciplina) => {
         >
           <TouchableOpacity
             className={`
-             
-         bg-green-500 mt-5 w-32 rounded-md p-3 mb-5`}
+                      bg-green-500 mt-5 w-32 rounded-md p-3 mb-5`}
           >
             <Text className=" text-center text-base font-bold">Próximo</Text>
           </TouchableOpacity>

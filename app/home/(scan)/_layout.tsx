@@ -6,7 +6,7 @@ export default function HomeLayout() {
       <Stack.Screen
         name="criarProva"
         options={{
-          title: "Criar Prova",
+          title: "Criar Gabarito",
           headerStyle: { backgroundColor: "black" },
           headerShadowVisible: false,
           headerTintColor: "white",
@@ -45,6 +45,17 @@ export default function HomeLayout() {
       />
       <Stack.Screen
         name="provaCriada"
+        options={{
+          title: "",
+          headerStyle: { backgroundColor: "#16a34a" },
+          headerShadowVisible: false,
+          headerTintColor: "white",
+          headerTitleAlign: "center",
+          headerBackButtonMenuEnabled: false,
+        }}
+      />
+      <Stack.Screen
+        name="selecionarVariacoes"
         options={{
           title: "",
           headerStyle: { backgroundColor: "#16a34a" },
