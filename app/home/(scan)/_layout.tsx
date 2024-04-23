@@ -46,12 +46,7 @@ export default function HomeLayout() {
       <Stack.Screen
         name="provaCriada"
         options={{
-          title: "",
-          headerStyle: { backgroundColor: "#16a34a" },
-          headerShadowVisible: false,
-          headerTintColor: "white",
-          headerTitleAlign: "center",
-          headerBackButtonMenuEnabled: false,
+          headerShown: false,
         }}
       />
       <Stack.Screen

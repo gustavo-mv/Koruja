@@ -375,7 +375,7 @@ const MarcarGabaritoScreen: React.FC<CriarProvaInfo> = (gabarito) => {
     const handleSave = async () => {
       if (respostas.length === gabarito.nQuestoes) {
         gabarito.respostas?.push(respostasObjeto);
-        router.push({
+        router.replace({
           pathname: "/home/(scan)/provaCriada",
           params: {
             turmaId: gabarito.turmaId,
