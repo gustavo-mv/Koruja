@@ -1,12 +1,22 @@
-import { View, Text, TouchableOpacity, Modal } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Modal,
+  ScrollView,
+  ActivityIndicator,
+} from "react-native";
 import React from "react";
 import LottieView from "lottie-react-native";
 import { ProvaModel } from "../../models/ProvaModel";
 import { router } from "expo-router";
+import { CriarProvaInfoFinal } from "@/models/CriarProvaInfoFinal";
 
 const ProvaInfoScreen: React.FC<ProvaModel> = (prova) => {
   const [deletar, setDeletar] = React.useState<boolean>(false);
   const animationDel = React.useRef<LottieView>(null);
+  const [data, setData] = React.useState<CriarProvaInfoFinal | null>(null);
+  const [loading, setLoading] = React.useState<boolean>(true);
 
   function handleClick() {
     setDeletar(true);
@@ -25,7 +35,22 @@ const ProvaInfoScreen: React.FC<ProvaModel> = (prova) => {
     [deletar];
   });
 
+  React.useEffect(() => {
+    fetchData();
+  }, []);
+
   const API_URL = process.env.EXPO_PUBLIC_API_URL;
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch(`${API_URL}/provas/${prova.id}`);
+      const json: CriarProvaInfoFinal = await response.json();
+      setData(json);
+      setLoading(false);
+    } catch (error) {
+      console.error("Erro ao buscar dados:", error);
+    }
+  };
 
   const handleDelete = async () => {
     try {
@@ -53,7 +78,7 @@ const ProvaInfoScreen: React.FC<ProvaModel> = (prova) => {
   };
 
   return (
-    <View className=" bg-black h-full items-center justify-center pb-20 z-50 w-full">
+    <View className="h-full bg-black items-center justify-center pb-20 z-50 w-full">
       <View>
         <Modal
           animationType="fade"
@@ -114,25 +139,111 @@ const ProvaInfoScreen: React.FC<ProvaModel> = (prova) => {
         autoPlay
         loop
       />
-      <View>
-        <Text className=" text-white text-5xl text-center font-extrabold tracking-wide mb-4">
+      <View className="">
+        <Text className="mt-20 text-white text-4xl w-80 self-center text-center font-extrabold tracking-wide mb-4">
           {prova.nome}
         </Text>
         <View className="flex-row items-center self-center">
-          <Text className=" text-emerald-100 text-center text-md font-medium tracking-wider w-32 mb-4">
+          <Text className=" text-emerald-100 text-center text-lg font-medium tracking-wider w-32 mb-4">
             {prova.disciplina.nome}
           </Text>
-          <Text className=" text-emerald-100 text-center text-md font-medium tracking-wider w-32 mb-4">
+          <Text className=" text-emerald-100 text-center text-lg font-medium tracking-wider w-32 mb-4">
             {prova.assunto}
           </Text>
         </View>
+        <View className=" h-96 mt-5 justify-center">
+          {loading && (
+            <View className=" flex-col bg-white self-center rounded-md p-5">
+              <ActivityIndicator size={"large"} color={"green"} />
+              <Text className="text-2xl font-bold text-black">
+                Carregando Gabaritos...
+              </Text>
+            </View>
+          )}
+
+          {data && (
+            <ScrollView horizontal={true} className="p-2">
+              {data.variacoes.map((variacao: any, index: number) => (
+                <TouchableOpacity>
+                  <View
+                    key={index}
+                    className=" bg-white w-52 h-80 m-3 rounded-md  items-center"
+                  >
+                    <View key={variacao.id} className=" items-center">
+                      <View className=" p-3 bg-green-500 mb-2 rounded-b-md">
+                        <Text className="text-black font-bold text-2xl">
+                          {index + 1}º Variação
+                        </Text>
+                      </View>
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        {/* Primeira coluna */}
+                        <View style={{ flex: 1 }}>
+                          {variacao.gabaritos.map(
+                            (gabarito: any, index: number) => (
+                              <View key={gabarito.id}>
+                                {gabarito.questoes
+                                  .slice(0, 10)
+                                  .map((questao: any, index: number) => (
+                                    <Text
+                                      className="font-bold h-6 text-lg text-right"
+                                      style={{ color: "black" }}
+                                      key={questao.id}
+                                    >
+                                      {questao.numero}:{" "}
+                                      {questao.respostaCorreta}
+                                    </Text>
+                                  ))}
+                              </View>
+                            )
+                          )}
+                        </View>
+
+                        {/* Segunda coluna */}
+                        <View style={{ flex: 1, marginLeft: 25 }}>
+                          {variacao.gabaritos.map(
+                            (gabarito: any, index: number) => (
+                              <View key={gabarito.id}>
+                                {gabarito.questoes
+                                  .slice(10, 20)
+                                  .map((questao: any, index: number) => (
+                                    <Text
+                                      className="font-bold h-6 text-lg"
+                                      style={{ color: "black" }}
+                                      key={questao.id}
+                                    >
+                                      {questao.numero}:{" "}
+                                      {questao.respostaCorreta}
+                                    </Text>
+                                  ))}
+                              </View>
+                            )
+                          )}
+                        </View>
+                      </View>
+                    </View>
+                  </View>
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
+          )}
+        </View>
         <View className=" flex-column justify-center items-center">
+          <TouchableOpacity className=" w-9/12 bg-green-600 rounded-md items-center mb-2 p-3">
+            <Text className="text-xl  text-white  font-semibold">Corrigir</Text>
+          </TouchableOpacity>
           <View className=" flex-row w-96 justify-center items-center">
             <TouchableOpacity
               className=" w-9/12 bg-red-500 rounded-md items-center p-3"
               onPress={handleClick}
             >
-              <Text className="text-white font-semibold">Excluir Prova</Text>
+              <Text className="text-xl text-white font-semibold">
+                Excluir Prova
+              </Text>
             </TouchableOpacity>
           </View>
         </View>

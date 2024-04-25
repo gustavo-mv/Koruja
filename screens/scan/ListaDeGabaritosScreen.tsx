@@ -25,7 +25,7 @@ const ListaDeGabaritosScreen: React.FC<{ idProf: string }> = ({ idProf }) => {
     if (loading) return;
     setLoading(true);
     const take = 20;
-    const skip = (page - 1) * take + 1;
+    const skip = (page - 1) * take;
     const apiUrl = `${API_URL}/provas?professorId=${idProf}&take=${take}&skip=${skip}`;
 
     fetch(apiUrl)
@@ -82,18 +82,18 @@ const ListaDeGabaritosScreen: React.FC<{ idProf: string }> = ({ idProf }) => {
       >
         <TouchableOpacity className=" rounded-lg bg-black m-4">
           <View className="p-5 flex-row">
-            <View className=" flex-col h-32 w-1/2 items-start justify-center">
+            <View className=" flex-col h-32 w-2/3 items-start justify-center">
               <Text className="text-white text-3xl pl-2 pr-2 font-bold">
                 {item.nome}
               </Text>
               <Text className="text-gray-300 text-xl"> {item.assunto}</Text>
             </View>
 
-            <View className="flex-col w-1/2 items-center">
+            <View className="flex-col w-1/3 items-center">
               <Text className=" self-end text-gray-300 font-bold text-md mb-5">
                 {formatDate(new Date(item.createdAt))}
               </Text>
-              <View className="pl-20 items-center w-full">
+              <View className="pl-5 items-center w-full">
                 <Text className="text-white text-5xl font-bold">
                   {item.nQuestoes}
                 </Text>
