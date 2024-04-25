@@ -76,7 +76,7 @@ const CardPickDisciplina: React.FC<TurmaProps & { index: number }> = ({
                 className="w-full items-center"
                 onPress={() => setModalDisciplinasVisivel(false)}
               >
-                <Text className=" text-black text-xl font-bold">Cancelar</Text>
+                <Text className=" text-white text-xl font-bold">Cancelar</Text>
               </TouchableOpacity>
             </View>
           </View>

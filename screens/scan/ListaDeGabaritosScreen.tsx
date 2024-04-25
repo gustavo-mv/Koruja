@@ -4,7 +4,6 @@ import {
   FlatList,
   TouchableOpacity,
   ActivityIndicator,
-  ScrollView,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { ProvaModel } from "@/models/ProvaModel";
