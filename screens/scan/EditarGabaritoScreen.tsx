@@ -1,12 +1,11 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import React from "react";
-import { CriarProvaInfoFinal } from "@/models/CriarProvaInfoFinal";
 import Checkbox from "expo-checkbox";
 import { router } from "expo-router";
-import disciplina from "@/app/home/(turmas)/disciplina";
 
 const EditarGabaritoScreen = (prova) => {
-  const [letras, setLetras] = React.useState<string>("");
+  const todasAlternativas = "ABCDEF";
+  const alternativas = todasAlternativas.slice(0, prova.nAlternativas);
   const [disabled, setDisabled] = React.useState<boolean>(true);
   const [gabaritoFinal, setGabaritoFinal] = React.useState<[]>();
 
@@ -31,7 +30,6 @@ const EditarGabaritoScreen = (prova) => {
         setDisabled(saoIguais);
       }, [gabaritoEditado]);
 
-      // Função para atualizar o gabarito editado conforme o usuário seleciona ou desmarca as respostas
       const toggleRespostaSelecionada = (questaoIndex, resposta) => {
         setGabaritoEditado((prevGabaritoEditado) => {
           const novoGabaritoEditado = [...prevGabaritoEditado];
@@ -93,13 +91,13 @@ const EditarGabaritoScreen = (prova) => {
             }),
           });
 
-          console.log(gabaritoFinal[0].questoes.create);
-
           if (!response.ok) {
             console.log("Erro ao editar o Gabarito");
             throw new Error("Erro na resposta da API /criarProva");
           } else {
-            router.replace("/");
+            router.replace("home/(tabs)/scan");
+
+            router.push("home/(scan)/listaDeGabaritos");
           }
         } catch (e) {
           if (typeof e === "string") {
@@ -112,70 +110,101 @@ const EditarGabaritoScreen = (prova) => {
 
       if (questoes) {
         return (
-          <View>
-            {questoes.map((questao, index) => (
+          <ScrollView>
+            <View className="bg-green-600 h-40 pb-7 items-center justify-center mb-7">
+              <Text className="text-white text-7xl font-bold">
+                {prova.index + 1}º
+              </Text>
+              <Text className="text-white text-4xl font-bold">
+                Editar Variação
+              </Text>
+            </View>
+            <View className=" items-center">
               <View
-                key={questao.id}
-                style={{ flexDirection: "row", alignItems: "center" }}
+                key="cabecalho"
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  marginBottom: 10,
+                  justifyContent: "center",
+                  paddingLeft: 25,
+                }}
               >
-                <Text>{`Questão ${index + 1}: `}</Text>
-                {Array.from({ length: 6 }, (_, i) =>
-                  String.fromCharCode(65 + i)
-                ).map((alternativa, i) => (
-                  <Checkbox
-                    key={alternativa}
-                    style={{
-                      marginLeft: 5,
-                      backgroundColor:
-                        gabaritoOriginal[index] === alternativa
-                          ? "gray"
-                          : "transparent",
-                    }}
-                    value={gabaritoEditado[index] === alternativa}
-                    onValueChange={() =>
-                      toggleRespostaSelecionada(index, alternativa)
-                    }
-                  />
+                {alternativas.split("").map((alternativa, index) => (
+                  <Text
+                    className=" text-4xl ml-7 mr-7 font-bold"
+                    key={`cabecalho-${index}`}
+                    style={{ marginRight: 5 }}
+                  >
+                    {alternativa}
+                  </Text>
                 ))}
-                <Text>{`Resposta correta: ${gabaritoOriginal[index]}`}</Text>
               </View>
-            ))}
-            <Text className="text-black">Oi {prova.assunto}</Text>
-
-            <View>
-              {questoes.map((item, index) => (
-                <View key={index} className=" text-xl text-black">
-                  <Text>{item.id}</Text>
+              {questoes.map((questao, index) => (
+                <View
+                  key={questao.id}
+                  style={{ flexDirection: "row", alignItems: "center" }}
+                >
+                  <Text
+                    className=" text-4xl mr-7 font-bold"
+                    key={`cabecalho-${index}`}
+                    style={{ marginRight: 5 }}
+                  >{` ${index + 1}: `}</Text>
+                  {Array.from({ length: prova.nAlternativas }, (_, i) =>
+                    String.fromCharCode(65 + i)
+                  ).map((alternativa, i) => (
+                    <Checkbox
+                      key={alternativa}
+                      style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                        borderRadius: 20,
+                        width: 45,
+                        height: 45,
+                        marginLeft: 5,
+                        marginRight: 5,
+                        marginTop: 5,
+                        marginBottom: 5,
+                        backgroundColor:
+                          gabaritoOriginal[index] === alternativa
+                            ? "gray"
+                            : "transparent",
+                      }}
+                      value={gabaritoEditado[index] === alternativa}
+                      onValueChange={() =>
+                        toggleRespostaSelecionada(index, alternativa)
+                      }
+                    />
+                  ))}
                 </View>
               ))}
-              <TouchableOpacity
-                disabled={disabled}
-                onPress={handleEdit}
-                className={`
+
+              <View>
+                <TouchableOpacity
+                  disabled={disabled}
+                  onPress={handleEdit}
+                  className={`
          ${disabled ? "opacity-40" : ""}
-         bg-green-500 mt-5 w-32 rounded-md p-3 mb-5`}
-              >
-                <Text className=" text-center text-base font-bold">
-                  Criar Prova
-                </Text>
-              </TouchableOpacity>
+         bg-green-500 mt-5 w-44 rounded-md p-3 mb-5`}
+                >
+                  <Text className=" text-center text-base font-bold">
+                    Alterar Gabarito
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
+          </ScrollView>
         );
       } else {
-        // Trate o caso em que não há questões
         return (
           <View>
-            <Text className="text-black">Oi {prova.assunto}</Text>
             <Text>Não há questões disponíveis.</Text>
           </View>
         );
       }
     } else {
-      // Trate o caso em que gabaritos não é um array
       return (
         <View>
-          <Text className="text-black">Oi {prova.assunto}</Text>
           <Text>Os gabaritos não estão disponíveis.</Text>
         </View>
       );

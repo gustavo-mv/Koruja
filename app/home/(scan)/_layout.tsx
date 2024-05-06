@@ -80,6 +80,16 @@ export default function HomeLayout() {
           headerTitleAlign: "center",
         }}
       />
+      <Stack.Screen
+        name="editarGabarito"
+        options={{
+          title: "",
+          headerStyle: { backgroundColor: "#16a34a" },
+          headerShadowVisible: false,
+          headerTintColor: "white",
+          headerTitleAlign: "center",
+        }}
+      />
     </Stack>
   );
 }
