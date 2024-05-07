@@ -84,7 +84,7 @@ const ProvaInfoScreen: React.FC<ProvaModel> = (prova) => {
   };
 
   return (
-    <View className="h-full bg-black items-center justify-center pb-20 z-50 w-full">
+    <View className="h-full bg-black items-center justify-center z-50 w-full">
       <View>
         <Modal
           animationType="fade"

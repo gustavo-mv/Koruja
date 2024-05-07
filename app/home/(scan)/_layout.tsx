@@ -74,7 +74,8 @@ export default function HomeLayout() {
         name="provaInfo"
         options={{
           title: "",
-          headerStyle: { backgroundColor: "black" },
+          headerStyle: {},
+          headerTransparent: true,
           headerShadowVisible: false,
           headerTintColor: "white",
           headerTitleAlign: "center",
