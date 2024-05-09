@@ -14,6 +14,17 @@ export default function HomeLayout() {
         }}
       />
       <Stack.Screen
+        name="corrigir"
+        options={{
+          title: "",
+          headerStyle: {},
+          headerTransparent: true,
+          headerShadowVisible: false,
+          headerTintColor: "black",
+          headerTitleAlign: "center",
+        }}
+      />
+      <Stack.Screen
         name="dadosProvaCriar"
         options={{
           title: "",
