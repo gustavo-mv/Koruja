@@ -34,6 +34,7 @@
           "fonts": ["./assets/fonts/Poppins-Regular.ttf"]
         }
       ],
+
       [
         "expo-camera",
         {

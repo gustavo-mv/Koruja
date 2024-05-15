@@ -102,6 +102,16 @@ export default function HomeLayout() {
           headerTitleAlign: "center",
         }}
       />
+      <Stack.Screen
+        name="analiseGabarito"
+        options={{
+          title: "",
+          headerStyle: { backgroundColor: "transparent" },
+          headerShadowVisible: false,
+          headerTintColor: "white",
+          headerTitleAlign: "center",
+        }}
+      />
     </Stack>
   );
 }
