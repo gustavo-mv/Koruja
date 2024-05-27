@@ -16,8 +16,13 @@ export default function CorrigirScreen() {
   const [hasPermission, setHasPermission] = useState(null);
   const [isCameraReady, setIsCameraReady] = useState(false);
   const [disabled, setDisabled] = useState(false);
+  const [dataQR, setDataQR] = useState<null | string>(null);
 
   const cameraRef = React.useRef(null);
+
+  useEffect(() => {
+    console.log(dataQR);
+  }, [dataQR]);
 
   const onCameraReady = () => {
     setIsCameraReady(true);
@@ -45,6 +50,7 @@ export default function CorrigirScreen() {
           pathname: "/home/(scan)/analiseGabarito",
           params: {
             base64: imageData.uri,
+            dataQR: dataQR,
           },
         });
         setDisabled(false);
@@ -124,6 +130,7 @@ export default function CorrigirScreen() {
         ref={cameraRef}
         onCameraReady={onCameraReady}
         style={StyleSheet.absoluteFillObject}
+        onBarcodeScanned={({ data }) => setDataQR(data)}
       />
       <Structure
         height={"110%"}

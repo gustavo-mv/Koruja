@@ -5,11 +5,15 @@ import React from "react";
 const analiseGabarito = () => {
   const params = useLocalSearchParams<{
     base64: string;
+    dataQR: string;
   }>();
 
-  const { base64 } = params;
+  const photoInfo = {
+    base64: params.base64 as string,
+    dataQR: params.dataQR as string,
+  };
 
-  return <AnaliseGabaritoScreen base64={base64} />;
+  return <AnaliseGabaritoScreen {...photoInfo} />;
 };
 
 export default analiseGabarito;

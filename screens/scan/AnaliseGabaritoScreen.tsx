@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity, Image } from "react-native";
 import React from "react";
 import * as FileSystem from "expo-file-system";
 
-const AnaliseGabaritoScreen = ({ base64 }: any) => {
+const AnaliseGabaritoScreen = ({ base64, dataQR }: any) => {
   const [convertedBase64, setConvertedBase64] = React.useState<string>("");
   const [loading, setLoading] = React.useState<boolean>(false);
   const [error, setError] = React.useState<string | null>(null);
@@ -17,7 +17,10 @@ const AnaliseGabaritoScreen = ({ base64 }: any) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ imageBase64: convertedBase64 }),
+        body: JSON.stringify({
+          dataQR: dataQR,
+          imageBase64: convertedBase64,
+        }),
       });
 
       if (!response.ok) {
@@ -77,8 +80,9 @@ const AnaliseGabaritoScreen = ({ base64 }: any) => {
       {error && <Text>{error}</Text>}
       {loading && <Text>Processando imagem...</Text>}
       {imageUri && (
-        <Image height={700} width={400} source={{ uri: `${imageUri}` }}></Image>
+        <Image height={500} width={400} source={{ uri: `${imageUri}` }}></Image>
       )}
+      <Text>{dataQR}</Text>
     </View>
   );
 };
