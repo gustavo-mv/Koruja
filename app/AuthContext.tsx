@@ -1,7 +1,9 @@
 import React, { createContext, useState, useEffect } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { MMKV } from "react-native-mmkv";
 import { router } from "expo-router";
 import User from "@/models/User";
+
+export const storage = new MMKV();
 
 interface AuthContextType {
   token: string | null;
@@ -34,7 +36,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const checkUser = async () => {
     try {
-      const tokenFromStorage = await AsyncStorage.getItem("token");
+      const tokenFromStorage = await storage.getString("token");
       if (tokenFromStorage) {
         setToken(JSON.parse(tokenFromStorage));
       }
@@ -55,7 +57,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const login = async (userData: string) => {
     try {
-      await AsyncStorage.setItem("token", JSON.stringify(userData));
+      await storage.set("token", JSON.stringify(userData));
       setToken(userData);
       router.replace("/");
     } catch (error) {
@@ -65,7 +67,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const logout = async () => {
     try {
-      await AsyncStorage.removeItem("token");
+      await storage.delete("token");
       setToken(null);
       setUserGlobalData(null);
       router.replace("/login");
