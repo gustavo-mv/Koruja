@@ -11,11 +11,14 @@ import LottieView from "lottie-react-native";
 import { ProvaModel } from "../../models/ProvaModel";
 import { router, Link } from "expo-router";
 import { CriarProvaInfoFinal } from "@/models/CriarProvaInfoFinal";
+import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 
 const ProvaInfoScreen: React.FC<ProvaModel> = (prova) => {
   const [deletar, setDeletar] = React.useState<boolean>(false);
+  const [optionsPanel, setoptionsPanel] = React.useState<any>(false);
+
   const animationDel = React.useRef<LottieView>(null);
-  const [data, setData] = React.useState<CriarProvaInfoFinal | null>(null);
+  const [data, setData] = React.useState<any | null>(null);
   const [loading, setLoading] = React.useState<boolean>(true);
 
   function handleClick() {
@@ -83,6 +86,26 @@ const ProvaInfoScreen: React.FC<ProvaModel> = (prova) => {
     }
   };
 
+  const handleEdit = async () => {
+    router.push({
+      pathname: "home/(scan)/editarGabarito",
+      params: {
+        idProva: prova.id,
+        turmaId: data.disciplina.id,
+        disciplinaNome: data.disciplina.nome,
+        disciplinaId: prova.disciplinaId,
+        nomeProva: data.nome,
+        assunto: data.assunto,
+        nQuestoes: data.nQuestoes,
+        nAlternativas: data.nAlternativas,
+        nVariacoes: data.nVariacoes,
+        respostas: JSON.stringify(data.variacoes),
+        index: optionsPanel - 1,
+      },
+    });
+    setoptionsPanel(false);
+  };
+
   return (
     <View className="h-full bg-black items-center justify-center z-50 w-full">
       <View>
@@ -130,6 +153,62 @@ const ProvaInfoScreen: React.FC<ProvaModel> = (prova) => {
             </View>
           </View>
         </Modal>
+
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={optionsPanel != false}
+          onRequestClose={() => setoptionsPanel(false)}
+        >
+          <View className=" bg-black/75 w-full h-full justify-center items-center">
+            <View className=" items-end w-full">
+              <AntDesign
+                name="closecircle"
+                size={35}
+                color="white"
+                style={{
+                  position: "absolute",
+                  bottom: -10,
+                  right: 20,
+                  zIndex: 10,
+                  backgroundColor: "red",
+                  borderRadius: 50,
+                }}
+                onPress={() => setoptionsPanel(false)}
+              />
+            </View>
+            <View className="flex bg-white rounded-xl items-center w-80 overflow-hidden z-0 pt-5">
+              <Text className="text-2xl font-bold mb-3 w-64 text-center">
+                Opções - Variação {optionsPanel}:
+              </Text>
+              <View className="flex-row h-35 m-2  justify-center items-center rounded-b-xl">
+                <TouchableOpacity
+                  className="flex-1 items-center rounded-md m-2 bg-yellow-300 h-28 justify-center"
+                  onPress={() => handleEdit()}
+                >
+                  <MaterialCommunityIcons
+                    name="qrcode-edit"
+                    size={40}
+                    color="black"
+                  />
+                  <Text className="text-black text-xl pt-1 font-bold">
+                    Editar
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity className="flex-1 items-center h-28 justify-center bg-emerald-400 rounded-md m-2">
+                  <MaterialCommunityIcons
+                    name="file-download-outline"
+                    size={45}
+                    color="black"
+                  />
+                  <Text className=" text-black text-base  pt-1 font-bold">
+                    Baixar Gabarito
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </Modal>
       </View>
 
       <LottieView
@@ -170,92 +249,74 @@ const ProvaInfoScreen: React.FC<ProvaModel> = (prova) => {
           {data && (
             <ScrollView horizontal={true} className="p-2">
               {data.variacoes.map((variacao: any, index: number) => (
-                <Link
+                <TouchableOpacity
                   key={index}
-                  asChild
-                  href={{
-                    pathname: "home/(scan)/editarGabarito",
-                    params: {
-                      idProva: prova.id,
-                      turmaId: data.disciplina.id,
-                      disciplinaNome: data.disciplina.nome,
-                      disciplinaId: prova.disciplinaId,
-                      nomeProva: data.nome,
-                      assunto: data.assunto,
-                      nQuestoes: data.nQuestoes,
-                      nAlternativas: data.nAlternativas,
-                      nVariacoes: data.nVariacoes,
-                      respostas: JSON.stringify(data.variacoes),
-                      index: index,
-                    },
-                  }}
+                  onPress={() => setoptionsPanel(index + 1)}
                 >
-                  <TouchableOpacity key={index}>
-                    <View
-                      key={index}
-                      className=" bg-white w-52 h-80 m-3 rounded-md  items-center"
-                    >
-                      <View key={variacao.id} className=" items-center">
-                        <View className=" p-3 bg-green-500 mb-2 rounded-b-md">
-                          <Text className="text-black font-bold text-2xl">
-                            {index + 1}º Variação
-                          </Text>
+                  <View
+                    key={index}
+                    className=" bg-white w-52 h-80 m-3 rounded-md  items-center"
+                  >
+                    <View key={variacao.id} className=" items-center">
+                      <View className=" p-3 bg-green-500 mb-2 rounded-b-md">
+                        <Text className="text-black font-bold text-2xl">
+                          {index + 1}º Variação
+                        </Text>
+                      </View>
+
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        {/* Primeira coluna */}
+                        <View style={{ flex: 1 }}>
+                          {variacao.gabaritos.map(
+                            (gabarito: any, index: number) => (
+                              <View key={gabarito.id}>
+                                {gabarito.questoes
+                                  .slice(0, 10)
+                                  .map((questao: any, index: number) => (
+                                    <Text
+                                      className="font-bold h-6 text-lg text-right"
+                                      style={{ color: "black" }}
+                                      key={questao.id}
+                                    >
+                                      {questao.numero}:{" "}
+                                      {questao.respostaCorreta}
+                                    </Text>
+                                  ))}
+                              </View>
+                            )
+                          )}
                         </View>
 
-                        <View
-                          style={{
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                          }}
-                        >
-                          {/* Primeira coluna */}
-                          <View style={{ flex: 1 }}>
-                            {variacao.gabaritos.map(
-                              (gabarito: any, index: number) => (
-                                <View key={gabarito.id}>
-                                  {gabarito.questoes
-                                    .slice(0, 10)
-                                    .map((questao: any, index: number) => (
-                                      <Text
-                                        className="font-bold h-6 text-lg text-right"
-                                        style={{ color: "black" }}
-                                        key={questao.id}
-                                      >
-                                        {questao.numero}:{" "}
-                                        {questao.respostaCorreta}
-                                      </Text>
-                                    ))}
-                                </View>
-                              )
-                            )}
-                          </View>
-
-                          {/* Segunda coluna */}
-                          <View style={{ flex: 1, marginLeft: 25 }}>
-                            {variacao.gabaritos.map(
-                              (gabarito: any, index: number) => (
-                                <View key={gabarito.id}>
-                                  {gabarito.questoes
-                                    .slice(10, 20)
-                                    .map((questao: any, index: number) => (
-                                      <Text
-                                        className="font-bold h-6 text-lg"
-                                        style={{ color: "black" }}
-                                        key={questao.id}
-                                      >
-                                        {questao.numero}:{" "}
-                                        {questao.respostaCorreta}
-                                      </Text>
-                                    ))}
-                                </View>
-                              )
-                            )}
-                          </View>
+                        {/* Segunda coluna */}
+                        <View style={{ flex: 1, marginLeft: 25 }}>
+                          {variacao.gabaritos.map(
+                            (gabarito: any, index: number) => (
+                              <View key={gabarito.id}>
+                                {gabarito.questoes
+                                  .slice(10, 20)
+                                  .map((questao: any, index: number) => (
+                                    <Text
+                                      className="font-bold h-6 text-lg"
+                                      style={{ color: "black" }}
+                                      key={questao.id}
+                                    >
+                                      {questao.numero}:{" "}
+                                      {questao.respostaCorreta}
+                                    </Text>
+                                  ))}
+                              </View>
+                            )
+                          )}
                         </View>
                       </View>
                     </View>
-                  </TouchableOpacity>
-                </Link>
+                  </View>
+                </TouchableOpacity>
               ))}
             </ScrollView>
           )}
