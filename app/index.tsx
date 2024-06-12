@@ -2,14 +2,26 @@ import { View, Text } from "react-native";
 import React from "react";
 import { router } from "expo-router";
 import AuthContext from "./AuthContext";
+import NetInfo from "@react-native-community/netinfo";
 
 const index = () => {
   const { token, dataUser, isLoading } = React.useContext(AuthContext);
+  const [isConnected, setIsConnected] = React.useState(true);
 
   const API_URL = process.env.EXPO_PUBLIC_API_URL;
 
   React.useEffect(() => {
-    if (!isLoading) {
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      setIsConnected(state.isConnected !== null ? state.isConnected : true);
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  React.useEffect(() => {
+    if (!isLoading && isConnected) {
       const fetchData = async () => {
         try {
           const response = await fetch(`${API_URL}/auth/me`, {
@@ -39,6 +51,14 @@ const index = () => {
     return (
       <View>
         <Text>Carregando...</Text>
+      </View>
+    );
+  }
+
+  if (!isConnected) {
+    return (
+      <View>
+        <Text>Você está offline. Verifique sua conexão com a internet.</Text>
       </View>
     );
   }
