@@ -28,6 +28,15 @@ export default function LoginLayout() {
           headerTintColor: "black",
         }}
       />
+      <Stack.Screen
+        name="validations"
+        options={{
+          title: "",
+          headerStyle: { backgroundColor: "white" },
+          headerShadowVisible: false,
+          headerTintColor: "black",
+        }}
+      />
     </Stack>
   );
 }
