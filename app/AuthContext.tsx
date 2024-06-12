@@ -67,7 +67,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const logout = async () => {
     try {
-      await storage.delete("token");
+      await storage.clearAll();
       setToken(null);
       setUserGlobalData(null);
       router.replace("/login");

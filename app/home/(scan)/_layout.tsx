@@ -103,6 +103,16 @@ export default function HomeLayout() {
         }}
       />
       <Stack.Screen
+        name="downloadProva"
+        options={{
+          title: "",
+          headerStyle: { backgroundColor: "#16a34a" },
+          headerShadowVisible: false,
+          headerTintColor: "white",
+          headerTitleAlign: "center",
+        }}
+      />
+      <Stack.Screen
         name="analiseGabarito"
         options={{
           title: "",

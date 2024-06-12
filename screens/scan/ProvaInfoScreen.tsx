@@ -12,6 +12,7 @@ import { ProvaModel } from "../../models/ProvaModel";
 import { router, Link } from "expo-router";
 import { CriarProvaInfoFinal } from "@/models/CriarProvaInfoFinal";
 import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
+import index from "../../app/index";
 
 const ProvaInfoScreen: React.FC<ProvaModel> = (prova) => {
   const [deletar, setDeletar] = React.useState<boolean>(false);
@@ -84,6 +85,17 @@ const ProvaInfoScreen: React.FC<ProvaModel> = (prova) => {
         e.message;
       }
     }
+  };
+
+  const handleDownload = async () => {
+    const pureIndex = optionsPanel - 1;
+    router.push({
+      pathname: "home/(scan)/downloadProva",
+      params: {
+        variacaoId: data.variacoes[pureIndex].id,
+      },
+    });
+    setoptionsPanel(false);
   };
 
   const handleEdit = async () => {
@@ -195,7 +207,10 @@ const ProvaInfoScreen: React.FC<ProvaModel> = (prova) => {
                     Editar
                   </Text>
                 </TouchableOpacity>
-                <TouchableOpacity className="flex-1 items-center h-28 justify-center bg-emerald-400 rounded-md m-2">
+                <TouchableOpacity
+                  className="flex-1 items-center h-28 justify-center bg-emerald-400 rounded-md m-2"
+                  onPress={() => handleDownload()}
+                >
                   <MaterialCommunityIcons
                     name="file-download-outline"
                     size={45}
