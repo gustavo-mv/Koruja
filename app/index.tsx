@@ -38,7 +38,6 @@ const index = () => {
           dataUser(data);
           router.replace("/home");
         } catch (error) {
-          alert("Seu token expirou, faça o Login novamente, por favor.");
           console.error("Erro ao buscar dados:", error);
           router.replace("/login");
         }
