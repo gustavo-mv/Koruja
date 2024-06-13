@@ -14,25 +14,23 @@ const FormNomeScreen = ({ nomeParam, emailParam }) => {
     setSenhaVisivel(!senhaVisivel);
   };
 
-  const toggleConfirmarSenhaVisivel = () => {
-    setConfirmarSenhaVisivel(!confirmarSenhaVisivel);
-  };
-
   const handleNext = () => {
-    if (senha === confirmarSenha) {
-      router.push({
-        pathname: "/login/validations",
-        params: {
-          senha: senha,
-        },
-      });
-    } else {
-      alert("As senhas não coincidem!");
-    }
+    router.push({
+      pathname: "/login/validations",
+      params: {
+        nome: nomeParam,
+        email: emailParam,
+        senha: senha,
+      },
+    });
   };
 
   React.useEffect(() => {
-    if (senha.trim().length > 0 && confirmarSenha.trim().length > 0) {
+    if (
+      senha.trim().length > 7 &&
+      confirmarSenha.trim().length > 7 &&
+      senha === confirmarSenha
+    ) {
       setDisabled(false);
     } else {
       setDisabled(true);
@@ -56,6 +54,7 @@ const FormNomeScreen = ({ nomeParam, emailParam }) => {
             className="bg-gray-100 h-10 w-80 self-center rounded-md text-xl p-2 border-2 border-green-600"
             onChangeText={(value) => setSenha(value)}
           />
+
           <TouchableOpacity
             style={{ position: "absolute", right: 10, top: 10 }}
             onPress={toggleSenhaVisivel}
@@ -67,6 +66,9 @@ const FormNomeScreen = ({ nomeParam, emailParam }) => {
             />
           </TouchableOpacity>
         </View>
+        <Text className="font-bold text-gray-600">
+          A senha deve ter pelo menos 8 caracteres.
+        </Text>
       </View>
       <View className=" flex-col items-center">
         <Text className="font-bold text-xl mt-8 mb-3">Confirme a senha:</Text>
@@ -80,16 +82,6 @@ const FormNomeScreen = ({ nomeParam, emailParam }) => {
             className="bg-gray-100 h-10 w-80 self-center rounded-md text-xl p-2 border-2 border-green-600"
             onChangeText={(value) => setConfirmarSenha(value)}
           />
-          <TouchableOpacity
-            style={{ position: "absolute", right: 10, top: 10 }}
-            onPress={toggleConfirmarSenhaVisivel}
-          >
-            <FontAwesome5
-              name={confirmarSenhaVisivel ? "eye-slash" : "eye"}
-              size={20}
-              color="black"
-            />
-          </TouchableOpacity>
         </View>
       </View>
       <TouchableOpacity
