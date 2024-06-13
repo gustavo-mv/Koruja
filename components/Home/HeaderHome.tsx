@@ -3,6 +3,8 @@ import React from "react";
 import moment from "moment";
 
 const HeaderHome: React.FC<{ nome: string }> = ({ nome }) => {
+  const nomeFormt = nome.split(" ")[0];
+
   const horaAtual = moment().hour();
   let saudacao;
 
@@ -19,7 +21,7 @@ const HeaderHome: React.FC<{ nome: string }> = ({ nome }) => {
       <Text className=" font-extralight text-3xl text-white tracking-wider">
         {saudacao},{" "}
         <Text className="font-bold text-3xl text-green-500 tracking-wider">
-          {nome}!
+          {nomeFormt}!
         </Text>{" "}
       </Text>
     </View>

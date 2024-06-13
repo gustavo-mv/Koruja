@@ -47,8 +47,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
-  const dataUser = async (tokenInfoFromFetch: User) => {
+  const dataUser = async (tokenInfoFromFetch: any) => {
     try {
+      console.log(tokenInfoFromFetch);
+
       setUserGlobalData(tokenInfoFromFetch);
     } catch (error) {
       console.error("Erro ao definir Informações do Usuário", error);
