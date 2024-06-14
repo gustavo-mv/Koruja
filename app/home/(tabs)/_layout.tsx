@@ -74,6 +74,8 @@ export default function TabLayout() {
       <Tabs.Screen
         name="conf"
         options={{
+          unmountOnBlur: true,
+          headerShown: false,
           title: "Configurações",
           tabBarActiveTintColor: "#10b505",
           tabBarIconStyle: { color: "#FF6464" },

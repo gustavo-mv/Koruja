@@ -1,14 +1,15 @@
-import { ScrollView } from "react-native";
+import { View } from "react-native";
 import React from "react";
 import AuthContext from "@/app/AuthContext";
 import ConfigIndex from "../../../components/Config/ConfigIndex";
 
 const conf = () => {
-  const { logout } = React.useContext(AuthContext);
+  const { logout, userGlobalData } = React.useContext(AuthContext);
+
   return (
-    <ScrollView>
-      <ConfigIndex logout={logout} />
-    </ScrollView>
+    <View>
+      <ConfigIndex logout={logout} userGlobalData={userGlobalData} />
+    </View>
   );
 };
 

@@ -13,7 +13,7 @@ const Sair: React.FC<SairProps> = ({ logout }) => {
   }
   const [modalVisible, setModalVisible] = React.useState(false);
   return (
-    <View>
+    <View className="">
       <TouchableOpacity
         className="flex-row space-x-11 bg-red-500 w-56 h-16 m-3 items-center rounded-xl p-4"
         onPress={() => setModalVisible(true)}
