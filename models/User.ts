@@ -7,4 +7,5 @@ export default interface User {
   telefone: string;
   telefoneValidado: boolean;
   dataFimAssinatura: any;
+  tipo: string;
 }

@@ -4,6 +4,8 @@ import PhoneInput from "react-native-international-phone-number";
 import { ICountry } from "react-native-international-phone-number";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { router } from "expo-router";
+import { MMKV } from "react-native-mmkv";
+export const storage = new MMKV();
 
 const FormTelefoneScreen = ({ nomeParam, emailParam, senhaParam }: any) => {
   const [telefone, setTelefone] = React.useState("");
@@ -41,6 +43,9 @@ const FormTelefoneScreen = ({ nomeParam, emailParam, senhaParam }: any) => {
       console.error("Algo inesperado aconteceu, erro na criação de conta.");
       throw new Error("Erro na resposta da API /professor");
     } else {
+      const data = await response.json();
+
+      await storage.set("token", JSON.stringify(data.access_token));
       router.replace({
         pathname: "/login/contaCriada",
         params: {

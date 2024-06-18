@@ -11,22 +11,11 @@ const CriarDisciplina = () => {
     vemPelaRotadeScan: string;
   }>();
 
-  let disciplinasArray: any[];
-  if (params.disciplinas) {
-    disciplinasArray = JSON.parse(params.disciplinas);
-  }
-
   const [nome, setNome] = React.useState("");
   const [error, setError] = React.useState<string | null>(null);
   const [createDisabled, setCreateDisabled] = React.useState<boolean>(true);
 
   const API_URL = process.env.EXPO_PUBLIC_API_URL;
-
-  const handleChangeText = (nomeDisciplina: string) => {
-    if (/^(?!.*\s$)(?!^\s).*$/g.test(nomeDisciplina)) {
-      setNome(nomeDisciplina);
-    }
-  };
 
   React.useEffect(() => {
     if (nome.length > 4) {
@@ -34,7 +23,14 @@ const CriarDisciplina = () => {
     }
   }, [nome]);
 
+  let disciplinasArray: any[];
+
   const handleCreation = async () => {
+    if (params.disciplinas) {
+      disciplinasArray = JSON.parse(params.disciplinas);
+    } else {
+      disciplinasArray = [];
+    }
     setCreateDisabled(true);
     try {
       const response = await fetch(`${API_URL}/disciplinas`, {
@@ -51,7 +47,8 @@ const CriarDisciplina = () => {
       } else {
         const data = await response.json();
 
-        if (params.vemPelaRotadeScan !== undefined) {
+        if (typeof params.vemPelaRotadeScan !== "undefined") {
+          console.log("Redirecionando para rota de scan...");
           router.replace("/home/(scan)/");
           router.push({
             pathname: "/home/(scan)/dadosProvaCriar",
@@ -62,6 +59,7 @@ const CriarDisciplina = () => {
             },
           });
         } else {
+          console.log("Redirecionando para rota de turmas...");
           disciplinasArray.push({
             id: data.id,
             nome: nome,
@@ -80,12 +78,10 @@ const CriarDisciplina = () => {
         }
       }
     } catch (e) {
-      if (typeof e === "string") {
-        e.toUpperCase();
-        setError(e || "Erro ao cadastrar Disciplina");
-      } else if (e instanceof Error) {
-        e.message;
-      }
+      console.error("Erro ao tentar criar a disciplina:", e);
+      setError(e.message || "Erro ao cadastrar Disciplina");
+    } finally {
+      setCreateDisabled(false);
     }
   };
 
@@ -104,7 +100,7 @@ const CriarDisciplina = () => {
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-80 p-2.5"
           placeholder="Exemplo: Matématica"
           value={nome}
-          onChangeText={handleChangeText}
+          onChangeText={(value) => setNome(value)}
           autoCapitalize="words"
         />
       </View>

@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { router } from "expo-router";
-
+import AuthContext from "@/app/AuthContext";
+import { MMKV } from "react-native-mmkv";
+export const storage = new MMKV();
 const FormNomeScreen = ({
   nomeParam,
   emailParam,
@@ -13,6 +15,9 @@ const FormNomeScreen = ({
   const nomeFormt = nomeParam.split(" ")[0];
   React.useEffect(() => {}, []);
 
+  const token = storage.getString("token");
+
+  const { login } = React.useContext(AuthContext);
   return (
     <View className=" h-full bg-white">
       <View>
@@ -26,7 +31,10 @@ const FormNomeScreen = ({
           {telefoneParam}
         </Text>
         <View className="items-center justify-center h-64">
-          <TouchableOpacity className="mt-10 bg-green-600 w-52 h-14 items-center justify-center rounded-md">
+          <TouchableOpacity
+            className="mt-10 bg-green-600 w-52 h-14 items-center justify-center rounded-md"
+            onPress={() => login(token)}
+          >
             <Text className="text-lg font-bold text-white ">Validar Agora</Text>
           </TouchableOpacity>
           <TouchableOpacity className="mt-2 bg-yellow-300 w-52 h-14 items-center justify-center rounded-md">

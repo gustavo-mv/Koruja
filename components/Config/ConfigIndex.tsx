@@ -6,6 +6,7 @@ import Avatar from "./Avatar";
 import { Feather, Octicons, Fontisto } from "@expo/vector-icons";
 import LottieView from "lottie-react-native";
 import { router } from "expo-router";
+import UserAccountType from "./UserAccountType";
 
 type ConfigIndexProps = {
   logout: () => void;
@@ -38,7 +39,7 @@ const ConfigIndex: React.FC<ConfigIndexProps> = ({
             ref={backgroundHeader}
             style={{
               width: 500,
-              height: 950,
+              height: 1100,
               position: "absolute",
               top: -300,
               left: -30,
@@ -52,6 +53,7 @@ const ConfigIndex: React.FC<ConfigIndexProps> = ({
                 avatarNumber={userGlobalData.nIcone}
                 userId={userGlobalData.id}
               />
+
               <Feather
                 name="edit"
                 size={24}
@@ -69,6 +71,10 @@ const ConfigIndex: React.FC<ConfigIndexProps> = ({
             <Text className="mt-5 font-extrabold self-center text-3xl w-72 text-center text-white p-2">
               {userGlobalData.nome}
             </Text>
+            <UserAccountType
+              tipoConta={userGlobalData.tipo}
+              data={userGlobalData.dataFimAssinatura}
+            />
           </View>
         </View>
         <View

@@ -3,7 +3,7 @@ import React from "react";
 import TurmaInfoScreen from "@/screens/turmas/TurmaInfoScreen";
 import { useLocalSearchParams } from "expo-router";
 
-const turma = () => {
+const Turma = () => {
   const params = useLocalSearchParams<{
     nome: string;
     turmaId: string;
@@ -11,16 +11,16 @@ const turma = () => {
     professorId: string;
   }>();
 
-  let disciplinasArray;
+  // Inicializa disciplinasArray como array vazio
+  let disciplinasArray = [];
+
+  // Parse de params.disciplinas se estiver presente
   if (params.disciplinas) {
     disciplinasArray = JSON.parse(params.disciplinas);
   }
-  if (
-    params.nome &&
-    params.turmaId &&
-    params.disciplinas &&
-    params.professorId
-  ) {
+
+  // Verifica se todos os parâmetros necessários estão presentes
+  if (params.nome && params.turmaId && params.professorId) {
     return (
       <View>
         <TurmaInfoScreen
@@ -31,7 +31,10 @@ const turma = () => {
         />
       </View>
     );
-  } else return null;
+  } else {
+    // Renderiza null se qualquer parâmetro obrigatório estiver ausente
+    return null;
+  }
 };
 
-export default turma;
+export default Turma;

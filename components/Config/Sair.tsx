@@ -2,6 +2,7 @@ import { View, Modal, Text, TouchableOpacity, StyleSheet } from "react-native";
 import React from "react";
 import Icon from "@expo/vector-icons/MaterialIcons";
 import Out from "./../../assets/out.svg";
+import { router } from "expo-router";
 
 type SairProps = {
   logout: () => void;

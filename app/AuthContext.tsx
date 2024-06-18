@@ -69,10 +69,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const logout = async () => {
     try {
+      router.replace("/login");
       await storage.clearAll();
       setToken(null);
       setUserGlobalData(null);
-      router.replace("/login");
     } catch (error) {
       console.error("Error logging out:", error);
     }
