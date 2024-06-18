@@ -54,7 +54,7 @@ const Avatar: React.FC<AvatarProps> = ({ avatarNumber, userId }) => {
       console.log("Erro em trocar de ícone");
       throw new Error("Erro ao alterar ícone");
     } else {
-      console.log("deu bom");
+      console.log("Troca de ícone realizada");
     }
   };
 
@@ -69,7 +69,7 @@ const Avatar: React.FC<AvatarProps> = ({ avatarNumber, userId }) => {
       <Modal visible={modalVisible} animationType="slide" transparent={true}>
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Escolha seu avatar</Text>
+            <Text className="font-bold text-xl mb-3">Escolha seu avatar</Text>
             <ScrollView contentContainerStyle={styles.scrollContainer}>
               {Object.keys(avatars).map((key) => {
                 const AvatarComponent = avatars[key];
@@ -123,10 +123,7 @@ const styles = StyleSheet.create({
     padding: 20,
     alignItems: "center",
   },
-  modalTitle: {
-    fontSize: 18,
-    marginBottom: 20,
-  },
+
   scrollContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
@@ -145,7 +142,7 @@ const styles = StyleSheet.create({
   closeButton: {
     marginTop: 20,
     padding: 10,
-    backgroundColor: "blue",
+    backgroundColor: "red",
     borderRadius: 7,
   },
   closeButtonText: {
