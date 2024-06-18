@@ -1,4 +1,11 @@
-import { View, Modal, Text, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  View,
+  Modal,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+} from "react-native";
 import React from "react";
 
 import Avatar0 from "@/assets/avatars/avatar0.svg";
@@ -21,13 +28,75 @@ const avatars: any = {
 
 interface AvatarProps {
   avatarNumber: number;
+  userId: string;
 }
+const API_URL = process.env.EXPO_PUBLIC_API_URL;
 
-const Avatar: React.FC<AvatarProps> = ({ avatarNumber }) => {
-  const SelectedAvatar = avatars[avatarNumber];
+const Avatar: React.FC<AvatarProps> = ({ avatarNumber, userId }) => {
+  const [selectedAvatar, setSelectedAvatar] = React.useState(avatarNumber);
+  const [modalVisible, setModalVisible] = React.useState(false);
+
+  const SelectedAvatar = avatars[selectedAvatar];
+  const handleAvatarPress = async (number: number) => {
+    setSelectedAvatar(number);
+    setModalVisible(false);
+    const response = await fetch(`${API_URL}/professores/${userId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        nIcone: number,
+      }),
+    });
+
+    if (!response.ok) {
+      console.log("Erro em trocar de ícone");
+      throw new Error("Erro ao alterar ícone");
+    } else {
+      console.log("deu bom");
+    }
+  };
+
   return (
-    <View style={styles.avatarContainer}>
-      <SelectedAvatar width={120} height={120} />
+    <View>
+      <TouchableOpacity onPress={() => setModalVisible(true)}>
+        <View style={styles.avatarContainer}>
+          <SelectedAvatar width={120} height={120} />
+        </View>
+      </TouchableOpacity>
+
+      <Modal visible={modalVisible} animationType="slide" transparent={true}>
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Escolha seu avatar</Text>
+            <ScrollView contentContainerStyle={styles.scrollContainer}>
+              {Object.keys(avatars).map((key) => {
+                const AvatarComponent = avatars[key];
+                const isSelected = parseInt(key) === selectedAvatar;
+                return (
+                  <TouchableOpacity
+                    key={key}
+                    onPress={() => handleAvatarPress(parseInt(key))}
+                    style={[
+                      styles.avatarOption,
+                      isSelected && styles.selectedAvatarOption,
+                    ]}
+                  >
+                    <AvatarComponent width={80} height={80} />
+                  </TouchableOpacity>
+                );
+              })}
+            </ScrollView>
+            <TouchableOpacity
+              onPress={() => setModalVisible(false)}
+              style={styles.closeButton}
+            >
+              <Text style={styles.closeButtonText}>Fechar</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -40,6 +109,48 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     borderWidth: 2,
     borderColor: "black",
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0,0,0,0.5)",
+  },
+  modalContent: {
+    width: "80%",
+    backgroundColor: "white",
+    borderRadius: 10,
+    padding: 20,
+    alignItems: "center",
+  },
+  modalTitle: {
+    fontSize: 18,
+    marginBottom: 20,
+  },
+  scrollContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+  },
+  avatarOption: {
+    margin: 10,
+    borderRadius: 40,
+    borderWidth: 2,
+    borderColor: "transparent",
+    overflow: "hidden",
+  },
+  selectedAvatarOption: {
+    borderColor: "blue",
+  },
+  closeButton: {
+    marginTop: 20,
+    padding: 10,
+    backgroundColor: "blue",
+    borderRadius: 7,
+  },
+  closeButtonText: {
+    color: "white",
+    fontWeight: "bold",
   },
 });
 

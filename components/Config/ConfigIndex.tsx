@@ -47,7 +47,10 @@ const ConfigIndex: React.FC<ConfigIndexProps> = ({
           />
           <View className="items-center mt-32 mb-8">
             <TouchableOpacity>
-              <Avatar avatarNumber={userGlobalData.nlcone} />
+              <Avatar
+                avatarNumber={userGlobalData.nIcone}
+                userId={userGlobalData.id}
+              />
               <Feather
                 name="edit"
                 size={24}
