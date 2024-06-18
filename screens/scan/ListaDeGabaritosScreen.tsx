@@ -14,6 +14,7 @@ const ListaDeGabaritosScreen: React.FC<{ idProf: string }> = ({ idProf }) => {
   const [data, setData] = useState<ProvaModel[]>([]);
   const [page, setPage] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(false);
+  const [semGabaritos, setSemGabaritos] = useState<boolean>(false);
 
   useEffect(() => {
     fetchData();
@@ -31,11 +32,22 @@ const ListaDeGabaritosScreen: React.FC<{ idProf: string }> = ({ idProf }) => {
     fetch(apiUrl)
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Erro ao buscar dados");
+          switch (response.status) {
+            case 404:
+              setSemGabaritos(true);
+              setLoading(false);
+              break;
+            default:
+              throw new Error("Erro ao buscar dados");
+          }
         }
         return response.json();
       })
-      .then((newData: ProvaModel[]) => {
+      .then((newData) => {
+        if (!Array.isArray(newData)) {
+          throw new Error("Os dados retornados não são um array.");
+        }
+
         if (newData.length === 0) {
           setLoading(false);
           return;
@@ -59,7 +71,6 @@ const ListaDeGabaritosScreen: React.FC<{ idProf: string }> = ({ idProf }) => {
       }).format(date);
       return formattedDate;
     };
-
     return (
       <Link
         asChild
@@ -136,6 +147,16 @@ const ListaDeGabaritosScreen: React.FC<{ idProf: string }> = ({ idProf }) => {
         onEndReached={handleEndReached}
         onEndReachedThreshold={0.1}
       />
+      {semGabaritos && (
+        <View className="h-80 items-center">
+          <Text className="text-xl font-bold text-white w-64 text-center">
+            Você ainda não possui nenhum Gabarito.
+          </Text>
+          <TouchableOpacity className="h-12 bg-white mt-10 rounded-lg justify-center">
+            <Text className="m-2 font-bold text-xl">Criar Gabarito</Text>
+          </TouchableOpacity>
+        </View>
+      )}
       {loading && (
         <View className=" p-3 flex-row space-x-5 items-center justify-center m-4 rounded-lg bg-white">
           <ActivityIndicator size={"large"} color={"black"} />

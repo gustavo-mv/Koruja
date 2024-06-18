@@ -1,8 +1,9 @@
 import { TurmaProps } from "@/models/TurmaProps";
 import React from "react";
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 
 import CardPickDisciplina from "./CardPickDisciplina";
+import { router } from "expo-router";
 
 const EscolherTurma: React.FC<{ idProf: string }> = ({ idProf }) => {
   const [turmas, setTurmas] = React.useState<TurmaProps[]>([]);
@@ -41,9 +42,24 @@ const EscolherTurma: React.FC<{ idProf: string }> = ({ idProf }) => {
           />
         ))
       ) : (
-        <Text>
-          Você não possui turmas ou disciplinas, crie na aba "Turmas".
-        </Text>
+        <View className="w-full items-center">
+          <Text className="text-white w-80 text-center mt-10 text-xl font-bold">
+            Você ainda não criou nenhuma turma.
+          </Text>
+          <TouchableOpacity
+            className="bg-green-500 rounded-md w-40 h-12 items-center justify-center mt-10"
+            onPress={() => {
+              router.replace({
+                pathname: "/home/(turmas)/novaturma",
+                params: { idProfessor: idProf },
+              });
+            }}
+          >
+            <Text className="text-white font-extrabold text-center text-xl">
+              Criar Turma
+            </Text>
+          </TouchableOpacity>
+        </View>
       )}
     </ScrollView>
   );

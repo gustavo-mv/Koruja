@@ -1,26 +1,19 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import React from "react";
 import { CriarProvaInfo } from "@/models/CriarProvaInfo";
 import { Link } from "expo-router";
-import RNPickerSelect from "react-native-picker-select";
+import { Picker } from "@react-native-picker/picker";
 
 const InfoCriarQuestoesScreen: React.FC<CriarProvaInfo> = (disciplina) => {
-  const [questoes, setQuestoes] = React.useState<null | number>(null);
-  const [alternativas, setAlternativas] = React.useState<null | string>(null);
+  const [questoes, setQuestoes] = React.useState<number | null>(null);
+  const [alternativas, setAlternativas] = React.useState<number | null>(null);
   const [disabledNext, setDisabledNext] = React.useState<boolean>(true);
 
   React.useEffect(() => {
-    if (questoes === null || alternativas === null) {
-      setDisabledNext(true);
-    } else {
-      setDisabledNext(false);
-    }
+    setDisabledNext(questoes === null || alternativas === null);
   }, [questoes, alternativas]);
 
-  const questoesOptions = Array.from({ length: 20 }, (_, i) => ({
-    label: (i + 1).toString(),
-    value: i + 1,
-  }));
+  const questoesOptions = Array.from({ length: 20 }, (_, i) => i + 1);
   const alternativasOptions = [
     { label: "A, B", value: 2 },
     { label: "A, B, C", value: 3 },
@@ -30,124 +23,44 @@ const InfoCriarQuestoesScreen: React.FC<CriarProvaInfo> = (disciplina) => {
   ];
 
   return (
-    <View className="h-full w-full">
-      <View className=" h-full  bg-black items-center">
-        <Text className="w-44 text-center bg-green-200 text-3xl rounded-md p-3 text-black font-bold mb-4">
-          {disciplina.nomeProva}
-        </Text>
-        <Text className="w-44 text-center text-gray-300 rounded-md font-bold text-md mb-8">
-          {disciplina.assunto}
-        </Text>
-        <View className=" items-end mb-7">
-          <View className=" flex-row justify-center">
-            <Text className=" p-2 text-3xl font-bold text-white tracking-wider">
-              Questões:
-            </Text>
-            <RNPickerSelect
-              placeholder={{ label: "Selecione", value: null }}
-              value={questoes}
-              onValueChange={(value) => setQuestoes(value)}
-              items={questoesOptions}
-              style={{
-                inputIOS: {
-                  fontSize: 16,
-                  paddingVertical: 12,
-                  paddingHorizontal: 10,
-                  borderWidth: 1,
-                  borderColor: "gray",
-                  borderRadius: 4,
-                  color: "black",
-                  paddingRight: 30,
-                },
-                inputAndroid: {
-                  fontSize: 16,
-                  paddingHorizontal: 10,
-                  paddingVertical: 8,
-                  borderWidth: 0.5,
-                  borderColor: "purple",
-                  borderRadius: 8,
-                  color: "black",
-                  paddingRight: 30,
-                },
-                placeholder: {
-                  color: "gray",
-                },
-                iconContainer: {
-                  top: 10,
-                  right: 12,
-                },
-
-                viewContainer: {
-                  borderWidth: 1,
-                  borderRadius: 8,
-                  width: 180,
-                  backgroundColor: "white",
-                },
-
-                chevronContainer: {
-                  display: "none",
-                },
-                modalViewMiddle: {
-                  backgroundColor: "yellow",
-                },
-                done: {
-                  color: "green",
-                },
-              }}
-            />
+    <View style={styles.container}>
+      <View style={styles.content}>
+        <Text style={styles.title}>{disciplina.nomeProva}</Text>
+        <Text style={styles.subtitle}>{disciplina.assunto}</Text>
+        <View style={styles.pickerContainer}>
+          <View style={styles.pickerWrapper}>
+            <Text style={styles.pickerLabel}>Questões:</Text>
+            <Picker
+              selectedValue={questoes}
+              onValueChange={(itemValue) => setQuestoes(itemValue)}
+              style={styles.picker}
+            >
+              <Picker.Item label="Selecione" value={null} />
+              {questoesOptions.map((option) => (
+                <Picker.Item
+                  key={option}
+                  label={option.toString()}
+                  value={option}
+                />
+              ))}
+            </Picker>
           </View>
-
-          <View className="flex-row mt-5">
-            <Text className=" p-2 font-bold text-white text-3xl">
-              Alternativas:
-            </Text>
-            <RNPickerSelect
-              placeholder={{ label: "Selecione", value: null }}
-              value={alternativas}
-              onValueChange={(value) => setAlternativas(value)}
-              items={alternativasOptions}
-              style={{
-                inputIOS: {
-                  fontSize: 16,
-                  paddingVertical: 12,
-                  paddingHorizontal: 10,
-                  borderWidth: 1,
-                  borderColor: "gray",
-                  borderRadius: 4,
-                  color: "black",
-                  paddingRight: 30,
-                },
-                inputAndroid: {
-                  fontSize: 16,
-                  paddingHorizontal: 10,
-                  paddingVertical: 8,
-                  borderWidth: 0.5,
-                  borderColor: "purple",
-                  borderRadius: 8,
-                  color: "black",
-                  paddingRight: 30,
-                },
-                placeholder: {
-                  color: "gray",
-                },
-
-                viewContainer: {
-                  borderWidth: 1,
-                  borderRadius: 8,
-                  width: 180,
-                  backgroundColor: "white",
-                },
-                chevronContainer: {
-                  display: "none",
-                },
-                modalViewMiddle: {
-                  backgroundColor: "yellow",
-                },
-                done: {
-                  color: "green",
-                },
-              }}
-            />
+          <View style={styles.pickerWrapper}>
+            <Text style={styles.pickerLabel}>Alternativas:</Text>
+            <Picker
+              selectedValue={alternativas}
+              onValueChange={(itemValue) => setAlternativas(itemValue)}
+              style={styles.picker}
+            >
+              <Picker.Item label="Selecione" value={null} />
+              {alternativasOptions.map((option) => (
+                <Picker.Item
+                  key={option.value}
+                  label={option.label}
+                  value={option.value}
+                />
+              ))}
+            </Picker>
           </View>
         </View>
         <Link
@@ -167,16 +80,84 @@ const InfoCriarQuestoesScreen: React.FC<CriarProvaInfo> = (disciplina) => {
         >
           <TouchableOpacity
             disabled={disabledNext}
-            className={`${
-              disabledNext ? "opacity-50" : ""
-            } bg-green-500 mt-5 w-32 rounded-md p-3 mb-5`}
+            style={[styles.button, disabledNext && styles.buttonDisabled]}
           >
-            <Text className=" text-center text-base font-bold">Próximo</Text>
+            <Text style={styles.buttonText}>Próximo</Text>
           </TouchableOpacity>
         </Link>
       </View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "black",
+    alignItems: "center",
+  },
+  content: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  title: {
+    width: 200,
+    textAlign: "center",
+    backgroundColor: "#A5D6A7",
+    fontSize: 24,
+    borderRadius: 8,
+    padding: 12,
+    color: "black",
+    fontWeight: "bold",
+    marginBottom: 16,
+  },
+  subtitle: {
+    width: 200,
+    textAlign: "center",
+    color: "#BDBDBD",
+    fontWeight: "bold",
+    fontSize: 16,
+    marginBottom: 32,
+  },
+  pickerContainer: {
+    width: "100%",
+    alignItems: "flex-end",
+    marginBottom: 28,
+  },
+  pickerWrapper: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 16,
+  },
+  pickerLabel: {
+    paddingRight: 16,
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "white",
+  },
+  picker: {
+    width: 180,
+    backgroundColor: "white",
+    borderRadius: 8,
+  },
+  button: {
+    backgroundColor: "#66BB6A",
+    width: 128,
+    borderRadius: 8,
+    padding: 12,
+    alignItems: "center",
+    marginBottom: 20,
+  },
+  buttonDisabled: {
+    opacity: 0.5,
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+});
 
 export default InfoCriarQuestoesScreen;

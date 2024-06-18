@@ -8,6 +8,7 @@ const CriarDisciplina = () => {
     turmaId: string;
     disciplinas: string;
     professorId: string;
+    vemPelaRotadeScan: string;
   }>();
 
   let disciplinasArray: any[];
@@ -50,21 +51,33 @@ const CriarDisciplina = () => {
       } else {
         const data = await response.json();
 
-        disciplinasArray.push({
-          id: data.id,
-          nome: nome,
-          turmaId: params.turmaId,
-        });
-        router.replace("/home/(tabs)/turmas");
-        router.push({
-          pathname: "/home/(turmas)/[turmaId]",
-          params: {
-            nome: params.nome,
+        if (params.vemPelaRotadeScan !== undefined) {
+          router.replace("/home/(scan)/");
+          router.push({
+            pathname: "/home/(scan)/dadosProvaCriar",
+            params: {
+              turmaId: params.turmaId,
+              disciplinaNome: nome,
+              disciplinaId: data.id,
+            },
+          });
+        } else {
+          disciplinasArray.push({
+            id: data.id,
+            nome: nome,
             turmaId: params.turmaId,
-            disciplinas: JSON.stringify(disciplinasArray),
-            professorId: params.professorId,
-          },
-        });
+          });
+          router.replace("/home/(tabs)/turmas");
+          router.push({
+            pathname: "/home/(turmas)/[turmaId]",
+            params: {
+              nome: params.nome,
+              turmaId: params.turmaId,
+              disciplinas: JSON.stringify(disciplinasArray),
+              professorId: params.professorId,
+            },
+          });
+        }
       }
     } catch (e) {
       if (typeof e === "string") {

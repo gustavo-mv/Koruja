@@ -2,11 +2,13 @@ import { View, Text, TouchableOpacity, Modal, ScrollView } from "react-native";
 import React from "react";
 import { TurmaProps } from "@/models/TurmaProps";
 import { AntDesign } from "@expo/vector-icons";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 
 const CardPickDisciplina: React.FC<TurmaProps & { index: number }> = ({
   nome,
+  id,
   disciplinas,
+  professorId,
 }) => {
   const [modalDisciplinasVisivel, setModalDisciplinasVisivel] =
     React.useState(false);
@@ -66,7 +68,20 @@ const CardPickDisciplina: React.FC<TurmaProps & { index: number }> = ({
                   {" "}
                   Não foram encontradas Disciplinas nessa Turma
                 </Text>
-                <TouchableOpacity className="h-12 w-40 bg-green-400 rounded-lg items-center justify-center">
+                <TouchableOpacity
+                  className="h-12 w-40 bg-green-400 rounded-lg items-center justify-center"
+                  onPress={() => {
+                    router.replace({
+                      pathname: "/home/(turmas)/criarDisciplina",
+                      params: {
+                        nome: nome,
+                        turmaId: id,
+                        professorId: professorId,
+                        vemPelaRotadeScan: 1,
+                      },
+                    });
+                  }}
+                >
                   <Text className=" font-semibold">Adicionar Disciplina</Text>
                 </TouchableOpacity>
               </View>
