@@ -22,6 +22,12 @@ export default function HomeLayout() {
           headerShown: false,
         }}
       />
+      <Stack.Screen
+        name="(conf)"
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack>
   );
 }

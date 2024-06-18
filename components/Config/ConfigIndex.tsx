@@ -5,6 +5,7 @@ import User from "@/models/User";
 import Avatar from "./Avatar";
 import { Feather, Octicons, Fontisto } from "@expo/vector-icons";
 import LottieView from "lottie-react-native";
+import { router } from "expo-router";
 
 type ConfigIndexProps = {
   logout: () => void;
@@ -83,7 +84,7 @@ const ConfigIndex: React.FC<ConfigIndexProps> = ({
                 <Text className="font-bold text-lg mb-3">Configurações</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => router.push("/home/(conf)/code")}>
               <View className=" bg-green-500 w-40 h-32 rounded-lg items-center justify-end">
                 <View className=" flex-row space-x-1 mb-5">
                   <Octicons name="key-asterisk" size={30} color="black" />
