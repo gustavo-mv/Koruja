@@ -1,23 +1,47 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { router } from "expo-router";
 import AuthContext from "@/app/AuthContext";
-import { MMKV } from "react-native-mmkv";
-export const storage = new MMKV();
-const FormNomeScreen = ({
-  nomeParam,
-  emailParam,
-  senhaParam,
-  telefoneParam,
-}: any) => {
+
+const FormNomeScreen = ({ nomeParam, userId, token, telefoneParam }: any) => {
+  const { logout } = useContext(AuthContext);
+
   const [disabled, setDisabled] = useState(true);
   const nomeFormt = nomeParam.split(" ")[0];
   React.useEffect(() => {}, []);
 
-  const token = storage.getString("token");
+  console.log(nomeParam, userId, token, telefoneParam);
 
-  const { login } = React.useContext(AuthContext);
+  const API_URL = process.env.EXPO_PUBLIC_API_URL;
+
+  async function handleLogOut() {
+    logout();
+  }
+
+  async function handleAprove() {
+    try {
+      const response = await fetch(`${API_URL}/professores/${userId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          telefoneValidado: true,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Erro na Validação de Conta");
+      }
+
+      router.replace("/home");
+    } catch (error) {
+      console.error("Erro na Validação de Conta:", error);
+    }
+  }
+
   return (
     <View className=" h-full bg-white">
       <View>
@@ -33,7 +57,7 @@ const FormNomeScreen = ({
         <View className="items-center justify-center h-64">
           <TouchableOpacity
             className="mt-10 bg-green-600 w-52 h-14 items-center justify-center rounded-md"
-            onPress={() => login(token)}
+            onPress={() => handleAprove()}
           >
             <Text className="text-lg font-bold text-white ">Validar Agora</Text>
           </TouchableOpacity>
@@ -41,7 +65,12 @@ const FormNomeScreen = ({
             <Text className="text-lg font-bold">Número errado?</Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity className="mt-40 bg-red-500  w-52 h-12 items-center justify-center self-center rounded-md">
+        <TouchableOpacity
+          className="mt-40 bg-red-500  w-52 h-12 items-center justify-center self-center rounded-md"
+          onPress={() => {
+            handleLogOut();
+          }}
+        >
           <Text className="text-lg font-bold text-white">Sair da Conta</Text>
         </TouchableOpacity>
       </View>

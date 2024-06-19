@@ -29,7 +29,7 @@ export default function LoginLayout() {
         }}
       />
       <Stack.Screen
-        name="validations"
+        name="validationToGoToPassword"
         options={{
           title: "",
           headerStyle: { backgroundColor: "white" },
@@ -37,6 +37,25 @@ export default function LoginLayout() {
           headerTintColor: "black",
         }}
       />
+      <Stack.Screen
+        name="validationToGoToEmail"
+        options={{
+          title: "",
+          headerStyle: { backgroundColor: "white" },
+          headerShadowVisible: false,
+          headerTintColor: "black",
+        }}
+      />
+      <Stack.Screen
+        name="validationToGoToTelephone"
+        options={{
+          title: "",
+          headerStyle: { backgroundColor: "white" },
+          headerShadowVisible: false,
+          headerTintColor: "black",
+        }}
+      />
+
       <Stack.Screen
         name="contaCriada"
         options={{

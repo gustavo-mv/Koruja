@@ -2,32 +2,33 @@ import React from "react";
 import { useLocalSearchParams } from "expo-router";
 import ContaCriadaScreen from "@/screens/login/ContaCriadaScreen";
 
-const validations = () => {
+const contaCriada = () => {
   const params = useLocalSearchParams<{
     nome: string;
     email: string;
-    senha: string;
     telefone: string;
-  }>();
+    token: string;
 
-  console.log(params);
+    userId: string;
+  }>();
 
   if (!params) {
     return null;
   }
 
-  const { nome, email, senha, telefone } = params;
+  const { nome, email, telefone, token, userId } = params;
 
-  if (nome && email && senha && telefone) {
+  if (nome && email && telefone && token && userId) {
     return (
       <ContaCriadaScreen
         nomeParam={nome}
         emailParam={email}
-        senhaParam={senha}
         telefoneParam={telefone}
+        userId={userId}
+        token={token}
       />
     );
   }
 };
 
-export default validations;
+export default contaCriada;

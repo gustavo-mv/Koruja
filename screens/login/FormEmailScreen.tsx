@@ -22,7 +22,7 @@ const FormEmailScreen = ({ nomeParam }) => {
 
   function handleNext() {
     router.push({
-      pathname: "/login/validations",
+      pathname: "/login/validationToGoToPassword",
       params: {
         nome: nomeParam,
         email: email,

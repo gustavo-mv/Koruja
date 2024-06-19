@@ -47,13 +47,7 @@ const FormTelefoneScreen = ({ nomeParam, emailParam, senhaParam }: any) => {
 
       await storage.set("token", JSON.stringify(data.access_token));
       router.replace({
-        pathname: "/login/contaCriada",
-        params: {
-          nome: nomeParam,
-          email: emailParam,
-          senha: senhaParam,
-          telefone: telefone,
-        },
+        pathname: "/",
       });
     }
   }

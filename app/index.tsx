@@ -35,8 +35,23 @@ const index = () => {
           }
 
           const data = await response.json();
+
           dataUser(data);
-          router.replace("/home");
+
+          if (data.telefoneValidado === false) {
+            router.replace({
+              pathname: "/login/contaCriada",
+              params: {
+                nome: data.nome,
+                email: data.email,
+                telefone: data.telefone,
+                userId: data.id,
+                token: token,
+              },
+            });
+          } else {
+            router.replace("/home");
+          }
         } catch (error) {
           console.error("Erro ao buscar dados:", error);
           router.replace("/login");

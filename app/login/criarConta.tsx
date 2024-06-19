@@ -1,8 +1,8 @@
 import React from "react";
 import FormNomeScreen from "@/screens/login/FormNomeScreen";
 
-const index = () => {
+const criarConta = () => {
   return <FormNomeScreen />;
 };
 
-export default index;
+export default criarConta;

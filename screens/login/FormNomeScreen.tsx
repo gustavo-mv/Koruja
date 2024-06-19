@@ -10,15 +10,14 @@ const FormNomeScreen = () => {
 
   function handleNext() {
     router.push({
-      pathname: "/login/validations",
+      pathname: "/login/validationToGoToEmail",
       params: {
-        nome: nome.trim(), // Remover espaços em branco no início e no final
+        nome: nome.trim(),
       },
     });
   }
 
   React.useEffect(() => {
-    // Remover espaços em branco no início e no final e verificar se ainda há caracteres no nome
     if (nome.trim().length > 2) {
       setDisabled(false);
     } else {

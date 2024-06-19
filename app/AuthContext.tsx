@@ -57,6 +57,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
+  const loginFromCreation = async (userData: string) => {
+    try {
+      await storage.set("token", JSON.stringify(userData));
+      setToken(userData);
+      router.replace("/");
+    } catch (error) {
+      console.error("Error logging in:", error);
+    }
+  };
+
   const login = async (userData: string) => {
     try {
       await storage.set("token", JSON.stringify(userData));
