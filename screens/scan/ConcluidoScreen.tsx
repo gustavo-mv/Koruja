@@ -1,8 +1,9 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, Touchable } from "react-native";
 import React from "react";
 import LottieView from "lottie-react-native";
 import { CriarProvaInfoFinal } from "@/models/CriarProvaInfoFinal";
 import { router } from "expo-router";
+import ErrorCreating from "@/assets/errorCreating.svg";
 
 const ConcluidoScreen: React.FC<CriarProvaInfoFinal> = (prova) => {
   const [error, setError] = React.useState<string | null>(null);
@@ -71,7 +72,7 @@ const ConcluidoScreen: React.FC<CriarProvaInfoFinal> = (prova) => {
   };
 
   return (
-    <View className="h-full items-center justify-center">
+    <View className="h-full items-center justify-center w-full bg-white">
       {error && <Text>{error}</Text>}
       {loading && (
         <View className=" h-full justify-center items-center self-center">
@@ -81,8 +82,23 @@ const ConcluidoScreen: React.FC<CriarProvaInfoFinal> = (prova) => {
         </View>
       )}
 
+      {error && (
+        <View className=" h-full justify-center items-center self-center bg-white w-full">
+          <ErrorCreating height={250} width={250} />
+          <Text className=" w-80 text-center text-3xl font-bold mb-5">
+            Algo errado aconteceu ao gerar prova :(
+          </Text>
+          <Text className=" text-center text-md text-red-500 font-bold mb-3">
+            Tente novamente mais tarde
+          </Text>
+          <TouchableOpacity className="bg-green-400 rounded-md">
+            <Text className="m-2 text-xl font-bold">Voltar ao Início</Text>
+          </TouchableOpacity>
+        </View>
+      )}
+
       {okMessage && (
-        <View className=" items-center">
+        <View className=" items-center bg-white w-full h-full">
           <LottieView
             loop={false}
             autoPlay={false}
@@ -103,21 +119,24 @@ const ConcluidoScreen: React.FC<CriarProvaInfoFinal> = (prova) => {
               width: 450,
               height: 250,
               position: "absolute",
-              bottom: 120,
+              bottom: 380,
             }}
             autoPlay
             loop
           />
-
-          <Text className=" w-52 text-center text-3xl font-bold mb-10">
-            {okMessage}
-          </Text>
-          <TouchableOpacity
-            className=" bg-green-500 rounded-lg items-center p-5"
-            onPress={handleClick}
-          >
-            <Text className=" font-bold text-lg">Conferir Lista de Provas</Text>
-          </TouchableOpacity>
+          <View className="mt-96 items-center justify-center">
+            <Text className=" w-52 text-center text-3xl font-bold mb-10">
+              {okMessage}
+            </Text>
+            <TouchableOpacity
+              className=" bg-green-500 rounded-lg items-center p-5"
+              onPress={handleClick}
+            >
+              <Text className=" font-bold text-lg">
+                Conferir Lista de Provas
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
       )}
     </View>
