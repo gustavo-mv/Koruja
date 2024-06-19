@@ -10,7 +10,7 @@ import {
 } from "react-native";
 
 function handleLogin() {
-  router.push("/login/login");
+  router.push("/login/loginForm");
 }
 function handleCreateAccount() {
   router.push("/login/criarConta");

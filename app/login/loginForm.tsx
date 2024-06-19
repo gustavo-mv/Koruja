@@ -7,7 +7,7 @@ import {
   StyleSheet,
   Image,
 } from "react-native";
-import AuthContext from "./../AuthContext";
+import AuthContext from "../AuthContext";
 
 const API_URL = process.env.EXPO_PUBLIC_API_URL;
 

@@ -11,7 +11,7 @@ export default function LoginLayout() {
         }}
       />
       <Stack.Screen
-        name="login"
+        name="loginForm"
         options={{
           title: "",
           headerStyle: { backgroundColor: "transparent" },
