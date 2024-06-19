@@ -11,6 +11,8 @@ const Turma = () => {
     professorId: string;
   }>();
 
+  console.log(params);
+
   // Inicializa disciplinasArray como array vazio
   let disciplinasArray = [];
 

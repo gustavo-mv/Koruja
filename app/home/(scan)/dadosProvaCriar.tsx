@@ -17,10 +17,7 @@ const DadosProvaCriar = () => {
     disciplinaId: params.disciplinaId as string,
     turmaNome: params.turmaNome as string,
   };
-
-  {
-    return <DadosProvaCriarScreen {...disciplinaFromParams} />;
-  }
+  return <DadosProvaCriarScreen {...disciplinaFromParams} />;
 };
 
 export default DadosProvaCriar;

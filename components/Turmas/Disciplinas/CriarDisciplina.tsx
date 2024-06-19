@@ -23,7 +23,7 @@ const CriarDisciplina = () => {
     }
   }, [nome]);
 
-  let disciplinasArray: any[];
+  let disciplinasArray = [];
 
   const handleCreation = async () => {
     if (params.disciplinas) {
@@ -60,11 +60,13 @@ const CriarDisciplina = () => {
           });
         } else {
           console.log("Redirecionando para rota de turmas...");
-          disciplinasArray.push({
+          await disciplinasArray.push({
             id: data.id,
             nome: nome,
             turmaId: params.turmaId,
           });
+          console.log(disciplinasArray);
+
           router.replace("/home/(tabs)/turmas");
           router.push({
             pathname: "/home/(turmas)/[turmaId]",
