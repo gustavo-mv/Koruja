@@ -39,7 +39,7 @@ const ButtonHeaderHelpDisciplina: React.FC<
   }, [nomeEdit, editarDisabled]);
 
   const handleChangeText = (nomeEditar: string) => {
-    if (/^(?!.*\s$)(?!^\s).*$/g.test(nomeEditar)) {
+    if (/^(?!.*\s{2,})(?!^\s)(?!.*\s\s$).*$/.test(nomeEditar)) {
       setNomeEdit(nomeEditar);
       setEditarDisabled(false);
     }

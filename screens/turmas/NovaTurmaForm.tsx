@@ -17,7 +17,7 @@ const NovaTurmaForm: React.FC<ProfId> = ({ id }) => {
   const API_URL = process.env.EXPO_PUBLIC_API_URL;
 
   const handleChangeText = (nomeTurma: string) => {
-    if (/^(?!.*\s$)(?!^\s).*$/g.test(nomeTurma)) {
+    if (/^(?!.*\s{2,})(?!^\s)(?!.*\s\s$).*$/.test(nomeTurma)) {
       setNome(nomeTurma);
     }
   };

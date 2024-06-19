@@ -17,8 +17,14 @@ const CriarDisciplina = () => {
 
   const API_URL = process.env.EXPO_PUBLIC_API_URL;
 
+  const handleChangeText = (nomeDisc: string) => {
+    if (/^(?!.*\s{2,})(?!^\s)(?!.*\s\s$).*$/.test(nomeDisc)) {
+      setNome(nomeDisc);
+    }
+  };
+
   React.useEffect(() => {
-    if (nome.length > 4) {
+    if (nome.length > 2) {
       setCreateDisabled(false);
     }
   }, [nome]);
@@ -38,7 +44,7 @@ const CriarDisciplina = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ nome: nome, turmaId: params.turmaId }),
+        body: JSON.stringify({ nome: nome.trim(), turmaId: params.turmaId }),
       });
 
       if (!response.ok) {
@@ -102,7 +108,7 @@ const CriarDisciplina = () => {
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-80 p-2.5"
           placeholder="Exemplo: Matématica"
           value={nome}
-          onChangeText={(value) => setNome(value)}
+          onChangeText={(value) => handleChangeText(value)}
           autoCapitalize="words"
         />
       </View>

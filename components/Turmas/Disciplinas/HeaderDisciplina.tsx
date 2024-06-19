@@ -25,7 +25,7 @@ const HeaderDisciplina: React.FC<{
         autoPlay
         loop
       />
-      <Text className=" text-white text-5xl text-center font-extrabold tracking-wide mb-4">
+      <Text className=" text-white text-5xl w-80 text-center font-extrabold tracking-wide mb-4">
         {disciplina.nome}
       </Text>
       <Text className=" text-emerald-100 text-center text-md font-medium tracking-wider w-64 mb-4">
