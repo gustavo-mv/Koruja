@@ -74,7 +74,7 @@ const ConcluidoScreen: React.FC<CriarProvaInfoFinal> = (prova) => {
     <View className="h-full items-center justify-center">
       {error && <Text>{error}</Text>}
       {loading && (
-        <View className=" items-center h-full">
+        <View className=" h-full justify-center items-center self-center">
           <Text className=" w-52 text-center text-3xl font-bold mb-10">
             Carregando...
           </Text>
