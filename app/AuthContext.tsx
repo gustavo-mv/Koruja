@@ -11,6 +11,7 @@ interface AuthContextType {
   isLoading: boolean;
   login: (userData: string) => void;
   dataUser: (tokenInfoFromFetch: User) => void;
+  updateProvasGeradas: () => void;
   logout: () => void;
 }
 
@@ -20,6 +21,7 @@ const AuthContext = createContext<AuthContextType>({
   isLoading: true,
   login: () => {},
   dataUser: () => {},
+  updateProvasGeradas: () => {},
   logout: () => {},
 });
 
@@ -50,7 +52,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const dataUser = async (tokenInfoFromFetch: any) => {
     try {
       console.log(tokenInfoFromFetch);
-
       setUserGlobalData(tokenInfoFromFetch);
     } catch (error) {
       console.error("Erro ao definir Informações do Usuário", error);
@@ -88,6 +89,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
+  const updateProvasGeradas = () => {
+    setUserGlobalData((prevData) => {
+      if (prevData) {
+        return {
+          ...prevData,
+          provasGeradas: prevData.provasGeradas + 1,
+        };
+      }
+      return prevData;
+    });
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -95,6 +108,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         userGlobalData,
         isLoading,
         dataUser,
+        updateProvasGeradas, // Passa a função pelo contexto
         login,
         logout,
       }}

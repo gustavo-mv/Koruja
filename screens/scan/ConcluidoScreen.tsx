@@ -12,7 +12,7 @@ const ConcluidoScreen: React.FC<CriarProvaInfoFinal> = (prova) => {
   const [loading, setLoading] = React.useState<boolean>(true);
 
   const [okMessage, setOkMessage] = React.useState<null | string>(null);
-  const { token } = React.useContext(AuthContext);
+  const { token, updateProvasGeradas } = React.useContext(AuthContext);
 
   const API_URL = process.env.EXPO_PUBLIC_API_URL;
 
@@ -56,6 +56,7 @@ const ConcluidoScreen: React.FC<CriarProvaInfoFinal> = (prova) => {
           throw new Error("Erro na resposta da API /criarProva");
         } else {
           setLoading(false);
+          updateProvasGeradas();
           setOkMessage("Prova Criada com Sucesso!");
         }
       } catch (e) {
