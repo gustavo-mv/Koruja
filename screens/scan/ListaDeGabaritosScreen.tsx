@@ -15,6 +15,8 @@ const ListaDeGabaritosScreen: React.FC<{ idProf: string }> = ({ idProf }) => {
   const [page, setPage] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(false);
   const [semGabaritos, setSemGabaritos] = useState<boolean>(false);
+  const [primeiraVerificacao, setPrimeiraVerificacao] =
+    useState<boolean>(false);
 
   useEffect(() => {
     fetchData();
@@ -34,8 +36,11 @@ const ListaDeGabaritosScreen: React.FC<{ idProf: string }> = ({ idProf }) => {
         if (!response.ok) {
           switch (response.status) {
             case 404:
-              setSemGabaritos(true);
-              setLoading(false);
+              if (primeiraVerificacao) {
+                setLoading(false);
+              } else {
+                setSemGabaritos(true);
+              }
               break;
             default:
               throw new Error("Erro ao buscar dados");
@@ -54,10 +59,10 @@ const ListaDeGabaritosScreen: React.FC<{ idProf: string }> = ({ idProf }) => {
         }
         setData((prevData) => [...prevData, ...newData]);
         setPage((prevPage) => prevPage + 1);
+        setPrimeiraVerificacao(true);
         setLoading(false);
       })
       .catch((error) => {
-        console.error("Erro ao buscar dados:", error);
         setLoading(false);
       });
   };
@@ -90,6 +95,7 @@ const ListaDeGabaritosScreen: React.FC<{ idProf: string }> = ({ idProf }) => {
             variacoes: JSON.stringify(item.variacoes),
           },
         }}
+        key={item.id}
       >
         <TouchableOpacity className=" rounded-lg bg-black m-4">
           <View className="p-5 flex-row">
@@ -139,24 +145,29 @@ const ListaDeGabaritosScreen: React.FC<{ idProf: string }> = ({ idProf }) => {
 
   return (
     <View className="flex-1 bg-green-600">
-      <FlatList
-        data={data}
-        ListHeaderComponent={renderHeader}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-        onEndReached={handleEndReached}
-        onEndReachedThreshold={0.1}
-      />
-      {semGabaritos && (
+      {semGabaritos ? (
         <View className="h-80 items-center">
-          <Text className="text-xl font-bold text-white w-64 text-center">
+          {renderHeader()}
+          <Text className="text-xl font-bold text-white w-64 text-center mt-10">
             Você ainda não possui nenhum Gabarito.
           </Text>
           <TouchableOpacity className="h-12 bg-white mt-10 rounded-lg justify-center">
             <Text className="m-2 font-bold text-xl">Criar Gabarito</Text>
           </TouchableOpacity>
         </View>
+      ) : (
+        <>
+          <FlatList
+            data={data}
+            keyExtractor={(item) => item.id.toString()}
+            ListHeaderComponent={renderHeader}
+            renderItem={renderItem}
+            onEndReached={handleEndReached}
+            onEndReachedThreshold={0.1}
+          />
+        </>
       )}
+
       {loading && (
         <View className=" p-3 flex-row space-x-5 items-center justify-center m-4 rounded-lg bg-white">
           <ActivityIndicator size={"large"} color={"black"} />

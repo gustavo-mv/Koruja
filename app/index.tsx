@@ -31,7 +31,18 @@ const index = () => {
           });
 
           if (!response.ok) {
-            throw new Error("Token Expirado!");
+            if (!isConnected) {
+              return (
+                <View className="h-full w-full bg-white justify-center items-center">
+                  <Text className="text-xl font-bold text-center text-red-400">
+                    Você está offline. Verifique sua conexão com a internet e
+                    reinicie o app.
+                  </Text>
+                </View>
+              );
+            } else {
+              throw new Error("Token Expirado!");
+            }
           }
 
           const data = await response.json();
@@ -65,14 +76,6 @@ const index = () => {
     return (
       <View>
         <Text>Carregando...</Text>
-      </View>
-    );
-  }
-
-  if (!isConnected) {
-    return (
-      <View>
-        <Text>Você está offline. Verifique sua conexão com a internet.</Text>
       </View>
     );
   }
