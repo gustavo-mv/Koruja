@@ -8,19 +8,29 @@ import {
 import { MMKV } from "react-native-mmkv";
 import React from "react";
 export const storage = new MMKV();
+import AuthContext from "@/app/AuthContext";
 
 const DownloadGabarito = ({ variacaoId }: any) => {
   const [image, setImage] = React.useState<string | null>(null);
   const API_URL = process.env.EXPO_PUBLIC_API_URL;
+  const { token } = React.useContext(AuthContext);
 
   const fetchImageFromServer = async () => {
     try {
       const response = await fetch(
-        `${API_URL}/gabaritos/gerar-imagem/${variacaoId}`
+        `${API_URL}/gabaritos/gerar-imagem/${variacaoId}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
+
       if (!response.ok) {
         throw new Error("Erro ao Buscar Imagem do Servidor..");
       }
+
       const blob = await response.blob();
       console.log("Blob recebido:", blob);
 

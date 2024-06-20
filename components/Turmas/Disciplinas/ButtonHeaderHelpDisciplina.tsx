@@ -4,6 +4,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import LottieView from "lottie-react-native";
 import { TurmaProps } from "@/models/TurmaProps";
+import AuthContext from "@/app/AuthContext";
 
 interface ButtonsProp {
   titulo: string;
@@ -29,6 +30,7 @@ const ButtonHeaderHelpDisciplina: React.FC<
   const [editarView, setEditarView] = React.useState<boolean>(false);
   const [editarDisabled, setEditarDisabled] = React.useState<boolean>(true);
   const [backDisabled, setBackDisabled] = React.useState<boolean>(false);
+  const { token } = React.useContext(AuthContext);
 
   const [editarLottie, setEditarLottie] = React.useState<boolean>(false);
 
@@ -88,6 +90,7 @@ const ButtonHeaderHelpDisciplina: React.FC<
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({}),
       });
@@ -130,6 +133,7 @@ const ButtonHeaderHelpDisciplina: React.FC<
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
             nome: nomeEdit,

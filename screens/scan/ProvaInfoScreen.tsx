@@ -12,9 +12,10 @@ import { ProvaModel } from "../../models/ProvaModel";
 import { router, Link } from "expo-router";
 import { CriarProvaInfoFinal } from "@/models/CriarProvaInfoFinal";
 import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
-import index from "../../app/index";
+import AuthContext from "@/app/AuthContext";
 
 const ProvaInfoScreen: React.FC<ProvaModel> = (prova) => {
+  const { token } = React.useContext(AuthContext);
   const [deletar, setDeletar] = React.useState<boolean>(false);
   const [optionsPanel, setoptionsPanel] = React.useState<any>(false);
 
@@ -53,7 +54,17 @@ const ProvaInfoScreen: React.FC<ProvaModel> = (prova) => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`${API_URL}/provas/${prova.id}`);
+      const response = await fetch(`${API_URL}/provas/${prova.id}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Erro ao buscar dados: ${response.statusText}`);
+      }
+
       const json: CriarProvaInfoFinal = await response.json();
       setData(json);
       setLoading(false);
@@ -68,6 +79,7 @@ const ProvaInfoScreen: React.FC<ProvaModel> = (prova) => {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({}),
       });

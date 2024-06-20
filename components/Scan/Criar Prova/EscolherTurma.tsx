@@ -1,6 +1,7 @@
 import { TurmaProps } from "@/models/TurmaProps";
 import React from "react";
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
+import AuthContext from "@/app/AuthContext";
 
 import CardPickDisciplina from "./CardPickDisciplina";
 import { router } from "expo-router";
@@ -9,6 +10,7 @@ const EscolherTurma: React.FC<{ idProf: string }> = ({ idProf }) => {
   const [turmas, setTurmas] = React.useState<TurmaProps[]>([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const API_URL = process.env.EXPO_PUBLIC_API_URL;
+  const { token } = React.useContext(AuthContext);
 
   React.useEffect(() => {
     fetchDados();
@@ -16,7 +18,17 @@ const EscolherTurma: React.FC<{ idProf: string }> = ({ idProf }) => {
 
   const fetchDados = async () => {
     try {
-      const response = await fetch(`${API_URL}/turmas/prof/${idProf}`);
+      const response = await fetch(`${API_URL}/turmas/prof/${idProf}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Erro ao buscar dados");
+      }
+
       const data = await response.json();
       setTurmas(data);
       setIsLoading(false);

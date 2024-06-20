@@ -1,5 +1,6 @@
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import React from "react";
+import AuthContext from "@/app/AuthContext";
 import { router, useLocalSearchParams } from "expo-router";
 
 const CriarDisciplina = () => {
@@ -14,6 +15,7 @@ const CriarDisciplina = () => {
   const [nome, setNome] = React.useState("");
   const [error, setError] = React.useState<string | null>(null);
   const [createDisabled, setCreateDisabled] = React.useState<boolean>(true);
+  const { token } = React.useContext(AuthContext);
 
   const API_URL = process.env.EXPO_PUBLIC_API_URL;
 
@@ -43,6 +45,7 @@ const CriarDisciplina = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ nome: nome.trim(), turmaId: params.turmaId }),
       });

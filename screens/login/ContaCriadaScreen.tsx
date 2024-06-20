@@ -11,8 +11,6 @@ const FormNomeScreen = ({ nomeParam, userId, token, telefoneParam }: any) => {
   const nomeFormt = nomeParam.split(" ")[0];
   React.useEffect(() => {}, []);
 
-  console.log(nomeParam, userId, token, telefoneParam);
-
   const API_URL = process.env.EXPO_PUBLIC_API_URL;
 
   async function handleLogOut() {

@@ -4,6 +4,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import LottieView from "lottie-react-native";
 import { DisciplinasObj } from "@/models/DisciplinasObj";
+import AuthContext from "@/app/AuthContext";
 
 interface PropsStyleButtons {
   titulo: string;
@@ -36,6 +37,7 @@ const ButtonHeaderHelp: React.FC<PropsStyleButtons> = ({
   const [editarView, setEditarView] = React.useState<boolean>(false);
   const [editarDisabled, setEditarDisabled] = React.useState<boolean>(true);
   const [backDisabled, setBackDisabled] = React.useState<boolean>(false);
+  const { token } = React.useContext(AuthContext);
 
   const [editarLottie, setEditarLottie] = React.useState<boolean>(false);
 
@@ -88,6 +90,7 @@ const ButtonHeaderHelp: React.FC<PropsStyleButtons> = ({
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({}),
       });
@@ -115,6 +118,7 @@ const ButtonHeaderHelp: React.FC<PropsStyleButtons> = ({
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           nome: editar,

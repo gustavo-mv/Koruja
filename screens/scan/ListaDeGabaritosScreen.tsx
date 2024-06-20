@@ -7,14 +7,18 @@ import {
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { ProvaModel } from "@/models/ProvaModel";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import LottieView from "lottie-react-native";
 
-const ListaDeGabaritosScreen: React.FC<{ idProf: string }> = ({ idProf }) => {
+const ListaDeGabaritosScreen: React.FC<{ idProf: string; token: string }> = ({
+  idProf,
+  token,
+}) => {
   const [data, setData] = useState<ProvaModel[]>([]);
   const [page, setPage] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(false);
   const [semGabaritos, setSemGabaritos] = useState<boolean>(false);
+
   const [primeiraVerificacao, setPrimeiraVerificacao] =
     useState<boolean>(false);
 
@@ -24,6 +28,11 @@ const ListaDeGabaritosScreen: React.FC<{ idProf: string }> = ({ idProf }) => {
 
   const API_URL = process.env.EXPO_PUBLIC_API_URL;
 
+  function handleCriarGabarito() {
+    router.replace("/home/(tabs)/scan");
+    router.push("home/(scan)/criarProva");
+  }
+
   const fetchData = () => {
     if (loading) return;
     setLoading(true);
@@ -31,7 +40,12 @@ const ListaDeGabaritosScreen: React.FC<{ idProf: string }> = ({ idProf }) => {
     const skip = (page - 1) * take;
     const apiUrl = `${API_URL}/provas?professorId=${idProf}&take=${take}&skip=${skip}`;
 
-    fetch(apiUrl)
+    fetch(apiUrl, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((response) => {
         if (!response.ok) {
           switch (response.status) {
@@ -151,7 +165,10 @@ const ListaDeGabaritosScreen: React.FC<{ idProf: string }> = ({ idProf }) => {
           <Text className="text-xl font-bold text-white w-64 text-center mt-10">
             Você ainda não possui nenhum Gabarito.
           </Text>
-          <TouchableOpacity className="h-12 bg-white mt-10 rounded-lg justify-center">
+          <TouchableOpacity
+            className="h-12 bg-white mt-10 rounded-lg justify-center"
+            onPress={() => handleCriarGabarito()}
+          >
             <Text className="m-2 font-bold text-xl">Criar Gabarito</Text>
           </TouchableOpacity>
         </View>

@@ -2,12 +2,14 @@ import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import React from "react";
 import Checkbox from "expo-checkbox";
 import { router } from "expo-router";
+import AuthContext from "@/app/AuthContext";
 
 const EditarGabaritoScreen = (prova) => {
   const todasAlternativas = "ABCDEF";
   const alternativas = todasAlternativas.slice(0, prova.nAlternativas);
   const [disabled, setDisabled] = React.useState<boolean>(true);
   const [gabaritoFinal, setGabaritoFinal] = React.useState<[]>();
+  const { token } = React.useContext(AuthContext);
 
   if (typeof prova.index !== "undefined") {
     const gabaritos = prova.gabaritos[prova.index];
@@ -76,6 +78,7 @@ const EditarGabaritoScreen = (prova) => {
             method: "PATCH",
             headers: {
               "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
             },
             body: JSON.stringify({
               prova: {

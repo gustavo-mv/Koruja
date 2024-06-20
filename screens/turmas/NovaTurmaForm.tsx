@@ -2,6 +2,7 @@ import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import { router } from "expo-router";
 import React from "react";
 import { ProfId } from "@/models/ProfId";
+import AuthContext from "@/app/AuthContext";
 
 const NovaTurmaForm: React.FC<ProfId> = ({ id }) => {
   const [nome, setNome] = React.useState("");
@@ -15,6 +16,7 @@ const NovaTurmaForm: React.FC<ProfId> = ({ id }) => {
   }, [nome]);
 
   const API_URL = process.env.EXPO_PUBLIC_API_URL;
+  const { token } = React.useContext(AuthContext);
 
   const handleChangeText = (nomeTurma: string) => {
     if (/^(?!.*\s{2,})(?!^\s)(?!.*\s\s$).*$/.test(nomeTurma)) {
@@ -30,6 +32,7 @@ const NovaTurmaForm: React.FC<ProfId> = ({ id }) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ nome: nome, professorId: id }),
       });

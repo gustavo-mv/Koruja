@@ -3,6 +3,8 @@ import React from "react";
 import LottieView from "lottie-react-native";
 import { CriarProvaInfoFinal } from "@/models/CriarProvaInfoFinal";
 import { router } from "expo-router";
+import AuthContext from "@/app/AuthContext";
+
 import ErrorCreating from "@/assets/errorCreating.svg";
 
 const ConcluidoScreen: React.FC<CriarProvaInfoFinal> = (prova) => {
@@ -10,6 +12,7 @@ const ConcluidoScreen: React.FC<CriarProvaInfoFinal> = (prova) => {
   const [loading, setLoading] = React.useState<boolean>(true);
 
   const [okMessage, setOkMessage] = React.useState<null | string>(null);
+  const { token } = React.useContext(AuthContext);
 
   const API_URL = process.env.EXPO_PUBLIC_API_URL;
 
@@ -32,6 +35,7 @@ const ConcluidoScreen: React.FC<CriarProvaInfoFinal> = (prova) => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
             prova: {

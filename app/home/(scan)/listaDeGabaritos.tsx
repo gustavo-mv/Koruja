@@ -3,11 +3,15 @@ import AuthContext from "@/app/AuthContext";
 import ListaDeGabaritosScreen from "@/screens/scan/ListaDeGabaritosScreen";
 
 const listaDeGabaritos = () => {
-  const { userGlobalData } = React.useContext(AuthContext);
+  const { userGlobalData, token } = React.useContext(AuthContext);
   if (!userGlobalData) {
     return null;
   }
-  return <ListaDeGabaritosScreen idProf={userGlobalData.id} />;
+  if (token) {
+    return <ListaDeGabaritosScreen idProf={userGlobalData.id} token={token} />;
+  } else {
+    return null;
+  }
 };
 
 export default listaDeGabaritos;

@@ -7,6 +7,7 @@ import {
   ScrollView,
 } from "react-native";
 import React from "react";
+import AuthContext from "@/app/AuthContext";
 
 import Avatar0 from "@/assets/avatars/avatar0.svg";
 import Avatar1 from "@/assets/avatars/avatar1.svg";
@@ -33,6 +34,8 @@ interface AvatarProps {
 const API_URL = process.env.EXPO_PUBLIC_API_URL;
 
 const Avatar: React.FC<AvatarProps> = ({ avatarNumber, userId }) => {
+  const { token } = React.useContext(AuthContext);
+
   const [selectedAvatar, setSelectedAvatar] = React.useState(avatarNumber);
   const [modalVisible, setModalVisible] = React.useState(false);
 
@@ -44,6 +47,7 @@ const Avatar: React.FC<AvatarProps> = ({ avatarNumber, userId }) => {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         nIcone: number,

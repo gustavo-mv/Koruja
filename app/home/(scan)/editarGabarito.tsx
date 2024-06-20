@@ -1,6 +1,5 @@
 import React from "react";
 import { useLocalSearchParams } from "expo-router";
-import { CriarProvaInfoFinal } from "@/models/CriarProvaInfoFinal";
 import EditarGabaritoScreen from "@/screens/scan/EditarGabaritoScreen";
 
 const editarGabarito = () => {

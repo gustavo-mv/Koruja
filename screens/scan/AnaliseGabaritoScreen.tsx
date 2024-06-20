@@ -1,6 +1,7 @@
 import { View, Text, TouchableOpacity, Image } from "react-native";
 import React from "react";
 import * as FileSystem from "expo-file-system";
+import AuthContext from "@/app/AuthContext";
 
 const AnaliseGabaritoScreen = ({ base64, dataQR }: any) => {
   const [convertedBase64, setConvertedBase64] = React.useState<string>("");
@@ -9,6 +10,7 @@ const AnaliseGabaritoScreen = ({ base64, dataQR }: any) => {
   const [imageUri, setImageUri] = React.useState<string | null>(null);
 
   const API_URL = process.env.EXPO_PUBLIC_API_URL;
+  const { token } = React.useContext(AuthContext);
 
   async function enviarFoto() {
     try {
@@ -16,6 +18,7 @@ const AnaliseGabaritoScreen = ({ base64, dataQR }: any) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           dataQR: dataQR,
