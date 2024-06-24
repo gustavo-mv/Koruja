@@ -11,6 +11,22 @@ export default function LoginLayout() {
           headerShadowVisible: false,
         }}
       />
+      <Stack.Screen
+        name="assinarPremium"
+        options={{
+          title: "",
+          headerShown: true,
+          headerShadowVisible: false,
+        }}
+      />
+      <Stack.Screen
+        name="creditCard"
+        options={{
+          title: "",
+          headerShown: true,
+          headerShadowVisible: false,
+        }}
+      />
     </Stack>
   );
 }

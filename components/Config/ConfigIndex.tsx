@@ -1,6 +1,7 @@
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import React from "react";
 import Sair from "./Sair";
+import { FontAwesome5 } from "@expo/vector-icons";
 import User from "@/models/User";
 import Avatar from "./Avatar";
 import { Feather, Octicons, Fontisto } from "@expo/vector-icons";
@@ -18,6 +19,25 @@ const ConfigIndex: React.FC<ConfigIndexProps> = ({
   userGlobalData,
 }) => {
   const backgroundHeader = React.useRef<LottieView>(null);
+
+  const contaFree = () => (
+    <TouchableOpacity onPress={() => handlePremium()}>
+      <View className="bg-yellow-400 h-32 w-40 rounded-lg items-center justify-end">
+        <View className="mb-3">
+          <FontAwesome5 name="crown" size={50} color="black" />
+        </View>
+        <Text className="font-bold text-lg mb-3">Assinar Premium</Text>
+      </View>
+    </TouchableOpacity>
+  );
+
+  function handlePremium() {
+    if (userGlobalData.cliente === false) {
+      router.push("/home/(conf)/assinarPremium");
+    } else {
+      router.push({ pathname: "/home/(conf)/creditCard" });
+    }
+  }
 
   React.useEffect(() => {
     backgroundHeader.current?.play(0, 120);
@@ -102,14 +122,19 @@ const ConfigIndex: React.FC<ConfigIndexProps> = ({
             </TouchableOpacity>
           </View>
           <View className="flex-row space-x-3 mb-3">
-            <TouchableOpacity>
-              <View className="bg-green-500 h-32 w-40 rounded-lg items-center justify-end">
-                <View className="mb-3">
-                  <Fontisto name="credit-card" size={50} color="black" />
+            {userGlobalData.tipo === "free" ? (
+              contaFree()
+            ) : (
+              <TouchableOpacity>
+                <View className="bg-green-500 h-32 w-40 rounded-lg items-center justify-end">
+                  <View className="mb-3">
+                    <Fontisto name="credit-card" size={50} color="black" />
+                  </View>
+                  <Text className="font-bold text-lg mb-3">Sua Assinatura</Text>
                 </View>
-                <Text className="font-bold text-lg mb-3">Sua Assinatura</Text>
-              </View>
-            </TouchableOpacity>
+              </TouchableOpacity>
+            )}
+
             <TouchableOpacity>
               <View className=" bg-green-500 w-40 h-32 rounded-lg items-center justify-end">
                 <View className=" flex-row space-x-1 mb-3">
