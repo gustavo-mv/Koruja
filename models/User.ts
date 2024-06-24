@@ -8,4 +8,6 @@ export default interface User {
   telefoneValidado: boolean;
   dataFimAssinatura: any;
   tipo: string;
+  cliente: boolean;
+  nLimiteProvasFree: number;
 }

@@ -25,7 +25,10 @@ const CardPickDisciplina: React.FC<TurmaProps & { index: number }> = ({
   const { userGlobalData } = React.useContext(AuthContext);
 
   function handleClick(turmaIdFunc: any, nomeFunc: any, idFunc: any) {
-    if (userGlobalData?.tipo === "free" && userGlobalData.provasGeradas < 2) {
+    if (
+      userGlobalData?.tipo === "free" &&
+      userGlobalData.provasGeradas < userGlobalData.nLimiteProvasFree
+    ) {
       setIdFree(idFunc);
       setTurmaIdFree(turmaIdFunc);
       setNomeFree(nomeFunc);
@@ -34,7 +37,7 @@ const CardPickDisciplina: React.FC<TurmaProps & { index: number }> = ({
       setModalContaFree(true);
     } else if (
       userGlobalData?.tipo === "free" &&
-      userGlobalData.provasGeradas >= 2
+      userGlobalData.provasGeradas >= userGlobalData.nLimiteProvasFree
     ) {
       setModalDisciplinasVisivel(false);
       setmodalForbidden(true);
@@ -182,7 +185,10 @@ const CardPickDisciplina: React.FC<TurmaProps & { index: number }> = ({
                 Nível Gratuito
               </Text>
               . Você pode criar apenas{" "}
-              <Text className="font-extrabold">5 provas </Text>por mês.
+              <Text className="font-extrabold">
+                {userGlobalData.nLimiteProvasFree} provas{" "}
+              </Text>
+              por mês.
             </Text>
             <Text className="text-xl font-bold mt-5">
               Provas Criadas: <Text>{userGlobalData?.provasGeradas}</Text>
@@ -236,7 +242,10 @@ const CardPickDisciplina: React.FC<TurmaProps & { index: number }> = ({
                 Nível Gratuito
               </Text>
               . Você pode criar apenas{" "}
-              <Text className="font-extrabold">5 provas </Text>por mês.
+              <Text className="font-extrabold">
+                {userGlobalData.nLimiteProvasFree} provas{" "}
+              </Text>
+              por mês.
             </Text>
 
             <TouchableOpacity className="bg-yellow-300 flex-row space-x-5 p-3 justify-center rounded-b-lg items-center mt-5 w-full">

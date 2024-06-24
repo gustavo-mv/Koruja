@@ -103,7 +103,7 @@ const ConfigIndex: React.FC<ConfigIndexProps> = ({
           </View>
           <View className="flex-row space-x-3 mb-3">
             <TouchableOpacity>
-              <View className=" bg-green-500 h-32 w-40 rounded-lg items-center justify-end">
+              <View className="bg-green-500 h-32 w-40 rounded-lg items-center justify-end">
                 <View className="mb-3">
                   <Fontisto name="credit-card" size={50} color="black" />
                 </View>
