@@ -6,8 +6,11 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { MMKV } from "react-native-mmkv";
 export const storage = new MMKV();
+import AuthContext from "@/app/AuthContext";
 
 const FormTelefoneScreen = ({ nomeParam, emailParam, senhaParam }: any) => {
+  const { login } = React.useContext(AuthContext);
+
   const [telefone, setTelefone] = React.useState("");
   const [disabled, setDisabled] = React.useState(true);
   const [selectedCountry, setSelectedCountry] = React.useState<
@@ -44,16 +47,15 @@ const FormTelefoneScreen = ({ nomeParam, emailParam, senhaParam }: any) => {
       throw new Error("Erro na resposta da API /professor");
     } else {
       const data = await response.json();
-
-      await storage.set("token", JSON.stringify(data.access_token));
-      router.replace({
-        pathname: "/",
-      });
+      storage.set("isSmsSent", true);
+      storage.set("onValidation", true);
+      storage.set("smsSentTime", Date.now());
+      login(data.access_token);
     }
   }
 
   React.useEffect(() => {
-    setTelefone(`${selectedCountry?.callingCode} ${inputValue}`);
+    setTelefone(inputValue.replace(/\s/g, ""));
     if (inputValue.length > 12) {
       setDisabled(false);
     } else {
@@ -64,6 +66,7 @@ const FormTelefoneScreen = ({ nomeParam, emailParam, senhaParam }: any) => {
   return (
     <View className=" h-full bg-white">
       <PhoneInput
+        modalDisabled={true}
         value={inputValue}
         onChangePhoneNumber={handleInputValue}
         selectedCountry={selectedCountry}

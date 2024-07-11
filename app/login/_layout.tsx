@@ -19,6 +19,17 @@ export default function LoginLayout() {
           headerTintColor: "black",
         }}
       />
+
+      <Stack.Screen
+        name="awaitingCode"
+        options={{
+          headerShown: false,
+          title: "",
+          headerStyle: { backgroundColor: "transparent" },
+          headerShadowVisible: false,
+          headerTintColor: "black",
+        }}
+      />
       <Stack.Screen
         name="criarConta"
         options={{

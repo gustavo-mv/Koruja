@@ -3,11 +3,12 @@ import React from "react";
 import { router } from "expo-router";
 import AuthContext from "./AuthContext";
 import NetInfo from "@react-native-community/netinfo";
+import { MMKV } from "react-native-mmkv";
+export const storage = new MMKV();
 
 const index = () => {
   const { token, dataUser, isLoading } = React.useContext(AuthContext);
   const [isConnected, setIsConnected] = React.useState(true);
-
   const API_URL = process.env.EXPO_PUBLIC_API_URL;
 
   React.useEffect(() => {
@@ -22,6 +23,8 @@ const index = () => {
 
   React.useEffect(() => {
     if (!isLoading && isConnected) {
+      const isSmsSent = storage.getBoolean("isSmsSent");
+      const onValidation = storage.getBoolean("onValidation");
       const fetchData = async () => {
         try {
           const response = await fetch(`${API_URL}/auth/me`, {
@@ -49,7 +52,24 @@ const index = () => {
 
           dataUser(data);
 
-          if (data.telefoneValidado === false) {
+          if (data.telefoneValidado === false && onValidation) {
+            router.replace({
+              pathname: "/login/contaCriada",
+              params: {
+                nome: data.nome,
+                email: data.email,
+                telefone: data.telefone,
+                userId: data.id,
+                token: token,
+              },
+            });
+            router.push({
+              pathname: "/login/awaitingCode",
+              params: {
+                telefone: data.telefone,
+              },
+            });
+          } else if (data.telefoneValidado === false) {
             router.replace({
               pathname: "/login/contaCriada",
               params: {

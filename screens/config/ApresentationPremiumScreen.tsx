@@ -32,7 +32,8 @@ const ApresentationPremiumScreen = () => {
         <Text className="text-xl font-medium text-center">
           Por apenas{" "}
           <Text className="font-extrabold text-green-700">12.90/mês</Text> você
-          possui o melhor assistente educacional do mercado!
+          possui o melhor assistente educacional do mercado com Provas
+          Ilimitadas!
         </Text>
 
         <TouchableOpacity

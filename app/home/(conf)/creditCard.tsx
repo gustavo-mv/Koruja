@@ -1,15 +1,13 @@
-import ApresentationPremiumScreen from "@/screens/config/ApresentationPremiumScreen";
-import FormPremiumScreen from "@/screens/config/FormPremiumScreen";
-
-import { useLocalSearchParams } from "expo-router";
 import React from "react";
+import { CreditCardComponent } from "@/screens/config/CreditCardComponent";
+import { useLocalSearchParams } from "expo-router";
 
-const creditCard = () => {
-  const params = useLocalSearchParams<{
-    canGoToForm: string;
-  }>();
+const CreditCardScreen = () => {
+  const { nomeCompleto, cpf, canGoToForm } = useLocalSearchParams();
 
-  return <FormPremiumScreen />;
+  return (
+    <CreditCardComponent cpfParam={cpf} nomeCompletoParam={nomeCompleto} />
+  );
 };
 
-export default creditCard;
+export default CreditCardScreen;

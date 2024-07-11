@@ -18,26 +18,12 @@ const FormNomeScreen = ({ nomeParam, userId, token, telefoneParam }: any) => {
   }
 
   async function handleAprove() {
-    try {
-      const response = await fetch(`${API_URL}/professores/${userId}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          telefoneValidado: true,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Erro na Validação de Conta");
-      }
-
-      router.replace("/home");
-    } catch (error) {
-      console.error("Erro na Validação de Conta:", error);
-    }
+    router.push({
+      pathname: "/login/awaitingCode",
+      params: {
+        telefone: telefoneParam,
+      },
+    });
   }
 
   return (

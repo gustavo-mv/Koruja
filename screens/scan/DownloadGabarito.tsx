@@ -28,6 +28,7 @@ const DownloadGabarito = ({ variacaoId }: any) => {
       );
 
       if (!response.ok) {
+        console.log(response);
         throw new Error("Erro ao Buscar Imagem do Servidor..");
       }
 

@@ -22,8 +22,10 @@ export default function LoginLayout() {
       <Stack.Screen
         name="creditCard"
         options={{
+          headerStyle: { backgroundColor: "black" },
           title: "",
           headerShown: true,
+          headerTintColor: "white",
           headerShadowVisible: false,
         }}
       />
