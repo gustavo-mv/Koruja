@@ -6,7 +6,13 @@ module.exports = {
     "./screens/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        ciano: "#0b1c36",
+        laranja: "#e86800",
+        chumbo: "#345e5e",
+      },
+    },
   },
   plugins: [],
 };

@@ -26,11 +26,11 @@ const IndexScreen = () => {
         />
       </View>
       <View
-        className=" bg-white absolute top-80 w-full h-full items-center"
+        className=" bg-ciano absolute top-80 w-full h-full items-center"
         style={{ borderTopLeftRadius: 50, borderTopRightRadius: 50 }}
       >
         <View className="mt-10">
-          <Text className=" text-xl font-light w-64 text-center">
+          <Text className=" text-xl font-light text-white w-64 text-center">
             Seja bem-vindo(a) ao melhor amigo do professor!
           </Text>
         </View>
@@ -43,17 +43,17 @@ const IndexScreen = () => {
         </View>
 
         <View
-          className="flex-row rounded-3xl border-green-700 mt-5"
+          className="flex-row rounded-3xl border-laranja mt-5"
           style={{ borderStyle: "solid", borderWidth: 1 }}
         >
           <TouchableOpacity onPress={() => handleLogin()}>
-            <View className=" bg-green-700 w-36 rounded-3xl h-12 justify-center items-center">
+            <View className=" border-laranja bg-laranja w-36 rounded-3xl h-12 justify-center items-center">
               <Text className=" text-white font-extrabold text-md">Login</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => handleCreateAccount()}>
             <View className="w-36 rounded-xl h-12 justify-center items-center">
-              <Text className=" text-green-700 font-semibold text-md ">
+              <Text className=" text-laranja font-semibold text-md ">
                 Criar Conta
               </Text>
             </View>

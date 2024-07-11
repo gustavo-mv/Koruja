@@ -47,7 +47,7 @@ const LoginForm = () => {
   };
 
   return (
-    <View className="flex-1 justify-center items-center w-100">
+    <View className="flex-1 justify-center items-center w-100 bg-ciano">
       <View style={styles.imageContainer}>
         <Image
           source={require("./../../assets/attlasAssistente.png")}
@@ -61,7 +61,7 @@ const LoginForm = () => {
             {error}
           </Text>
         )}
-        <Text className="mb-2 text-sm font-medium text-gray-900">Usuário</Text>
+        <Text className="mb-2 text-sm font-medium text-white">Usuário</Text>
         <TextInput
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-80 p-2.5"
           placeholder="Nome de usuário"
@@ -71,7 +71,7 @@ const LoginForm = () => {
         />
       </View>
       <View className="mb-5 ">
-        <Text className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+        <Text className="block mb-2 text-sm font-medium text-white dark:text-white">
           Senha
         </Text>
         <TextInput
@@ -84,7 +84,7 @@ const LoginForm = () => {
       </View>
       <View className="flex flex-row w-100 items-center">
         <TouchableOpacity>
-          <Text className="mr-5">Esqueceu sua senha?</Text>
+          <Text className="mr-5 text-white">Esqueceu sua senha?</Text>
         </TouchableOpacity>
         <TouchableOpacity
           className="w-32"
@@ -96,7 +96,7 @@ const LoginForm = () => {
               email.length > 4 && senha.length > 5
                 ? "opacity-100"
                 : "opacity-40"
-            } bg-green-500 text-gray-900  pt-1 rounded-xl h-10 text-lg font-bold text-center`}
+            } bg-laranja text-gray-900  pt-1 rounded-xl h-10 text-lg font-bold text-center`}
           >
             Login
           </Text>

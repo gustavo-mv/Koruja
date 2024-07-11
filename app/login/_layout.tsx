@@ -14,7 +14,7 @@ export default function LoginLayout() {
         name="loginForm"
         options={{
           title: "",
-          headerStyle: { backgroundColor: "transparent" },
+          headerStyle: { backgroundColor: "#e86800" },
           headerShadowVisible: false,
           headerTintColor: "black",
         }}
