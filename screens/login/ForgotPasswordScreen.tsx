@@ -10,6 +10,16 @@ const ForgotPasswordScreen = ({ emailParam }) => {
   const [disabled, setDisabled] = useState(true);
   const [error, setError] = useState("");
 
+  React.useEffect(() => {
+    const isValidEmail = validateEmail(email);
+    setDisabled(!isValidEmail);
+  }, [email]);
+
+  const validateEmail = (email: any) => {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
+  };
+
   function handleRecovery() {}
 
   return (
@@ -28,8 +38,11 @@ const ForgotPasswordScreen = ({ emailParam }) => {
           <TextInput
             autoFocus={true}
             value={email}
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-laranja focus:border-laranja block w-80 p-2.5"
+            onChangeText={(value) => setEmail(value)}
+            className="font-bold text-lg bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-laranja focus:border-laranja block w-80 p-2.5"
             placeholder="Email"
+            autoCapitalize="none"
+            keyboardType="email-address"
           />
         </View>
       </View>

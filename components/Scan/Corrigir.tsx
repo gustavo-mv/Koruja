@@ -7,7 +7,7 @@ import { Link } from "expo-router";
 const Corrigir = () => {
   return (
     <Link push href={{ pathname: "/home/(scan)/corrigir" }} asChild>
-      <TouchableOpacity className="flex-row items-center justify-center rounded-lg h-20 w-80 mt-3 mb-3 bg-orange-500 border-slate-300">
+      <TouchableOpacity className="flex-row items-center justify-center rounded-lg h-20 w-80 mt-3 mb-3 bg-orange-500 border-2">
         <Icon name="camera" color="white" size={32} />
         <Text className=" font-semibold text-lg ml-11 mr-11 text-white">
           Corrigir Gabaritos
