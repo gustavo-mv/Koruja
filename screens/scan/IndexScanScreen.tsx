@@ -8,7 +8,7 @@ import { Link } from "expo-router";
 
 const IndexScanScreen = () => {
   return (
-    <View className="flex items-center justify-center pt-12">
+    <View className="flex items-center justify-center pt-12 bg-ciano h-full pb-5">
       <MainScannerVector width={500} height={350} />
       <Corrigir />
 

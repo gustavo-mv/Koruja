@@ -66,14 +66,16 @@ const Avatar: React.FC<AvatarProps> = ({ avatarNumber, userId }) => {
     <View>
       <TouchableOpacity onPress={() => setModalVisible(true)}>
         <View style={styles.avatarContainer}>
-          <SelectedAvatar width={120} height={120} />
+          <SelectedAvatar width={140} height={140} />
         </View>
       </TouchableOpacity>
 
       <Modal visible={modalVisible} animationType="slide" transparent={true}>
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
-            <Text className="font-bold text-xl mb-3">Escolha seu avatar</Text>
+            <Text className="font-bold text-white text-xl mb-3">
+              Escolha seu avatar
+            </Text>
             <ScrollView contentContainerStyle={styles.scrollContainer}>
               {Object.keys(avatars).map((key) => {
                 const AvatarComponent = avatars[key];
@@ -87,7 +89,7 @@ const Avatar: React.FC<AvatarProps> = ({ avatarNumber, userId }) => {
                       isSelected && styles.selectedAvatarOption,
                     ]}
                   >
-                    <AvatarComponent width={80} height={80} />
+                    <AvatarComponent width={85} height={85} />
                   </TouchableOpacity>
                 );
               })}
@@ -107,9 +109,9 @@ const Avatar: React.FC<AvatarProps> = ({ avatarNumber, userId }) => {
 
 const styles = StyleSheet.create({
   avatarContainer: {
-    width: 119,
-    height: 122,
-    borderRadius: 60,
+    width: 142,
+    height: 140,
+    borderRadius: 40,
     overflow: "hidden",
     borderWidth: 2,
     borderColor: "black",
@@ -122,7 +124,7 @@ const styles = StyleSheet.create({
   },
   modalContent: {
     width: "80%",
-    backgroundColor: "white",
+    backgroundColor: "#0b1c36",
     borderRadius: 10,
     padding: 20,
     alignItems: "center",
@@ -141,7 +143,8 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   selectedAvatarOption: {
-    borderColor: "blue",
+    borderColor: "orange",
+    borderWidth: 3,
   },
   closeButton: {
     marginTop: 20,

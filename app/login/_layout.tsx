@@ -16,7 +16,18 @@ export default function LoginLayout() {
           title: "",
           headerStyle: { backgroundColor: "#e86800" },
           headerShadowVisible: false,
-          headerTintColor: "black",
+          headerTintColor: "white",
+        }}
+      />
+      <Stack.Screen
+        name="forgotPassword"
+        options={{
+          title: "Esqueceu a senha",
+          headerTitleAlign: "center",
+          headerTitleStyle: { fontWeight: "bold" },
+          headerStyle: { backgroundColor: "#e86800" },
+          headerShadowVisible: false,
+          headerTintColor: "white",
         }}
       />
 

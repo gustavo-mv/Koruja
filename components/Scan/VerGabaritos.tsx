@@ -6,7 +6,7 @@ import { Link } from "expo-router";
 const VerGabaritos = () => {
   return (
     <Link push href={{ pathname: "/home/(scan)/listaDeGabaritos" }} asChild>
-      <TouchableOpacity className="flex-row items-center justify-center rounded-lg h-20 w-80  bg-green-950 border-2 border-slate-300">
+      <TouchableOpacity className="flex-row items-center justify-center rounded-lg h-20 w-80  bg-orange-700 border-2 border-slate-300">
         <Icon name="layer-group" color="white" size={32} />
         <Text className=" font-semibold text-lg ml-6 mr-6 text-white">
           Ver Lista de Gabaritos

@@ -8,6 +8,7 @@ import {
   Image,
 } from "react-native";
 import AuthContext from "../AuthContext";
+import { router } from "expo-router";
 
 const API_URL = process.env.EXPO_PUBLIC_API_URL;
 
@@ -46,6 +47,15 @@ const LoginForm = () => {
     }
   };
 
+  function handleForgot() {
+    router.push({
+      pathname: "/login/forgotPassword",
+      params: {
+        email: email,
+      },
+    });
+  }
+
   return (
     <View className="flex-1 justify-center items-center w-100 bg-ciano">
       <View style={styles.imageContainer}>
@@ -61,10 +71,10 @@ const LoginForm = () => {
             {error}
           </Text>
         )}
-        <Text className="mb-2 text-sm font-medium text-white">Usuário</Text>
+        <Text className="mb-2 text-sm font-medium text-white">Email</Text>
         <TextInput
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-80 p-2.5"
-          placeholder="Nome de usuário"
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-laranja focus:border-laranja block w-80 p-2.5"
+          placeholder="Email"
           value={email}
           onChangeText={setEmail}
           autoCapitalize="none"
@@ -75,7 +85,7 @@ const LoginForm = () => {
           Senha
         </Text>
         <TextInput
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-80 p-2.5"
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-laranja focus:border-laranja  block w-80 p-2.5"
           placeholder="Senha"
           value={senha}
           onChangeText={setSenha}
@@ -83,7 +93,7 @@ const LoginForm = () => {
         />
       </View>
       <View className="flex flex-row w-100 items-center">
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => handleForgot()}>
           <Text className="mr-5 text-white">Esqueceu sua senha?</Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -96,7 +106,7 @@ const LoginForm = () => {
               email.length > 4 && senha.length > 5
                 ? "opacity-100"
                 : "opacity-40"
-            } bg-laranja text-gray-900  pt-1 rounded-xl h-10 text-lg font-bold text-center`}
+            } bg-laranja text-white  pt-1 rounded-xl h-10 text-lg font-bold text-center`}
           >
             Login
           </Text>

@@ -1,6 +1,6 @@
 import { TurmaProps } from "@/models/TurmaProps";
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, ActivityIndicator } from "react-native";
 import SemTurmas from "./SemTurmas";
 import CardTurma from "@/components/Turmas/CardTurma";
 import AuthContext from "@/app/AuthContext";
@@ -42,9 +42,9 @@ const ListaTurmas: React.FC<ListaTurmasProps> = ({ idProf }) => {
   };
 
   return (
-    <View className="w-full mb-10">
+    <View className="items-center">
       {isLoading ? (
-        <Text>Carregando...</Text>
+        <ActivityIndicator size={"large"} color={"#e86800"} />
       ) : turmas.length > 0 ? (
         turmas.map((turma, index) => (
           <CardTurma

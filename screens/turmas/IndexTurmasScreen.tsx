@@ -9,8 +9,8 @@ import User from "@/models/User";
 const IndexTurmasScreen: React.FC<User> = ({ id }) => {
   return (
     <View>
-      <ScrollView className="h-full">
-        <View className="flex items-center justify-center pt-5">
+      <ScrollView className="h-full bg-ciano">
+        <View className="flex-col h-full bg-ciano pt-5 items-center">
           <LottieView
             autoPlay
             loop
@@ -18,18 +18,19 @@ const IndexTurmasScreen: React.FC<User> = ({ id }) => {
               width: 350,
               height: 350,
               backgroundColor: "transparent",
-              position: "absolute",
               top: 15,
             }}
             source={require("./../../assets/lotties/Turmas.json")}
           />
-          <Text className=" text-3xl font-bold tracking-wider mt-72 mb-3">
+          <Text className=" text-3xl font-bold tracking-wider mb-8 text-white">
             Turmas
           </Text>
-          <ListaTurmas idProf={id} />
+
+          <ScrollView className="h-full w-full">
+            <ListaTurmas idProf={id} />
+          </ScrollView>
         </View>
       </ScrollView>
-
       <Link
         asChild
         push
@@ -38,7 +39,7 @@ const IndexTurmasScreen: React.FC<User> = ({ id }) => {
           params: { idProfessor: id },
         }}
       >
-        <TouchableOpacity className=" flex-row justify-center items-center bg-green-500 rounded-2xl bottom-24 w-40 h-10 self-end fixed right-2 z-50">
+        <TouchableOpacity className=" flex-row justify-center items-center bg-laranja rounded-2xl bottom-24 w-40 h-10 self-end fixed right-2 z-50">
           <MaterialCommunityIcons
             name="account-multiple-plus"
             size={24}

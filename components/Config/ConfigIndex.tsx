@@ -77,14 +77,14 @@ const ConfigIndex: React.FC<ConfigIndexProps> = ({
               <Feather
                 name="edit"
                 size={24}
-                color="black"
+                color="white"
                 style={{
                   position: "absolute",
-                  backgroundColor: "white",
+                  backgroundColor: "#345e5e",
                   borderRadius: 10,
                   padding: 2,
-                  top: 100,
-                  left: 85,
+                  top: 120,
+                  left: 115,
                 }}
               />
             </TouchableOpacity>
@@ -99,11 +99,11 @@ const ConfigIndex: React.FC<ConfigIndexProps> = ({
         </View>
         <View
           style={{ borderTopRightRadius: 40, borderTopLeftRadius: 40 }}
-          className="bg-white w-full pt-10 items-center justify-center space-y-4"
+          className="bg-ciano w-full pt-10 items-center justify-center space-y-4"
         >
           <View className="flex-row space-x-3">
             <TouchableOpacity>
-              <View className=" bg-green-500 h-32 w-40 rounded-lg items-center justify-end">
+              <View className=" bg-laranja h-32 w-40 rounded-lg items-center justify-end">
                 <View className="mb-3">
                   <Feather name="settings" size={55} color="black" />
                 </View>
@@ -111,7 +111,7 @@ const ConfigIndex: React.FC<ConfigIndexProps> = ({
               </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => router.push("/home/(conf)/code")}>
-              <View className=" bg-green-500 w-40 h-32 rounded-lg items-center justify-end">
+              <View className=" bg-laranja w-40 h-32 rounded-lg items-center justify-end">
                 <View className=" flex-row space-x-1 mb-5">
                   <Octicons name="key-asterisk" size={30} color="black" />
                   <Octicons name="key-asterisk" size={30} color="black" />
@@ -126,7 +126,7 @@ const ConfigIndex: React.FC<ConfigIndexProps> = ({
               contaFree()
             ) : (
               <TouchableOpacity>
-                <View className="bg-green-500 h-32 w-40 rounded-lg items-center justify-end">
+                <View className="bg-laranja h-32 w-40 rounded-lg items-center justify-end">
                   <View className="mb-3">
                     <Fontisto name="credit-card" size={50} color="black" />
                   </View>
@@ -136,7 +136,7 @@ const ConfigIndex: React.FC<ConfigIndexProps> = ({
             )}
 
             <TouchableOpacity>
-              <View className=" bg-green-500 w-40 h-32 rounded-lg items-center justify-end">
+              <View className=" bg-laranja w-40 h-32 rounded-lg items-center justify-end">
                 <View className=" flex-row space-x-1 mb-3">
                   <Octicons name="log" size={45} color="black" />
                 </View>
