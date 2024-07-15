@@ -21,8 +21,8 @@ const CriarProvaScreen: React.FC<{ idProf: string }> = ({ idProf }) => {
         }}
         source={require("@/assets/lotties/students.json")}
       />
-      <View className="mt-10 top-20 h-32 bg-black"></View>
-      <ScrollView className=" mt-5 h-full bg-black pb-32">
+      <View className="mt-10 top-20 h-32 bg-ciano"></View>
+      <ScrollView className=" mt-5 h-full bg-ciano pb-32">
         <EscolherTurma idProf={idProf} />
       </ScrollView>
     </View>

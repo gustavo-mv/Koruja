@@ -19,8 +19,10 @@ const Sair: React.FC<SairProps> = ({ logout }) => {
         className="flex-row space-x-11 bg-red-600 w-56 h-16 m-3 items-center rounded-xl p-4"
         onPress={() => setModalVisible(true)}
       >
-        <Icon name="logout" size={28} color={"black"} />
-        <Text className=" font-bold tracking-wider text-xl">Sair </Text>
+        <Icon name="logout" size={28} color={"white"} />
+        <Text className=" text-white font-bold tracking-wider text-xl">
+          Sair{" "}
+        </Text>
       </TouchableOpacity>
       <Modal
         animationType="fade"

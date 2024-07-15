@@ -13,7 +13,7 @@ const HeaderListaDisciplinas: React.FC<HeaderListaDisciplinasProps> = ({
 }) => {
   if (aparecerMenu) {
     return (
-      <View className=" bg-black rounded-b-3xl pb-5 z-50">
+      <View className=" bg-ciano rounded-b-3xl pb-5 z-50">
         <Text className=" text-white text-4xl font-extrabold tracking-wide ml-6 w-96 pr-12 mb-4">
           {turma.nome}
         </Text>

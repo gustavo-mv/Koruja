@@ -82,6 +82,9 @@ const ButtonHeaderHelpDisciplina: React.FC<
     if (tipo === "tipoEdit") {
       setEditarView(true);
     }
+    if (tipo === "tipoHistoricoGabaritos") {
+      router.push("home/(scan)/listaDeGabaritos");
+    }
   }
 
   const handleDelete = async () => {
@@ -283,7 +286,7 @@ const ButtonHeaderHelpDisciplina: React.FC<
                   onPress={() => handleEdit()}
                   className={`${
                     editarDisabled ? "opacity-50" : ""
-                  } flex-1 items-center bg-green-500 h-14 text-center justify-center border-r-2 border-gray-400`}
+                  } flex-1 items-center bg-laranja h-14 text-center justify-center border-r-2 border-gray-400`}
                 >
                   <Text className={`text-white text-xl font-bold`}>Salvar</Text>
                 </TouchableOpacity>

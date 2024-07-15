@@ -32,12 +32,12 @@ const SelecionarVariacoesScreen: React.FC<CriarProvaInfo> = (disciplina) => {
   }, [disciplina.nAlternativas]);
 
   return (
-    <View className="h-full w-full">
-      <View className=" h-full  bg-black items-center pt-20">
-        <Text className="w-44 text-center bg-green-200 text-4xl rounded-md p-3 text-black font-bold mb-4">
+    <View className="h-full w-full bg-ciano">
+      <View className=" h-full w-full bg-ciano items-center pt-10">
+        <Text className="bg-orange-300 text-3xl text-center mb-5 p-5 rounded-md font-bold">
           {disciplina.nomeProva}
         </Text>
-        <Text className="w-44 text-center text-gray-100 rounded-md font-bold text-xl mb-2">
+        <Text className="w-44 text-center text-gray-100 rounded-md font-bold text-2xl mb-2">
           {disciplina.assunto}
         </Text>
         <View className="flex-row items-center justify-center mb-10">
@@ -98,9 +98,11 @@ const SelecionarVariacoesScreen: React.FC<CriarProvaInfo> = (disciplina) => {
         >
           <TouchableOpacity
             className={`
-                      bg-green-500 mt-5 w-32 rounded-md p-3 mb-5`}
+               bg-laranja mt-5 w-32 rounded-md p-3`}
           >
-            <Text className=" text-center text-base font-bold">Próximo</Text>
+            <Text className="text-white text-center text-base font-bold">
+              Próximo
+            </Text>
           </TouchableOpacity>
         </Link>
       </View>

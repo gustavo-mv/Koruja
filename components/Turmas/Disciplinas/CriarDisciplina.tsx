@@ -28,6 +28,8 @@ const CriarDisciplina = () => {
   React.useEffect(() => {
     if (nome.length > 2) {
       setCreateDisabled(false);
+    } else {
+      setCreateDisabled(true);
     }
   }, [nome]);
 
@@ -97,14 +99,14 @@ const CriarDisciplina = () => {
   };
 
   return (
-    <View className="flex-1 justify-center items-center w-100 h-96">
+    <View className="flex-1 justify-center items-center w-100 bg-ciano h-96">
       <View className="mb-5 ">
         {error && (
           <Text className="text-center text-lg font-medium text-red-500">
             {error}
           </Text>
         )}
-        <Text className="mb-2 text-sm font-medium text-gray-900">
+        <Text className="mb-2 text-sm font-medium text-white">
           Nome da Disciplina:
         </Text>
         <TextInput
@@ -124,7 +126,7 @@ const CriarDisciplina = () => {
         <Text
           className={`  ${
             createDisabled ? "opacity-40" : "opacity-100"
-          } bg-green-500 text-gray-900  rounded-xl p-3 text-xl font-bold text-center`}
+          } bg-laranja text-gray-900  rounded-xl p-3 text-xl font-bold text-center`}
         >
           Adicionar Disciplina
         </Text>

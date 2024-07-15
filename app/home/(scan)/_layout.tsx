@@ -7,7 +7,7 @@ export default function HomeLayout() {
         name="criarProva"
         options={{
           title: "Criar Gabarito",
-          headerStyle: { backgroundColor: "black" },
+          headerStyle: { backgroundColor: "#0B2438" },
           headerShadowVisible: false,
           headerTintColor: "white",
           headerTitleAlign: "center",
@@ -28,9 +28,9 @@ export default function HomeLayout() {
         name="dadosProvaCriar"
         options={{
           title: "",
-          headerStyle: { backgroundColor: "black" },
+          headerStyle: { backgroundColor: "#0B2438" },
           headerShadowVisible: false,
-          headerTintColor: "white",
+          headerTintColor: "#e86800",
           headerTitleAlign: "center",
         }}
       />
@@ -38,9 +38,9 @@ export default function HomeLayout() {
         name="infoCriarQuestoes"
         options={{
           title: "",
-          headerStyle: { backgroundColor: "black" },
+          headerStyle: { backgroundColor: "#0B2438" },
           headerShadowVisible: false,
-          headerTintColor: "white",
+          headerTintColor: "#e86800",
           headerTitleAlign: "center",
         }}
       />
@@ -48,9 +48,9 @@ export default function HomeLayout() {
         name="telaGabarito"
         options={{
           title: "",
-          headerStyle: { backgroundColor: "#16a34a" },
+          headerStyle: { backgroundColor: "#e86800" },
           headerShadowVisible: false,
-          headerTintColor: "white",
+          headerTintColor: "#0B2438",
           headerTitleAlign: "center",
         }}
       />
@@ -64,9 +64,10 @@ export default function HomeLayout() {
         name="selecionarVariacoes"
         options={{
           title: "",
-          headerStyle: { backgroundColor: "black" },
+          headerStyle: { backgroundColor: "#0B2438" },
+
           headerShadowVisible: false,
-          headerTintColor: "white",
+          headerTintColor: "#e86800",
           headerTitleAlign: "center",
           headerBackButtonMenuEnabled: false,
         }}
@@ -96,7 +97,7 @@ export default function HomeLayout() {
         name="editarGabarito"
         options={{
           title: "",
-          headerStyle: { backgroundColor: "#16a34a" },
+          headerStyle: { backgroundColor: "#0B2438" },
           headerShadowVisible: false,
           headerTintColor: "white",
           headerTitleAlign: "center",
@@ -106,7 +107,7 @@ export default function HomeLayout() {
         name="downloadProva"
         options={{
           title: "",
-          headerStyle: { backgroundColor: "#16a34a" },
+          headerStyle: { backgroundColor: "#0B2438" },
           headerShadowVisible: false,
           headerTintColor: "white",
           headerTitleAlign: "center",

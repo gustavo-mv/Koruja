@@ -77,33 +77,35 @@ const ConcluidoScreen: React.FC<CriarProvaInfoFinal> = (prova) => {
   };
 
   return (
-    <View className="h-full items-center justify-center w-full bg-white">
+    <View className="h-full items-center justify-center w-full bg-ciano">
       {error && <Text>{error}</Text>}
       {loading && (
         <View className=" h-full justify-center items-center self-center">
-          <Text className=" w-52 text-center text-3xl font-bold mb-10">
+          <Text className="text-white w-52 text-center text-3xl font-bold mb-10">
             Carregando...
           </Text>
         </View>
       )}
 
       {error && (
-        <View className=" h-full justify-center items-center self-center bg-white w-full">
+        <View className=" h-full justify-center items-center self-center bg-ciano w-full">
           <ErrorCreating height={250} width={250} />
-          <Text className=" w-80 text-center text-3xl font-bold mb-5">
+          <Text className="text-white w-80 text-center text-3xl font-bold mb-5">
             Algo errado aconteceu ao gerar prova :(
           </Text>
           <Text className=" text-center text-md text-red-500 font-bold mb-3">
             Tente novamente mais tarde
           </Text>
-          <TouchableOpacity className="bg-green-400 rounded-md">
-            <Text className="m-2 text-xl font-bold">Voltar ao Início</Text>
+          <TouchableOpacity className="bg-laranja rounded-md">
+            <Text className="text-white m-2 text-xl font-bold">
+              Voltar ao Início
+            </Text>
           </TouchableOpacity>
         </View>
       )}
 
       {okMessage && (
-        <View className=" items-center bg-white w-full h-full">
+        <View className=" items-center bg-ciano w-full h-full">
           <LottieView
             loop={false}
             autoPlay={false}
@@ -119,25 +121,25 @@ const ConcluidoScreen: React.FC<CriarProvaInfoFinal> = (prova) => {
           />
           <LottieView
             speed={0.8}
-            source={require("../../assets/lotties/JfzRlRaU4i.json")}
+            source={require("../../assets/lotties/planefromcreated.json")}
             style={{
               width: 450,
               height: 250,
               position: "absolute",
-              bottom: 380,
+              bottom: 480,
             }}
             autoPlay
             loop
           />
           <View className="mt-96 items-center justify-center">
-            <Text className=" w-52 text-center text-3xl font-bold mb-10">
+            <Text className="text-white w-52 text-center text-3xl font-bold mb-10">
               {okMessage}
             </Text>
             <TouchableOpacity
-              className=" bg-green-500 rounded-lg items-center p-5"
+              className=" bg-laranja rounded-lg items-center p-5"
               onPress={handleClick}
             >
-              <Text className=" font-bold text-lg">
+              <Text className="text-white font-bold text-lg">
                 Conferir Lista de Provas
               </Text>
             </TouchableOpacity>

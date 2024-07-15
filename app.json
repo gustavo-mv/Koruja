@@ -1,16 +1,16 @@
 {
   "expo": {
     "scheme": "myapp",
-    "name": "Attlas Assistente",
-    "slug": "attlasAssistente",
+    "name": "Koruja",
+    "slug": "koruja",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/attlasAssistente.png",
+    "icon": "./assets/korujaIcon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/AttlasBlack.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#0B2438"
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
@@ -18,10 +18,10 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/AttlasIcon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/korujaIcon.png",
+        "backgroundColor": "#0B2438"
       },
-      "package": "com.gustavomv.attlasAssistente"
+      "package": "com.gustavomv.koruja"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -34,12 +34,19 @@
           "fonts": ["./assets/fonts/Poppins-Regular.ttf"]
         }
       ],
-
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "Permita $(PRODUCT_NAME) acessar suas fotos.",
+          "savePhotosPermission": "Permita $(PRODUCT_NAME) salvar fotos no dispositivo.",
+          "isAccessMediaLocationEnabled": true
+        }
+      ],
       [
         "expo-camera",
         {
-          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera",
-          "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone",
+          "cameraPermission": "Permita $(PRODUCT_NAME) acessar sua câmera",
+          "microphonePermission": "Permita $(PRODUCT_NAME) acessar seu microfone",
           "recordAudioAndroid": true
         }
       ]

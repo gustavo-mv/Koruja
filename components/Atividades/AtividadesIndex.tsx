@@ -16,7 +16,7 @@ const AtividadesIndex = () => {
         }}
         source={require("@/assets/lotties/Animation - 1711821268390.json")}
       />
-      <Text className=" text-3xl font-bold tracking-wider mt-72">
+      <Text className="text-white text-3xl font-bold tracking-wider mt-72">
         Atividades
       </Text>
     </View>

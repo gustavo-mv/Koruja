@@ -9,18 +9,13 @@ import {
 import { MMKV } from "react-native-mmkv";
 export const storage = new MMKV();
 import AuthContext from "@/app/AuthContext";
-const API_URL = process.env.EXPO_PUBLIC_API_URL;
 
 import { router } from "expo-router";
 
 const AwaitingCode = ({ telefone, isTryingReset }) => {
   const { token } = React.useContext(AuthContext);
-
+  const API_URL = process.env.EXPO_PUBLIC_API_URL;
   async function handleResendSms() {
-    storage.set("isSmsSent", true);
-    storage.set("onValidation", true);
-    storage.set("smsSentTime", Date.now());
-
     const response = await fetch(`${API_URL}/professores/sms/reenviar`, {
       method: "GET",
       headers: {
@@ -35,6 +30,9 @@ const AwaitingCode = ({ telefone, isTryingReset }) => {
       );
       throw new Error("Erro na resposta da API /professores/sms/reenviar");
     } else {
+      storage.set("isSmsSent", true);
+      storage.set("onValidation", true);
+      storage.set("smsSentTime", Date.now());
       console.log("deu bom!");
       router.replace("/");
     }
@@ -44,7 +42,6 @@ const AwaitingCode = ({ telefone, isTryingReset }) => {
   const [timeRemaining, setTimeRemaining] = useState(0);
   const [timer, setTimer] = useState(90);
   const [lastFourDigits, setLastFourDigits] = useState("");
-  const API_URL = process.env.EXPO_PUBLIC_API_URL;
 
   useEffect(() => {
     const fetchPhoneDigits = async () => {
@@ -168,29 +165,57 @@ const AwaitingCode = ({ telefone, isTryingReset }) => {
 
   async function handleSubmit() {
     const smsCode = code.join("");
-    const response = await fetch(`${API_URL}/professores/verificar-token`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        code: smsCode,
-      }),
-    });
+    if (reseting) {
+      const response = await fetch(
+        `${API_URL}/professores/sms/verificartoken/${smsCode}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-    if (!response.ok) {
-      console.log(response);
+      if (!response.ok) {
+        console.error(
+          "Algo inesperado aconteceu recuperação de conta não realizada."
+        );
+        throw new Error("Erro na resposta da API /professores/sms/reenviar");
+      } else {
+        console.log(response);
 
-      console.error("Algo inesperado aconteceu, erro na validação do token.");
-      throw new Error("Erro na resposta da API /professor");
+        router.push({
+          pathname: "/login/newPassword",
+          params: {
+            code: smsCode,
+          },
+        });
+      }
     } else {
-      storage.delete("isSmsSent");
-      storage.delete("onValidation");
-      storage.delete("smsSentTime");
-      setTimeout(() => {
-        router.replace("/");
-      }, 1500);
+      const response = await fetch(
+        `${API_URL}/professores/verificar-token/${smsCode}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        console.log(response);
+
+        console.error("Algo inesperado aconteceu, erro na validação do token.");
+        throw new Error("Erro na resposta da API /professor");
+      } else {
+        storage.delete("isSmsSent");
+        storage.delete("onValidation");
+        storage.delete("smsSentTime");
+        setTimeout(() => {
+          router.replace("/");
+        }, 1500);
+      }
     }
   }
 

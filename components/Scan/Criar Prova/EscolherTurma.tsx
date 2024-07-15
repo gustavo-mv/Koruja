@@ -39,7 +39,7 @@ const EscolherTurma: React.FC<{ idProf: string }> = ({ idProf }) => {
   };
 
   return (
-    <ScrollView className="bg-black w-full h-full  ">
+    <ScrollView className="bg-ciano w-full h-full  ">
       {isLoading ? (
         <Text>Carregando...</Text>
       ) : turmas.length > 0 ? (
@@ -59,7 +59,7 @@ const EscolherTurma: React.FC<{ idProf: string }> = ({ idProf }) => {
             Você ainda não criou nenhuma turma.
           </Text>
           <TouchableOpacity
-            className="bg-green-500 rounded-md w-40 h-12 items-center justify-center mt-10"
+            className="bg-chumbo rounded-md w-40 h-12 items-center justify-center mt-10"
             onPress={() => {
               router.replace({
                 pathname: "/home/(turmas)/novaturma",

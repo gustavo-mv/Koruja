@@ -6,8 +6,10 @@ export default function LoginLayout() {
       <Stack.Screen
         name="code"
         options={{
+          headerStyle: { backgroundColor: "#0B2438" },
           title: "",
           headerShown: true,
+          headerTintColor: "#e86800",
           headerShadowVisible: false,
         }}
       />
@@ -15,6 +17,8 @@ export default function LoginLayout() {
         name="assinarPremium"
         options={{
           title: "",
+          headerStyle: { backgroundColor: "#0B2438" },
+          headerTintColor: "#e86800",
           headerShown: true,
           headerShadowVisible: false,
         }}
@@ -22,10 +26,10 @@ export default function LoginLayout() {
       <Stack.Screen
         name="creditCard"
         options={{
-          headerStyle: { backgroundColor: "black" },
+          headerStyle: { backgroundColor: "#0B2438" },
           title: "",
           headerShown: true,
-          headerTintColor: "white",
+          headerTintColor: "#e86800",
           headerShadowVisible: false,
         }}
       />

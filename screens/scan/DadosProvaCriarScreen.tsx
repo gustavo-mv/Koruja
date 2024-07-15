@@ -27,7 +27,7 @@ const DadosProvaCriar: React.FC<DisciplinaInfo> = (disciplina) => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View className=" h-full">
-        <View className=" h-full bg-black items-center">
+        <View className=" h-full bg-ciano items-center">
           <Text className="text-white m-3 font-bold text-center w-80 text-2xl mb-10">
             Informe o Nome e o Assunto da sua prova de{" "}
             {disciplina.disciplinaNome}
@@ -69,9 +69,11 @@ const DadosProvaCriar: React.FC<DisciplinaInfo> = (disciplina) => {
               disabled={proxDisabled}
               className={`${
                 proxDisabled ? "opacity-50" : ""
-              } bg-green-500 mt-5 w-32 rounded-md p-3`}
+              } bg-laranja mt-5 w-32 rounded-md p-3`}
             >
-              <Text className=" text-center text-base font-bold">Próximo</Text>
+              <Text className="text-white text-center text-base font-bold">
+                Próximo
+              </Text>
             </TouchableOpacity>
           </Link>
         </View>

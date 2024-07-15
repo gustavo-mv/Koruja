@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        ciano: "#0b1c36",
+        ciano: "#0B2438",
         laranja: "#e86800",
         chumbo: "#345e5e",
       },

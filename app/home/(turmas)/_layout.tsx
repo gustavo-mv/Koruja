@@ -7,9 +7,9 @@ export default function HomeLayout() {
         name="novaturma"
         options={{
           title: "Adicionar Turma",
-          headerStyle: { backgroundColor: "black" },
+          headerStyle: { backgroundColor: "#0B2438" },
           headerShadowVisible: false,
-          headerTintColor: "white",
+          headerTintColor: "#e86800",
           headerTitleAlign: "center",
         }}
       />
@@ -18,18 +18,18 @@ export default function HomeLayout() {
         name="[turmaId]"
         options={{
           title: "",
-          headerStyle: { backgroundColor: "black" },
+          headerStyle: { backgroundColor: "#0B2438" },
           headerShadowVisible: false,
-          headerTintColor: "#1CBA38",
+          headerTintColor: "#e86800",
         }}
       />
       <Stack.Screen
         name="criarDisciplina"
         options={{
           title: "Adicionar Disciplina",
-          headerStyle: { backgroundColor: "black" },
+          headerStyle: { backgroundColor: "#0B2438" },
           headerShadowVisible: false,
-          headerTintColor: "white",
+          headerTintColor: "#e86800",
           headerTitleAlign: "center",
         }}
       />
@@ -40,7 +40,7 @@ export default function HomeLayout() {
           headerStyle: {},
           headerTransparent: true,
           headerShadowVisible: false,
-          headerTintColor: "white",
+          headerTintColor: "#e86800",
           headerTitleAlign: "center",
         }}
       />

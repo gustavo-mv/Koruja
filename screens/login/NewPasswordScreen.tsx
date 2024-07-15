@@ -6,51 +6,42 @@ import AuthContext from "@/app/AuthContext";
 import { MMKV } from "react-native-mmkv";
 export const storage = new MMKV();
 
-const ForgotPasswordScreen = ({ emailParam }) => {
-  const [email, setEmail] = useState(emailParam || "");
-
+const NewPasswordScreen = ({ code }) => {
   const [disabled, setDisabled] = useState(true);
+  const [senhaNova, setSenhaNova] = useState("");
+  console.log(code);
+
   const [error, setError] = useState("");
   const API_URL = process.env.EXPO_PUBLIC_API_URL;
 
   React.useEffect(() => {
-    const isValidEmail = validateEmail(email);
-    setDisabled(!isValidEmail);
-  }, [email]);
-
-  const validateEmail = (email: any) => {
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailPattern.test(email);
-  };
+    if (senhaNova.length > 7) {
+      setDisabled(false);
+    }
+  }, [senhaNova]);
 
   async function handleRecovery() {
-    const response = await fetch(
-      `${API_URL}/professores/sms/resetpass/${email}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await fetch(`${API_URL}/professores/resetar-senha`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        code: code,
+        newPassword: senhaNova,
+      }),
+    });
 
     if (!response.ok) {
+      console.log(response);
+
       console.error(
         "Algo inesperado aconteceu recuperação de conta não realizada."
       );
       throw new Error("Erro na resposta da API /professores/sms/reenviar");
     } else {
-      storage.set("isSmsSent", true);
-      storage.set("recovering", true);
-
-      storage.set("smsSentTime", Date.now());
-      console.log(response);
-
-      router.push({
-        pathname: "/login/awaitingCode",
-        params: {
-          isTryingResetPassword: "ok",
-        },
+      router.replace({
+        pathname: "/",
       });
     }
   }
@@ -65,15 +56,15 @@ const ForgotPasswordScreen = ({ emailParam }) => {
         )}
         <View className="w-80">
           <Text className="font-bold text-white text-xl mb-5 text-center">
-            Para recuperar sua conta Koruja, insira seu Email abaixo:
+            Insira sua nova senha:
           </Text>
-          <Text className="mb-2 text-sm text-white font-bold">Email:</Text>
+          <Text className="mb-2 text-sm text-white font-bold">Senha:</Text>
           <TextInput
             autoFocus={true}
-            value={email}
-            onChangeText={(value) => setEmail(value)}
+            value={senhaNova}
+            onChangeText={(value) => setSenhaNova(value)}
             className="font-bold text-lg bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-laranja focus:border-laranja block w-80 p-2.5"
-            placeholder="Email"
+            placeholder="Nova Senha"
             autoCapitalize="none"
             keyboardType="email-address"
           />
@@ -86,11 +77,11 @@ const ForgotPasswordScreen = ({ emailParam }) => {
             disabled ? "opacity-40" : "opacity-100"
           } bg-laranja text-white  rounded-xl p-3 text-xl font-bold text-center`}
         >
-          Recuperar Conta
+          Alterar Senha
         </Text>
       </TouchableOpacity>
     </View>
   );
 };
 
-export default ForgotPasswordScreen;
+export default NewPasswordScreen;

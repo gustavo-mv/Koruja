@@ -82,6 +82,9 @@ const ButtonHeaderHelp: React.FC<PropsStyleButtons> = ({
     if (tipo === "tipoEdit") {
       setEditarView(true);
     }
+    if (tipo === "tipoHistoricoGabaritos") {
+      router.push("home/(scan)/listaDeGabaritos");
+    }
   }
 
   const handleDelete = async () => {

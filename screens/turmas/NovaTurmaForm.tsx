@@ -54,16 +54,14 @@ const NovaTurmaForm: React.FC<ProfId> = ({ id }) => {
   };
 
   return (
-    <View className="flex-1 justify-center items-center w-100">
+    <View className="flex-1 justify-center items-center w-100 bg-ciano">
       <View className="mb-5 ">
         {error && (
           <Text className="text-center text-lg font-medium text-red-500">
             {error}
           </Text>
         )}
-        <Text className="mb-2 text-sm font-medium text-gray-900">
-          Nome da Turma
-        </Text>
+        <Text className="mb-2 text-sm text-white font-bold">Nome da Turma</Text>
         <TextInput
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-80 p-2.5"
           placeholder="Exemplo: 8º Ano - Escola Nota 10"
@@ -81,7 +79,7 @@ const NovaTurmaForm: React.FC<ProfId> = ({ id }) => {
         <Text
           className={` w-32 ${
             createDisabled ? "opacity-40" : "opacity-100"
-          } bg-green-500 text-gray-900  pt-1 rounded-xl h-10 text-lg font-bold text-center`}
+          } bg-laranja text-gray-900  pt-1 rounded-xl h-10 text-lg font-bold text-center`}
         >
           Criar Turma
         </Text>

@@ -25,6 +25,8 @@ const index = () => {
     if (!isLoading && isConnected) {
       const isSmsSent = storage.getBoolean("isSmsSent");
       const onValidation = storage.getBoolean("onValidation");
+      const recovering = storage.getBoolean("recovering");
+
       const fetchData = async () => {
         try {
           const response = await fetch(`${API_URL}/auth/me`, {

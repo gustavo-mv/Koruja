@@ -114,7 +114,7 @@ const EditarGabaritoScreen = (prova) => {
       if (questoes) {
         return (
           <ScrollView>
-            <View className="bg-green-600 h-40 pb-7 items-center justify-center mb-7">
+            <View className="bg-ciano h-40 pb-7 items-center justify-center mb-7">
               <Text className="text-white text-7xl font-bold">
                 {prova.index + 1}º
               </Text>
@@ -188,7 +188,7 @@ const EditarGabaritoScreen = (prova) => {
                   onPress={handleEdit}
                   className={`
          ${disabled ? "opacity-40" : ""}
-         bg-green-500 mt-5 w-44 rounded-md p-3 mb-5`}
+         bg-laranja mt-5 w-44 rounded-md p-3 mb-5`}
                 >
                   <Text className=" text-center text-base font-bold">
                     Alterar Gabarito

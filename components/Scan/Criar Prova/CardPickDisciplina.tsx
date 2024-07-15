@@ -83,10 +83,10 @@ const CardPickDisciplina: React.FC<TurmaProps & { index: number }> = ({
         onRequestClose={() => setModalDisciplinasVisivel(false)}
       >
         <View className=" bg-black/75 w-full h-full justify-center items-center">
-          <View className="flex justify-end h-96 bg-gray-200 rounded-xl items-center w-80">
+          <View className="flex justify-end h-96 bg-chumbo rounded-xl items-center w-80">
             {disciplinas.length > 0 ? (
               <View className="h-96 items-center mb-5">
-                <Text className=" bg-black w-80 text-center h-16 pt-4 mt-5 rounded-xl text-white text-2xl font-medium">
+                <Text className=" bg-ciano w-80 text-center h-16 pt-4 mt-5 rounded-xl text-white text-2xl font-medium">
                   Escolha a Disciplina:
                 </Text>
                 <ScrollView>
@@ -100,7 +100,7 @@ const CardPickDisciplina: React.FC<TurmaProps & { index: number }> = ({
                             disciplina.id
                           )
                         }
-                        className=" flex-row pt-3 pb-3 h-20 m-3 items-center space-x-20 pr-2 justify-center pl-3 bg-green-600 w-72 rounded-md"
+                        className=" flex-row pt-3 pb-3 h-20 m-3 items-center space-x-20 pr-2 justify-center pl-3 bg-ciano w-72 rounded-md"
                         key={disciplina.id}
                       >
                         <Text className="font-bold text-white text-xl w-40">
@@ -109,7 +109,7 @@ const CardPickDisciplina: React.FC<TurmaProps & { index: number }> = ({
                         <AntDesign
                           name="rightcircleo"
                           size={24}
-                          color="black"
+                          color="orange"
                         />
                       </TouchableOpacity>
                     );
@@ -140,7 +140,7 @@ const CardPickDisciplina: React.FC<TurmaProps & { index: number }> = ({
                 </TouchableOpacity>
               </View>
             )}
-            <View className=" bg-red-400 w-full h-14 justify-center items-center rounded-b-xl">
+            <View className=" bg-red-500 w-full h-14 justify-center items-center rounded-b-xl">
               <TouchableOpacity
                 className="w-full items-center"
                 onPress={() => setModalDisciplinasVisivel(false)}
@@ -159,9 +159,9 @@ const CardPickDisciplina: React.FC<TurmaProps & { index: number }> = ({
         onRequestClose={() => setModalContaFree(false)}
       >
         <View className=" bg-black/75 w-full h-full justify-center items-center">
-          <View className="bg-white w-80 items-center rounded-lg pt-5">
+          <View className="bg-ciano w-80 items-center rounded-lg pt-5">
             <View className="self-end  space-x-14 pr-5 flex-row">
-              <Text className="text-3xl font-bold">Atenção</Text>
+              <Text className="text-3xl font-bold text-white">Atenção</Text>
               <AntDesign
                 name="closecircle"
                 size={30}
@@ -179,9 +179,9 @@ const CardPickDisciplina: React.FC<TurmaProps & { index: number }> = ({
               }}
               source={require("@/assets/lotties/attention.json")}
             />
-            <Text className="text-center font-medium pl-3 pr-3 text-lg">
+            <Text className="text-center text-white font-medium pl-3 pr-3 text-lg">
               Sua conta está no{" "}
-              <Text className="font-extrabold text-green-700">
+              <Text className="font-extrabold text-green-300">
                 Nível Gratuito
               </Text>
               . Você pode criar apenas{" "}
@@ -190,7 +190,7 @@ const CardPickDisciplina: React.FC<TurmaProps & { index: number }> = ({
               </Text>
               por mês.
             </Text>
-            <Text className="text-xl font-bold mt-5">
+            <Text className="text-xl font-bold mt-5 text-white">
               Provas Criadas: <Text>{userGlobalData?.provasGeradas}</Text>
             </Text>
             <TouchableOpacity
@@ -202,7 +202,10 @@ const CardPickDisciplina: React.FC<TurmaProps & { index: number }> = ({
               </Text>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity className="bg-yellow-300 mt-8 flex-row space-x-5 p-3 rounded-lg">
+          <TouchableOpacity
+            className="bg-yellow-300 mt-8 flex-row space-x-5 p-3 rounded-lg"
+            onPress={() => router.replace("/home/(conf)/assinarPremium")}
+          >
             <Text className="text-xl font-bold">Adquirir Assinatura</Text>
             <FontAwesome5 name="crown" size={24} color="black" />
           </TouchableOpacity>
@@ -248,7 +251,10 @@ const CardPickDisciplina: React.FC<TurmaProps & { index: number }> = ({
               por mês.
             </Text>
 
-            <TouchableOpacity className="bg-yellow-300 flex-row space-x-5 p-3 justify-center rounded-b-lg items-center mt-5 w-full">
+            <TouchableOpacity
+              className="bg-yellow-300 flex-row space-x-5 p-3 justify-center rounded-b-lg items-center mt-5 w-full"
+              onPress={() => router.replace("/home/(conf)/assinarPremium")}
+            >
               <Text className="text-xl font-bold">Adquirir Assinatura</Text>
               <FontAwesome5 name="crown" size={24} color="black" />
             </TouchableOpacity>
@@ -258,9 +264,9 @@ const CardPickDisciplina: React.FC<TurmaProps & { index: number }> = ({
 
       <TouchableOpacity
         onPress={() => setModalDisciplinasVisivel(true)}
-        className=" self-center rounded-md bg-green-500 h-24 mb-5 w-11/12 items-center justify-center"
+        className=" self-center rounded-md bg-chumbo h-24 mb-5 w-11/12 items-center justify-center"
       >
-        <Text className=" text-black text-3xl w-60 text-center font-bold">
+        <Text className=" text-white text-3xl w-60 text-center font-bold">
           {nome}
         </Text>
       </TouchableOpacity>

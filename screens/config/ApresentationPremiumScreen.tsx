@@ -15,7 +15,7 @@ const ApresentationPremiumScreen = () => {
   }
 
   return (
-    <View className="h-full bg-white">
+    <View className="h-full bg-ciano">
       <LottieView
         autoPlay
         loop
@@ -24,14 +24,14 @@ const ApresentationPremiumScreen = () => {
           width: 600,
           height: 600,
           left: -75,
-          bottom: 140,
+          bottom: 190,
         }}
         source={require("@/assets/lotties/premium.json")}
       />
-      <View className="p-2 justify-end h-full pb-10 space-y-5 ">
-        <Text className="text-xl font-medium text-center">
+      <View className="p-4 justify-end h-full pb-10 space-y-5 ">
+        <Text className=" text-white text-xl font-medium text-center">
           Por apenas{" "}
-          <Text className="font-extrabold text-green-700">12.90/mês</Text> você
+          <Text className="font-extrabold text-orange-300">12.90/mês</Text> você
           possui o melhor assistente educacional do mercado com Provas
           Ilimitadas!
         </Text>

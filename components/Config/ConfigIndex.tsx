@@ -103,21 +103,25 @@ const ConfigIndex: React.FC<ConfigIndexProps> = ({
         >
           <View className="flex-row space-x-3">
             <TouchableOpacity>
-              <View className=" bg-laranja h-32 w-40 rounded-lg items-center justify-end">
+              <View className=" bg-chumbo h-32 w-40 rounded-lg items-center justify-end">
                 <View className="mb-3">
-                  <Feather name="settings" size={55} color="black" />
+                  <Feather name="settings" size={55} color="white" />
                 </View>
-                <Text className="font-bold text-lg mb-3">Configurações</Text>
+                <Text className="font-medium text-white text-lg mb-3">
+                  Configurações
+                </Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => router.push("/home/(conf)/code")}>
-              <View className=" bg-laranja w-40 h-32 rounded-lg items-center justify-end">
+              <View className=" bg-chumbo w-40 h-32 rounded-lg items-center justify-end">
                 <View className=" flex-row space-x-1 mb-5">
-                  <Octicons name="key-asterisk" size={30} color="black" />
-                  <Octicons name="key-asterisk" size={30} color="black" />
-                  <Octicons name="key-asterisk" size={30} color="black" />
+                  <Octicons name="key-asterisk" size={30} color="white" />
+                  <Octicons name="key-asterisk" size={30} color="white" />
+                  <Octicons name="key-asterisk" size={30} color="white" />
                 </View>
-                <Text className="font-bold text-lg mb-3">Ativar Código</Text>
+                <Text className=" font-medium text-white text-lg  mb-3">
+                  Ativar Código
+                </Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -126,21 +130,25 @@ const ConfigIndex: React.FC<ConfigIndexProps> = ({
               contaFree()
             ) : (
               <TouchableOpacity>
-                <View className="bg-laranja h-32 w-40 rounded-lg items-center justify-end">
+                <View className="bg-chumbo h-32 w-40 rounded-lg items-center justify-end">
                   <View className="mb-3">
-                    <Fontisto name="credit-card" size={50} color="black" />
+                    <Fontisto name="credit-card" size={50} color="white" />
                   </View>
-                  <Text className="font-bold text-lg mb-3">Sua Assinatura</Text>
+                  <Text className="font-medium text-white text-lg mb-3">
+                    Sua Assinatura
+                  </Text>
                 </View>
               </TouchableOpacity>
             )}
 
             <TouchableOpacity>
-              <View className=" bg-laranja w-40 h-32 rounded-lg items-center justify-end">
+              <View className=" bg-chumbo w-40 h-32 rounded-lg items-center justify-end">
                 <View className=" flex-row space-x-1 mb-3">
-                  <Octicons name="log" size={45} color="black" />
+                  <Octicons name="log" size={45} color="white" />
                 </View>
-                <Text className="font-bold text-lg mb-3">Registros</Text>
+                <Text className="font-medium text-white text-lg mb-3">
+                  Registros
+                </Text>
               </View>
             </TouchableOpacity>
           </View>

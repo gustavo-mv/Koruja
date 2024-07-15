@@ -10,7 +10,7 @@ const index = () => {
     return null;
   }
   return (
-    <View>
+    <View className="bg-ciano">
       <StatusBar style="light" />
       <IndexHomeScreen {...userGlobalData} />
     </View>

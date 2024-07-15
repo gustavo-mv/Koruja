@@ -6,7 +6,7 @@ import AtividadeCard from "./AtividadeCard";
 
 const HomeIndex = () => {
   return (
-    <View>
+    <View className="bg-ciano">
       <GabaritosCard />
       <View className=" mt-3">
         <Text className=" text-4xl font-extrabold pl-2 pb-2">Atividades:</Text>

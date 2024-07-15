@@ -5,17 +5,20 @@ import {
   TouchableOpacity,
   StyleSheet,
   ScrollView,
+  Image,
+  ActivityIndicator,
 } from "react-native";
-import React from "react";
+import React, { useState, useContext, useEffect } from "react";
 import AuthContext from "@/app/AuthContext";
 
-import Avatar0 from "@/assets/avatars/avatar0.svg";
-import Avatar1 from "@/assets/avatars/avatar1.svg";
-import Avatar2 from "@/assets/avatars/avatar2.svg";
-import Avatar3 from "@/assets/avatars/avatar3.svg";
-import Avatar4 from "@/assets/avatars/avatar4.svg";
-import Avatar5 from "@/assets/avatars/avatar5.svg";
-import Avatar6 from "@/assets/avatars/avatar6.svg";
+// Importações das imagens PNG
+import Avatar0 from "@/assets/avatars/avatar0.png";
+import Avatar1 from "@/assets/avatars/avatar1.png";
+import Avatar2 from "@/assets/avatars/avatar2.png";
+import Avatar3 from "@/assets/avatars/avatar3.png";
+import Avatar4 from "@/assets/avatars/avatar4.png";
+import Avatar5 from "@/assets/avatars/avatar5.png";
+import Avatar6 from "@/assets/avatars/avatar6.png";
 
 const avatars: any = {
   0: Avatar0,
@@ -34,12 +37,11 @@ interface AvatarProps {
 const API_URL = process.env.EXPO_PUBLIC_API_URL;
 
 const Avatar: React.FC<AvatarProps> = ({ avatarNumber, userId }) => {
-  const { token } = React.useContext(AuthContext);
+  const { token } = useContext(AuthContext);
 
-  const [selectedAvatar, setSelectedAvatar] = React.useState(avatarNumber);
-  const [modalVisible, setModalVisible] = React.useState(false);
+  const [selectedAvatar, setSelectedAvatar] = useState(avatarNumber);
+  const [modalVisible, setModalVisible] = useState(false);
 
-  const SelectedAvatar = avatars[selectedAvatar];
   const handleAvatarPress = async (number: number) => {
     setSelectedAvatar(number);
     setModalVisible(false);
@@ -62,11 +64,20 @@ const Avatar: React.FC<AvatarProps> = ({ avatarNumber, userId }) => {
     }
   };
 
+  const SelectedAvatar = avatars[selectedAvatar];
+
   return (
     <View>
       <TouchableOpacity onPress={() => setModalVisible(true)}>
         <View style={styles.avatarContainer}>
-          <SelectedAvatar width={140} height={140} />
+          {SelectedAvatar ? (
+            <Image
+              source={SelectedAvatar}
+              style={{ width: 140, height: 140 }}
+            />
+          ) : (
+            <ActivityIndicator size="large" color="#0000ff" />
+          )}
         </View>
       </TouchableOpacity>
 
@@ -89,7 +100,10 @@ const Avatar: React.FC<AvatarProps> = ({ avatarNumber, userId }) => {
                       isSelected && styles.selectedAvatarOption,
                     ]}
                   >
-                    <AvatarComponent width={85} height={85} />
+                    <Image
+                      source={AvatarComponent}
+                      style={{ width: 95, height: 95 }}
+                    />
                   </TouchableOpacity>
                 );
               })}
@@ -129,14 +143,13 @@ const styles = StyleSheet.create({
     padding: 20,
     alignItems: "center",
   },
-
   scrollContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
   },
   avatarOption: {
-    margin: 10,
+    margin: 12,
     borderRadius: 40,
     borderWidth: 2,
     borderColor: "transparent",
@@ -155,6 +168,7 @@ const styles = StyleSheet.create({
   closeButtonText: {
     color: "white",
     fontWeight: "bold",
+    fontSize: 18,
   },
 });
 

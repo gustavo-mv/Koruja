@@ -23,10 +23,14 @@ const InfoCriarQuestoesScreen: React.FC<CriarProvaInfo> = (disciplina) => {
   ];
 
   return (
-    <View style={styles.container}>
-      <View style={styles.content}>
-        <Text style={styles.title}>{disciplina.nomeProva}</Text>
-        <Text style={styles.subtitle}>{disciplina.assunto}</Text>
+    <View className="bg-ciano items-center h-full">
+      <View className="pt-10">
+        <Text className="bg-orange-300 text-3xl text-center mb-5 p-5 rounded-md font-bold">
+          {disciplina.nomeProva}
+        </Text>
+        <Text className="text-gray-300 text-center text-2xl mb-8 font-bold">
+          {disciplina.assunto}
+        </Text>
         <View style={styles.pickerContainer}>
           <View style={styles.pickerWrapper}>
             <Text style={styles.pickerLabel}>Questões:</Text>
@@ -80,7 +84,9 @@ const InfoCriarQuestoesScreen: React.FC<CriarProvaInfo> = (disciplina) => {
         >
           <TouchableOpacity
             disabled={disabledNext}
-            style={[styles.button, disabledNext && styles.buttonDisabled]}
+            className={`${
+              disabledNext ? "opacity-50" : ""
+            } bg-laranja w-32 p-3 m-2 rounded-md items-center self-center`}
           >
             <Text style={styles.buttonText}>Próximo</Text>
           </TouchableOpacity>
@@ -143,7 +149,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   button: {
-    backgroundColor: "#66BB6A",
+    backgroundColor: "#e86800",
     width: 128,
     borderRadius: 8,
     padding: 12,

@@ -15,13 +15,8 @@ const awaitingCode = () => {
   if (params.telefone && !params.isTryingResetPassword) {
     return <AwaitingCode telefone={params.telefone} />;
   }
-  if (params.telefone && params.isTryingResetPassword) {
-    return (
-      <AwaitingCode
-        telefone={params.telefone}
-        isTryingReset={params.isTryingResetPassword}
-      />
-    );
+  if (params.isTryingResetPassword) {
+    return <AwaitingCode isTryingReset={params.isTryingResetPassword} />;
   }
 };
 

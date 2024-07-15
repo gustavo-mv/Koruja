@@ -111,7 +111,7 @@ const ListaDeGabaritosScreen: React.FC<{ idProf: string; token: string }> = ({
         }}
         key={item.id}
       >
-        <TouchableOpacity className=" rounded-lg bg-black m-4">
+        <TouchableOpacity className=" rounded-lg bg-chumbo m-4">
           <View className="p-5 flex-row">
             <View className=" flex-col h-32 w-2/3 items-start justify-center">
               <Text className="text-white text-3xl pl-2 pr-2 font-bold">
@@ -158,7 +158,7 @@ const ListaDeGabaritosScreen: React.FC<{ idProf: string; token: string }> = ({
   };
 
   return (
-    <View className="flex-1 bg-green-600">
+    <View className="flex-1 bg-ciano">
       {semGabaritos ? (
         <View className="h-80 items-center">
           {renderHeader()}

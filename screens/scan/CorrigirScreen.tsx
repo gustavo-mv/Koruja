@@ -15,10 +15,18 @@ import * as FileSystem from "expo-file-system";
 export default function CorrigirScreen() {
   const [hasPermission, setHasPermission] = useState(null);
   const [isCameraReady, setIsCameraReady] = useState(false);
-  const [disabled, setDisabled] = useState(false);
+  const [disabled, setDisabled] = useState(true);
+  const [firstCapture, setFirstCapture] = useState(true);
+
   const [dataQR, setDataQR] = useState<null | string>(null);
 
   const cameraRef = React.useRef(null);
+
+  useEffect(() => {
+    if (dataQR !== null) {
+      setDisabled(false);
+    }
+  }, [dataQR]);
 
   useEffect(() => {
     console.log(dataQR);
@@ -94,6 +102,7 @@ export default function CorrigirScreen() {
         <TouchableOpacity
           disabled={disabled}
           style={{
+            opacity: disabled ? 0.5 : 1,
             backgroundColor: disabled ? "#ccc" : "#4CAF50",
             ...styles.button,
           }}
@@ -141,37 +150,29 @@ export default function CorrigirScreen() {
         <TouchableOpacity
           disabled={disabled}
           style={{
-            backgroundColor: disabled ? "#02b510" : "#00820a",
+            backgroundColor: disabled ? "#e86800" : "#e86800",
             ...styles.button,
           }}
           onPress={() => {
+            setFirstCapture(false);
             setDisabled(true);
             capturar();
           }}
         >
-          {disabled ? (
-            <Text
-              style={{
-                color: "#fff",
-                textAlign: "center",
-                fontSize: 20,
-                fontWeight: "bold",
-              }}
-            >
-              Transferindo...
-            </Text>
-          ) : (
-            <Text
-              style={{
-                color: "#fff",
-                textAlign: "center",
-                fontSize: 20,
-                fontWeight: "bold",
-              }}
-            >
-              Corrigir
-            </Text>
-          )}
+          <Text
+            style={{
+              color: "#fff",
+              textAlign: "center",
+              fontSize: 20,
+              fontWeight: "bold",
+            }}
+          >
+            {disabled
+              ? firstCapture
+                ? "Capturar"
+                : "Transferindo"
+              : "Capturar"}
+          </Text>
         </TouchableOpacity>
       </View>
     </View>

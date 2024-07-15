@@ -141,13 +141,13 @@ const MarcarGabaritoScreen: React.FC<CriarProvaInfo> = (gabarito) => {
     return (
       <ScrollView>
         <View className=" justify-center items-center">
-          <View className="flex-col h-32 bg-green-600 w-full justify-center items-center mb-5">
+          <View className="flex-col h-32 bg-laranja w-full justify-center items-center mb-5">
             <Text className=" font-bold text-white text-4xl mb-2 tracking-wider">
               Gabarito Único
             </Text>
           </View>
           {renderizarCheckboxes()}
-          <View className=" items-center bg-green-200 rounded-md p-3 mt-4">
+          <View className=" items-center bg-orange-200 rounded-md p-3 mt-4">
             <Text className=" font-extrabold">Respostas selecionadas:</Text>
 
             {respostas.map((resposta, index) => (
@@ -164,9 +164,9 @@ const MarcarGabaritoScreen: React.FC<CriarProvaInfo> = (gabarito) => {
             onPress={handleSave}
             className={`
          ${proximoDisabled ? "opacity-40" : ""}
-         bg-green-500 mt-5 w-32 rounded-md p-3 mb-5`}
+         bg-laranja mt-5 w-32 rounded-md p-3 mb-5`}
           >
-            <Text className=" text-center text-base font-bold">
+            <Text className=" text-white text-center text-base font-bold">
               Criar Prova
             </Text>
           </TouchableOpacity>
@@ -279,7 +279,7 @@ const MarcarGabaritoScreen: React.FC<CriarProvaInfo> = (gabarito) => {
     return (
       <ScrollView>
         <View className=" justify-center items-center">
-          <View className="flex-col h-32 bg-green-600 w-full justify-center items-center mb-5">
+          <View className="flex-col h-32 bg-laranja w-full justify-center items-center mb-5">
             <Text className=" font-bold text-white text-7xl">
               {gabarito.index}º
             </Text>
@@ -288,7 +288,7 @@ const MarcarGabaritoScreen: React.FC<CriarProvaInfo> = (gabarito) => {
             </Text>
           </View>
           {renderizarCheckboxes()}
-          <View className=" items-center bg-green-200 rounded-md p-3 mt-4">
+          <View className=" items-center bg-orange-200 rounded-md p-3 mt-4">
             <Text className=" font-extrabold">Respostas selecionadas:</Text>
 
             {respostas.map((resposta, index) => (
@@ -305,9 +305,11 @@ const MarcarGabaritoScreen: React.FC<CriarProvaInfo> = (gabarito) => {
             onPress={handleSave}
             className={`
          ${proximoDisabled ? "opacity-40" : ""}
-         bg-green-500 mt-5 w-32 rounded-md p-3 mb-5`}
+         bg-laranja mt-5 w-32 rounded-md p-3 mb-5`}
           >
-            <Text className=" text-center text-base font-bold">Próxima</Text>
+            <Text className=" text-white text-center text-base font-bold">
+              Próxima
+            </Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -418,7 +420,7 @@ const MarcarGabaritoScreen: React.FC<CriarProvaInfo> = (gabarito) => {
     return (
       <ScrollView>
         <View className=" justify-center items-center">
-          <View className="flex-col h-32 bg-green-600 w-full justify-center items-center mb-5">
+          <View className="flex-col h-32 bg-laranja w-full justify-center items-center mb-5">
             <Text className=" font-bold text-white text-7xl">
               {gabarito.index}º
             </Text>
@@ -427,7 +429,7 @@ const MarcarGabaritoScreen: React.FC<CriarProvaInfo> = (gabarito) => {
             </Text>
           </View>
           {renderizarCheckboxes()}
-          <View className=" items-center bg-green-200 rounded-md p-3 mt-4">
+          <View className=" items-center bg-orange-200 rounded-md p-3 mt-4">
             <Text className=" font-extrabold">Respostas selecionadas:</Text>
 
             {respostas.map((resposta, index) => (
@@ -444,9 +446,9 @@ const MarcarGabaritoScreen: React.FC<CriarProvaInfo> = (gabarito) => {
             onPress={handleSave}
             className={`
          ${proximoDisabled ? "opacity-40" : ""}
-         bg-green-500 mt-5 w-32 rounded-md p-3 mb-5`}
+         bg-laranja mt-5 w-32 rounded-md p-3 mb-5`}
           >
-            <Text className=" text-center text-base font-bold">
+            <Text className=" text-white text-center text-base font-bold">
               Criar Prova
             </Text>
           </TouchableOpacity>

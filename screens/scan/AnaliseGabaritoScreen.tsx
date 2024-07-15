@@ -37,15 +37,6 @@ const AnaliseGabaritoScreen = ({ base64, dataQR }: any) => {
         const data = await response.json();
         console.log(data.result);
 
-        const imageFilePath =
-          FileSystem.cacheDirectory + "image.jpg" + `${Date.now()}`;
-        await FileSystem.deleteAsync(imageFilePath, { idempotent: true });
-        await FileSystem.writeAsStringAsync(imageFilePath, data.result, {
-          encoding: FileSystem.EncodingType.Base64,
-        });
-        setImageUri(imageFilePath);
-        console.log(imageFilePath);
-
         setLoading(false);
       }
     } catch (e) {

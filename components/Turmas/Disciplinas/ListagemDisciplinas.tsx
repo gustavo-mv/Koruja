@@ -12,7 +12,7 @@ class ListItem extends PureComponent<{
 }> {
   render() {
     const { item, index, turma } = this.props;
-    const cores = ["#0a9600", "#076600", "#044000"];
+    const cores = ["#e86800", "#b95300", "#944200"];
     const indiceCor = index % cores.length;
 
     return (

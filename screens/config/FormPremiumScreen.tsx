@@ -114,8 +114,8 @@ const FormPremiumScreen = () => {
   }
 
   return (
-    <View className="h-full bg-white">
-      <Text className="font-bold text-lg m-2 self-center">
+    <View className="h-full bg-ciano">
+      <Text className="font-bold text-white text-lg m-2 self-center">
         Insira seu nome completo:
       </Text>
       <TextInput
@@ -140,11 +140,11 @@ const FormPremiumScreen = () => {
       <TouchableOpacity
         disabled={disabled}
         onPress={handleContinue}
-        style={{ backgroundColor: "#1CBA38", opacity: disabled ? 0.4 : 1 }}
+        style={{ backgroundColor: "#e86800", opacity: disabled ? 0.4 : 1 }}
         className="self-center m-5 rounded-md items-center justify-center p-3 flex-row space-x-4"
       >
         <Text
-          className="font-bold text-lg"
+          className="font-bold text-lg "
           style={{ color: disabled ? "black" : "white" }}
         >
           Prosseguir para Pagamento

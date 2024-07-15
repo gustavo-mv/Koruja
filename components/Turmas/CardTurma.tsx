@@ -25,7 +25,7 @@ const CardTurma: React.FC<TurmaProps> = ({
       }}
       asChild
     >
-      <TouchableOpacity className=" bg-black h-36 w-96 mb-4 self-center rounded-2xl justify-center items-start ">
+      <TouchableOpacity className=" bg-chumbo h-36 w-96 mb-4 self-center rounded-2xl justify-center items-start ">
         <View className="flex-col">
           <View className=" flex-row items-center ml-4 mb-2 mt-2 space-x-3 ">
             <View className=" bg-white rounded-lg p-1">

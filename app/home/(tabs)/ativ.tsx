@@ -5,7 +5,7 @@ import { StatusBar } from "expo-status-bar";
 
 const atividades = () => {
   return (
-    <View>
+    <View className="bg-ciano h-full">
       <StatusBar style="light" />
 
       <AtividadesIndex />

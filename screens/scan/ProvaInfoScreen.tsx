@@ -220,15 +220,15 @@ const ProvaInfoScreen: React.FC<ProvaModel> = (prova) => {
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  className="flex-1 items-center h-28 justify-center bg-emerald-400 rounded-md m-2"
+                  className="flex-1 items-center h-28 justify-center bg-ciano rounded-md m-2"
                   onPress={() => handleDownload()}
                 >
                   <MaterialCommunityIcons
                     name="file-download-outline"
                     size={45}
-                    color="black"
+                    color="white"
                   />
-                  <Text className=" text-black text-base  pt-1 font-bold">
+                  <Text className=" text-white text-base  pt-1 font-bold">
                     Baixar Gabarito
                   </Text>
                 </TouchableOpacity>
@@ -285,8 +285,8 @@ const ProvaInfoScreen: React.FC<ProvaModel> = (prova) => {
                     className=" bg-white w-52 h-80 m-3 rounded-md  items-center"
                   >
                     <View key={variacao.id} className=" items-center">
-                      <View className=" p-3 bg-green-500 mb-2 rounded-b-md">
-                        <Text className="text-black font-bold text-2xl">
+                      <View className=" p-3 bg-laranja mb-2 rounded-b-md">
+                        <Text className="text-white font-bold text-2xl">
                           {index + 1}º Variação
                         </Text>
                       </View>

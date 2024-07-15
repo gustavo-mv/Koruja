@@ -75,6 +75,8 @@ const AddCode = ({ token }: any) => {
   }
 
   React.useEffect(() => {
+    const upperCaseText = code.toUpperCase();
+    setCode(upperCaseText);
     if (code.length > 3) {
       setDisabled(false);
     } else {
@@ -102,7 +104,7 @@ const AddCode = ({ token }: any) => {
   }, [codigoAtivado]);
 
   return (
-    <View className="h-full bg-white">
+    <View className="h-full bg-ciano">
       <Modal visible={codigoAtivado} animationType="slide" transparent={true}>
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
@@ -149,12 +151,13 @@ const AddCode = ({ token }: any) => {
         source={require("./../../assets/lotties/codeVerification.json")}
       />
       <View className="p-5 mt-48">
-        <Text className="text-xl font-bold text-center">
+        <Text className="text-white text-xl font-bold text-center">
           Insira o código pra resgatar uma Assinatura Patrocinada!
         </Text>
         <TextInput
           className="bg-gray-200 w-52 h-12 self-center mt-5 text-2xl p-2 font-extrabold rounded-md text-center"
           autoCapitalize="characters"
+          value={code}
           autoFocus={true}
           onChangeText={(value) => setCode(value)}
         ></TextInput>
@@ -165,7 +168,7 @@ const AddCode = ({ token }: any) => {
         )}
         <TouchableOpacity
           disabled={disabled}
-          style={{ backgroundColor: "#1CBA38", opacity: disabled ? 0.4 : 1 }}
+          style={{ backgroundColor: "#e86800", opacity: disabled ? 0.4 : 1 }}
           onPress={handleNext}
           className="self-center m-4 mt-2 w-40 rounded-md items-center justify-center p-3 flex-row space-x-4"
         >
