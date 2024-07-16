@@ -88,6 +88,11 @@ const AwaitingCode = ({ telefone, isTryingReset }) => {
     }
   }, []);
 
+  const formatTime = (seconds) => {
+    const date = new Date(seconds * 1000);
+    return date.toISOString().substr(14, 5);
+  };
+
   const [code, setCode] = useState(new Array(6).fill(""));
   const [reseting, setReseting] = useState(false);
   const [disabled, setDisabled] = useState(true);
@@ -119,12 +124,18 @@ const AwaitingCode = ({ telefone, isTryingReset }) => {
     if (reseting) {
       return (
         <>
-          <TouchableOpacity
-            className="mt-40 rounded-md w-80 h-12 items-center bg-orange-400 mb-8 justify-center"
-            onPress={() => handleResendSms()}
-          >
-            <Text className="text-xl font-bold">Reenviar Código</Text>
-          </TouchableOpacity>
+          {timer === 0 ? (
+            <TouchableOpacity
+              className="mt-40 rounded-md w-80 h-12 items-center bg-orange-400 mb-8 justify-center"
+              onPress={() => handleResendSms()}
+            >
+              <Text className="text-lg font-bold">Reenviar Código</Text>
+            </TouchableOpacity>
+          ) : (
+            <View className=" mt-40 rounded-md w-80 h-12 items-center bg-orange-400 mb-8 justify-center">
+              <Text>Reenviar em: {formatTime(timer)}</Text>
+            </View>
+          )}
         </>
       );
     } else {
@@ -139,10 +150,7 @@ const AwaitingCode = ({ telefone, isTryingReset }) => {
             </TouchableOpacity>
           ) : (
             <View className=" rounded-md bg-yellow-200 w-40 h-12 items-center justify-center">
-              <Text>
-                Reenviar em: {Math.floor(timer / 60)}:
-                {(timer % 60).toString().padStart(2, "0")}
-              </Text>
+              <Text>Reenviar em: {formatTime(timer)}</Text>
             </View>
           )}
           <TouchableOpacity className=" rounded-md bg-yellow-200 w-40 h-12 items-center justify-center">
@@ -220,12 +228,23 @@ const AwaitingCode = ({ telefone, isTryingReset }) => {
   }
 
   return (
-    <View className="h-full w-full items-center justify-end bg-white">
+    <View className="h-full w-full items-center justify-end bg-ciano">
       <View className="self-center w-80 mb-5">
-        <Text className="font-bold text-lg text-center">
-          Enviamos um código via SMS para seu número <Text>{telefone}</Text>,
-          insira abaixo para validarmos sua conta:
-        </Text>
+        {isTryingReset ? (
+          <>
+            <Text className="font-bold text-lg text-center text-white">
+              Enviamos um código via SMS para seu número associada a essa conta,
+              verifique sua caixa de mensagens e insira o código:
+            </Text>
+          </>
+        ) : (
+          <>
+            <Text className="font-bold text-lg text-center text-white">
+              Enviamos um código via SMS para seu número <Text>{telefone}</Text>
+              , insira abaixo para validarmos sua conta:
+            </Text>
+          </>
+        )}
       </View>
       <View style={styles.codeInputContainer}>
         {code.map((digit, index) => (

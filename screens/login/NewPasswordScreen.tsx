@@ -38,11 +38,12 @@ const NewPasswordScreen = ({ code }) => {
       console.error(
         "Algo inesperado aconteceu recuperação de conta não realizada."
       );
-      throw new Error("Erro na resposta da API /professores/sms/reenviar");
+      throw new Error("Erro na resposta da API /professores/resetar-senha");
     } else {
       router.replace({
-        pathname: "/",
+        pathname: "/login/index",
       });
+      router.push("/login/loginForm");
     }
   }
 
@@ -66,7 +67,7 @@ const NewPasswordScreen = ({ code }) => {
             className="font-bold text-lg bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-laranja focus:border-laranja block w-80 p-2.5"
             placeholder="Nova Senha"
             autoCapitalize="none"
-            keyboardType="email-address"
+            keyboardType="default"
           />
         </View>
       </View>

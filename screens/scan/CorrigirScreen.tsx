@@ -51,7 +51,7 @@ export default function CorrigirScreen() {
         console.log("Cache cleared successfully.");
 
         const imageData = await cameraRef.current.takePictureAsync({
-          quality: 0.5,
+          quality: 0.6,
         });
 
         router.push({
@@ -102,9 +102,7 @@ export default function CorrigirScreen() {
         <TouchableOpacity
           disabled={disabled}
           style={{
-            opacity: disabled ? 0.5 : 1,
             backgroundColor: disabled ? "#ccc" : "#4CAF50",
-            ...styles.button,
           }}
           onPress={async () => {
             setDisabled(true);
@@ -149,6 +147,7 @@ export default function CorrigirScreen() {
       <View className="justify-end h-full w-full pb-20 items-center">
         <TouchableOpacity
           disabled={disabled}
+          className={` ${disabled ? "opacity-50" : " "}`}
           style={{
             backgroundColor: disabled ? "#e86800" : "#e86800",
             ...styles.button,
