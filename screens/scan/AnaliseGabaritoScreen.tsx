@@ -3,18 +3,13 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
 import React from "react";
 import * as FileSystem from "expo-file-system";
 import AuthContext from "@/app/AuthContext";
 import { Picker } from "@react-native-picker/picker";
-import Animated, {
-  Easing,
-  useSharedValue,
-  useAnimatedStyle,
-  withTiming,
-} from "react-native-reanimated";
+import LottieView from "lottie-react-native";
 
 const AnaliseGabaritoScreen = ({ base64, dataQR }: any) => {
   const [convertedBase64, setConvertedBase64] = React.useState<string>("");
@@ -22,8 +17,11 @@ const AnaliseGabaritoScreen = ({ base64, dataQR }: any) => {
   const [error, setError] = React.useState<string | null>(null);
   const [resultData, setResultData] = React.useState<any>(null);
   const [leitura, setLeitura] = React.useState<any>({});
-
-  const buttonY = useSharedValue(100); // Começa fora da tela
+  const [score, setScore] = React.useState<{
+    correct: number;
+    incorrect: number;
+    blank: number;
+  }>({ correct: 0, incorrect: 0, blank: 0 });
 
   const API_URL = process.env.EXPO_PUBLIC_API_URL;
   const { token } = React.useContext(AuthContext);
@@ -86,38 +84,59 @@ const AnaliseGabaritoScreen = ({ base64, dataQR }: any) => {
 
   React.useEffect(() => {
     if (resultData) {
-      buttonY.value = withTiming(0, {
-        duration: 300,
-        easing: Easing.out(Easing.ease),
-      });
+      const calculateScore = () => {
+        const { leitura, respostas } = resultData;
+        let correct = 0;
+        let incorrect = 0;
+        let blank = 0;
+
+        respostas.forEach((resposta: string) => {
+          const [questao, gabarito] = resposta.split("-");
+          const respostaAluno = leitura[questao];
+
+          if (respostaAluno === gabarito) {
+            correct += 1;
+          } else if (!respostaAluno) {
+            blank += 1;
+          } else {
+            incorrect += 1;
+          }
+        });
+
+        return { correct, incorrect, blank };
+      };
+
+      setScore(calculateScore());
     }
-  }, [resultData]);
+  }, [resultData, leitura]);
 
-  const calculateScore = () => {
-    if (!resultData) return { correct: 0, incorrect: 0, blank: 0 };
+  React.useEffect(() => {
+    if (resultData) {
+      const calculateScore = () => {
+        const { respostas } = resultData;
+        let correct = 0;
+        let incorrect = 0;
+        let blank = 0;
 
-    const { leitura, respostas } = resultData;
-    let correct = 0;
-    let incorrect = 0;
-    let blank = 0;
+        respostas.forEach((resposta: string) => {
+          const [questao, gabarito] = resposta.split("-");
+          const respostaAluno = leitura[questao];
 
-    respostas.forEach((resposta: string) => {
-      const [questao, gabarito] = resposta.split("-");
-      const respostaAluno = leitura[questao];
+          if (respostaAluno === gabarito) {
+            correct += 1;
+          } else if (!respostaAluno) {
+            blank += 1;
+          } else {
+            incorrect += 1;
+          }
+        });
 
-      if (respostaAluno === gabarito) {
-        correct += 1;
-      } else if (!respostaAluno) {
-        blank += 1;
-      } else {
-        incorrect += 1;
-      }
-    });
+        return { correct, incorrect, blank };
+      };
 
-    return { correct, incorrect, blank };
-  };
-
-  const { correct, incorrect, blank } = calculateScore();
+      setScore(calculateScore());
+    }
+  }, [leitura]);
 
   const renderResponses = () => {
     if (!resultData) return null;
@@ -168,33 +187,43 @@ const AnaliseGabaritoScreen = ({ base64, dataQR }: any) => {
     });
   };
 
-  const animatedButtonStyle = useAnimatedStyle(() => {
-    return {
-      transform: [{ translateY: buttonY.value }],
-      position: "fixed",
-      bottom: 30,
-      left: "50%",
-      marginLeft: -75, // Ajusta para centralizar
-    };
-  });
-
   return (
     <ScrollView className="h-full bg-ciano">
       <View className="h-full bg-ciano">
         {error && <Text style={styles.errorText}>{error}</Text>}
         {loading && (
-          <Text style={styles.loadingText}>Processando imagem...</Text>
+          <>
+            <View className="items-center h-full w-full justify-center">
+              <LottieView
+                autoPlay
+                loop
+                style={{
+                  width: 500,
+                  height: 350,
+                }}
+                source={require("@/assets/lotties/loadingCorrect.json")}
+              />
+              <Text className="mb-14 text-2xl font-bold text-white">
+                Carregando correção...
+              </Text>
+              <ActivityIndicator size={60} color={"orange"} />
+            </View>
+          </>
         )}
         {!loading && resultData && (
           <View className="w-full items-center">
             <View style={styles.header}>
               <Text style={styles.headerText}>
                 Nota:{" "}
-                {((correct / resultData.respostas.length) * 10).toFixed(2)}
+                {((score.correct / resultData.respostas.length) * 10).toFixed(
+                  2
+                )}
               </Text>
-              <Text style={styles.headerText}>Acertos: {correct}</Text>
-              <Text style={styles.headerText}>Erros: {incorrect}</Text>
-              <Text style={styles.headerText}>Nulos/Em branco: {blank}</Text>
+              <Text style={styles.headerText}>Acertos: {score.correct}</Text>
+              <Text style={styles.headerText}>Erros: {score.incorrect}</Text>
+              <Text style={styles.headerText}>
+                Nulos/Em branco: {score.blank}
+              </Text>
             </View>
             <View style={styles.table}>
               <View style={styles.row}>
@@ -213,11 +242,6 @@ const AnaliseGabaritoScreen = ({ base64, dataQR }: any) => {
           </View>
         )}
         <Text>{dataQR}</Text>
-        <Animated.View style={[animatedButtonStyle]}>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Escanear novamente</Text>
-          </TouchableOpacity>
-        </Animated.View>
       </View>
     </ScrollView>
   );
@@ -291,6 +315,13 @@ const styles = StyleSheet.create({
   blank: {
     backgroundColor: "#fff3cd", // Amarelo
   },
+  fixedButton: {
+    position: "absolute",
+    bottom: 20,
+    left: 0,
+    right: 0,
+    alignItems: "center",
+  },
   button: {
     backgroundColor: "#e86800",
     padding: 15,
@@ -302,7 +333,6 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "white",
     fontWeight: "bold",
-    fontSize: 16,
   },
 });
 

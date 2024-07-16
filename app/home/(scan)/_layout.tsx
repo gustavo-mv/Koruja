@@ -117,7 +117,7 @@ export default function HomeLayout() {
         name="analiseGabarito"
         options={{
           title: "",
-          headerStyle: { backgroundColor: "transparent" },
+          headerStyle: { backgroundColor: "#0B2438" },
           headerShadowVisible: false,
           headerTintColor: "white",
           headerTitleAlign: "center",
