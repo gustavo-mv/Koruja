@@ -4,12 +4,12 @@ import React from "react";
 
 const analiseGabarito = () => {
   const params = useLocalSearchParams<{
-    base64: string;
+    URI: string;
     dataQR: string;
   }>();
 
   const photoInfo = {
-    base64: params.base64 as string,
+    URI: params.URI as string,
     dataQR: params.dataQR as string,
   };
 

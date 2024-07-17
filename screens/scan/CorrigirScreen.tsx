@@ -6,30 +6,31 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from "react-native";
-import { CameraView, Camera } from "expo-camera";
+import { CameraView, Camera, useCameraPermissions } from "expo-camera";
 import LottieView from "lottie-react-native";
 import Structure from "@/assets/structure.svg";
 import { router } from "expo-router";
 import * as FileSystem from "expo-file-system";
+import { FontAwesome } from "@expo/vector-icons";
+import KorujaLogo from "@/assets/KorujaLogo.svg";
 
 export default function CorrigirScreen() {
-  const [hasPermission, setHasPermission] = useState(null);
+  const [permission, requestPermission] = useCameraPermissions();
   const [isCameraReady, setIsCameraReady] = useState(false);
+  const [onOffFlash, setOnOffFlash] = useState(false);
+
   const [disabled, setDisabled] = useState(true);
   const [firstCapture, setFirstCapture] = useState(true);
-
   const [dataQR, setDataQR] = useState<null | string>(null);
 
   const cameraRef = React.useRef(null);
 
   useEffect(() => {
+    console.log(dataQR);
+
     if (dataQR !== null) {
       setDisabled(false);
     }
-  }, [dataQR]);
-
-  useEffect(() => {
-    console.log(dataQR);
   }, [dataQR]);
 
   const onCameraReady = () => {
@@ -51,13 +52,13 @@ export default function CorrigirScreen() {
         console.log("Cache cleared successfully.");
 
         const imageData = await cameraRef.current.takePictureAsync({
-          quality: 0.6,
+          quality: 1,
         });
 
         router.push({
           pathname: "/home/(scan)/analiseGabarito",
           params: {
-            base64: imageData.uri,
+            URI: imageData.uri,
             dataQR: dataQR,
           },
         });
@@ -67,20 +68,8 @@ export default function CorrigirScreen() {
       }
     }
   }
-  useEffect(() => {
-    const getCameraPermissions = async () => {
-      try {
-        const { status } = await Camera.requestCameraPermissionsAsync();
-        setHasPermission(status === "granted");
-      } catch (error) {
-        console.error("Error requesting camera permissions:", error);
-      }
-    };
 
-    getCameraPermissions();
-  }, []);
-
-  if (hasPermission === null) {
+  if (!permission?.granted) {
     return (
       <View style={styles.container} className="items-center">
         <LottieView
@@ -99,6 +88,31 @@ export default function CorrigirScreen() {
         >
           Para conseguirmos corrigir o gabarito precisaremos da sua câmera!
         </Text>
+        <TouchableOpacity
+          style={{
+            backgroundColor: disabled ? "#ccc" : "#4CAF50",
+          }}
+          onPress={requestPermission}
+        >
+          <Text
+            style={{
+              color: "#fff",
+              textAlign: "center",
+              fontSize: 20,
+              fontWeight: "bold",
+            }}
+          >
+            Permitir uso da Câmera
+          </Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+  if (!permission) {
+    return (
+      <>
+        <Text>Você não permitiu acesso a câmera.</Text>
+
         <TouchableOpacity
           disabled={disabled}
           style={{
@@ -124,11 +138,8 @@ export default function CorrigirScreen() {
             Permitir uso da Câmera
           </Text>
         </TouchableOpacity>
-      </View>
+      </>
     );
-  }
-  if (hasPermission === false) {
-    return <Text>Sem acesso a câmera.</Text>;
   }
 
   return (
@@ -138,16 +149,22 @@ export default function CorrigirScreen() {
         onCameraReady={onCameraReady}
         style={StyleSheet.absoluteFillObject}
         onBarcodeScanned={({ data }) => setDataQR(data)}
+        flash={onOffFlash ? "on" : "off"}
       />
+
       <Structure
-        height={"110%"}
-        width={"110%"}
-        style={{ position: "absolute", left: -15, opacity: 0.7 }}
+        height={"70%"}
+        width={"70%"}
+        style={{ position: "absolute", left: 50, top: 140, opacity: 0.7 }}
       />
+
+      {/* Máscara retangular para a área de scan */}
+      <View style={styles.mask} />
+
       <View className="justify-end h-full w-full pb-20 items-center">
         <TouchableOpacity
           disabled={disabled}
-          className={` ${disabled ? "opacity-50" : " "}`}
+          className={`${disabled ? "opacity-50" : ""}`}
           style={{
             backgroundColor: disabled ? "#e86800" : "#e86800",
             ...styles.button,
@@ -173,6 +190,20 @@ export default function CorrigirScreen() {
               : "Capturar"}
           </Text>
         </TouchableOpacity>
+        <TouchableOpacity
+          className=""
+          onPress={() => setOnOffFlash(!onOffFlash)}
+        >
+          <Text className="text-xl text-white">Flash</Text>
+        </TouchableOpacity>
+        <KorujaLogo
+          style={{
+            height: 20,
+            width: 20,
+            position: "absolute",
+            bottom: 620,
+          }}
+        />
       </View>
     </View>
   );
@@ -189,5 +220,16 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginVertical: 10,
     width: 200,
+  },
+  mask: {
+    position: "absolute",
+    top: "-10%",
+    left: "-73%",
+    width: "245%",
+    height: "125%",
+    backgroundColor: "gray",
+    opacity: 0.5,
+    borderRadius: 10,
+    borderWidth: 350,
   },
 });
