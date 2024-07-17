@@ -8,10 +8,10 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: "white",
-        tabBarInactiveTintColor: "gray",
+        tabBarInactiveTintColor: "white",
         tabBarStyle: {
           backgroundColor: "#0b1c36",
-          borderColor: "black",
+          borderColor: "white",
           borderTopWidth: 1,
           height: 90,
           paddingBottom: 20,
@@ -47,7 +47,8 @@ export default function TabLayout() {
         name="scan"
         options={{
           title: "Scan",
-          tabBarActiveTintColor: "#e86800",
+
+          tabBarActiveTintColor: "orange",
           tabBarIconStyle: { color: "white" },
           headerShown: false,
           tabBarIcon: ({ color }) => (
@@ -55,7 +56,7 @@ export default function TabLayout() {
               name="qr-code-scanner"
               size={44}
               style={styles.qr}
-              color={"black"}
+              color={"#e6efff"}
             />
           ),
         }}

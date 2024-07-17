@@ -13,6 +13,7 @@ import { Picker } from "@react-native-picker/picker";
 import LottieView from "lottie-react-native";
 import { Animated } from "react-native";
 import { FontAwesome6 } from "@expo/vector-icons";
+import { router } from "expo-router";
 
 const AnaliseGabaritoScreen = ({ URI, dataQR }: any) => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -25,17 +26,19 @@ const AnaliseGabaritoScreen = ({ URI, dataQR }: any) => {
     blank: number;
   }>({ correct: 0, incorrect: 0, blank: 0 });
 
-  const fadeAnim = useRef(new Animated.Value(1)).current;
+  const fadeAnim = useRef(new Animated.Value(0)).current;
   const API_URL = process.env.EXPO_PUBLIC_API_URL;
   const { token } = React.useContext(AuthContext);
 
-  React.useEffect(() => {
-    Animated.timing(fadeAnim, {
-      toValue: 1,
-      duration: 800,
-      useNativeDriver: true,
-    }).start();
-  }, [leitura]);
+  useEffect(() => {
+    if (resultData) {
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 800,
+        useNativeDriver: true,
+      }).start();
+    }
+  }, [resultData]);
 
   const enviarFoto = async () => {
     try {
@@ -247,7 +250,13 @@ const AnaliseGabaritoScreen = ({ URI, dataQR }: any) => {
         </View>
       </ScrollView>
       <Animated.View style={{ opacity: fadeAnim }}>
-        <TouchableOpacity className="bg-laranja w-80 fixed bottom-6 h-16 self-center rounded-md items-center justify-center flex-row space-x-3">
+        <TouchableOpacity
+          className="bg-laranja w-80 fixed bottom-6 h-16 self-center rounded-md items-center justify-center flex-row space-x-3"
+          onPress={() => {
+            router.replace("/home/(tabs)/scan");
+            router.push("/home/(scan)/corrigir");
+          }}
+        >
           <Text className="font-bold text-lg text-white">
             Corrigir Novamente
           </Text>

@@ -37,14 +37,14 @@ const TurmaInfoScreen: React.FC<TurmaProps> = (turma) => {
               },
             }}
           >
-            <TouchableOpacity className=" flex-row justify-center items-center bg-black rounded-xl bottom-28 6 w-44 h-10 self-end fixed right-2 z-50">
+            <TouchableOpacity className=" flex-row justify-center items-center bg-laranja border-2 rounded-xl bottom-28 6 w-44 h-10 self-end fixed right-2 z-50">
               <MaterialCommunityIcons
                 name="notebook-edit"
                 size={24}
-                color="#22c55e"
+                color="white"
               />
 
-              <Text className="text-green-500 font-semibold pl-2">
+              <Text className="text-white font-semibold pl-2">
                 Adicionar Disciplina
               </Text>
             </TouchableOpacity>

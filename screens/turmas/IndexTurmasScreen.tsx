@@ -39,13 +39,13 @@ const IndexTurmasScreen: React.FC<User> = ({ id }) => {
           params: { idProfessor: id },
         }}
       >
-        <TouchableOpacity className=" flex-row justify-center items-center bg-laranja rounded-2xl bottom-24 w-40 h-10 self-end fixed right-2 z-50">
+        <TouchableOpacity className=" flex-row justify-center border-2 items-center bg-laranja rounded-2xl bottom-24 w-40 h-10 self-end fixed right-2 z-50">
           <MaterialCommunityIcons
             name="account-multiple-plus"
             size={24}
-            color="black"
+            color="white"
           />
-          <Text className=" font-semibold pl-2">Adicionar Turma</Text>
+          <Text className="text-white font-semibold pl-2">Adicionar Turma</Text>
         </TouchableOpacity>
       </Link>
     </View>

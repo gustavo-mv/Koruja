@@ -98,7 +98,7 @@ const DownloadGabarito = ({ variacaoId }) => {
       });
 
       const asset = await MediaLibrary.createAssetAsync(fileUri);
-      await MediaLibrary.createAlbumAsync("Download", asset, false);
+      await MediaLibrary.createAlbumAsync("Koruja", asset, false);
 
       alert("Imagem baixada com sucesso!");
     } catch (error) {
@@ -112,14 +112,19 @@ const DownloadGabarito = ({ variacaoId }) => {
   return (
     <View className="h-full">
       {image ? (
-        <View className="items-center w-full h-full pt-8">
-          <Image source={{ uri: image }} style={{ width: 350, height: 500 }} />
+        <View className="items-center w-full h-full bg-chumbo">
+          <View className="h-90 w-full">
+            <Image
+              source={{ uri: image }}
+              style={{ width: "100%", height: "80%", objectFit: "contain" }}
+            />
+          </View>
           <TouchableOpacity
-            className="rounded-lg w-28 h-14 mt-8 justify-center items-center bg-green-500"
+            className="rounded-lg p-3 h-14 justify-center items-center bg-laranja "
             onPress={downloadImage}
             disabled={isDownloading}
           >
-            <Text className="text-2xl font-bold">
+            <Text className="text-2xl font-bold text-white">
               {isDownloading ? "Baixando..." : "Baixar"}
             </Text>
           </TouchableOpacity>
