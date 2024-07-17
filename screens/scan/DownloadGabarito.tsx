@@ -102,8 +102,8 @@ const DownloadGabarito = ({ variacaoId }) => {
 
       alert("Imagem baixada com sucesso!");
     } catch (error) {
-      console.error("Erro ao baixar a imagem", error);
-      alert("Erro ao baixar a imagem");
+      console.error("Permissão negada ao baixar a imagem.");
+      alert("Permissão negada ao baixar a imagem.");
     } finally {
       setIsDownloading(false);
     }

@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import AuthContext from "../AuthContext";
 import { router } from "expo-router";
+import KorujaLogo from "@/assets/KorujaLogo.svg";
 
 const API_URL = process.env.EXPO_PUBLIC_API_URL;
 
@@ -57,14 +58,8 @@ const LoginForm = () => {
   }
 
   return (
-    <View className="flex-1 justify-center items-center w-100 bg-ciano">
-      <View style={styles.imageContainer}>
-        <Image
-          source={require("./../../assets/attlasAssistente.png")}
-          style={styles.image}
-          resizeMode="contain"
-        />
-      </View>
+    <View className="flex-1 items-center  w-100 h-full bg-ciano">
+      <KorujaLogo style={{ height: "100%", width: "100%" }} />
       <View className="mb-5 ">
         {error && (
           <Text className="text-center text-lg font-medium text-red-500">

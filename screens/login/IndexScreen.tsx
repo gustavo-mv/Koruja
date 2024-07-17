@@ -8,6 +8,7 @@ import {
   StyleSheet,
   Image,
 } from "react-native";
+import KorujaLogo from "@/assets/KorujaLogo.svg";
 
 function handleLogin() {
   router.push("/login/loginForm");
@@ -29,21 +30,14 @@ const IndexScreen = () => {
         className=" bg-ciano absolute top-80 w-full h-full items-center"
         style={{ borderTopLeftRadius: 50, borderTopRightRadius: 50 }}
       >
-        <View className="mt-10">
-          <Text className=" text-xl font-light text-white w-64 text-center">
-            Seja bem-vindo(a) ao melhor amigo do professor!
-          </Text>
-        </View>
-        <View style={styles.imageContainer} className="mt-5">
-          <Image
-            source={require("./../../assets/attlasAssistente.png")}
-            style={styles.image}
-            resizeMode="contain"
-          />
-        </View>
+        <Text className="mt-20 text-xl font-light text-white w-64 text-center">
+          Seja bem-vindo(a) ao melhor amigo do professor!
+        </Text>
+
+        <KorujaLogo style={{ height: "100%", width: "100%", bottom: 40 }} />
 
         <View
-          className="flex-row rounded-3xl border-laranja mt-5"
+          className="flex-row rounded-3xl border-laranja bottom-14"
           style={{ borderStyle: "solid", borderWidth: 1 }}
         >
           <TouchableOpacity onPress={() => handleLogin()}>

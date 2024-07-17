@@ -14,9 +14,9 @@ export default function LoginLayout() {
         name="loginForm"
         options={{
           title: "",
-          headerStyle: { backgroundColor: "#e86800" },
+          headerStyle: { backgroundColor: "#0B2438" },
           headerShadowVisible: false,
-          headerTintColor: "white",
+          headerTintColor: "#e86800",
         }}
       />
       <Stack.Screen
@@ -25,9 +25,9 @@ export default function LoginLayout() {
           title: "Esqueceu a senha",
           headerTitleAlign: "center",
           headerTitleStyle: { fontWeight: "bold" },
-          headerStyle: { backgroundColor: "#e86800" },
+          headerStyle: { backgroundColor: "#0B2438" },
           headerShadowVisible: false,
-          headerTintColor: "white",
+          headerTintColor: "#e86800",
         }}
       />
 
@@ -38,43 +38,43 @@ export default function LoginLayout() {
           title: "",
           headerStyle: { backgroundColor: "transparent" },
           headerShadowVisible: false,
-          headerTintColor: "black",
+          headerTintColor: "#e86800",
         }}
       />
       <Stack.Screen
         name="criarConta"
         options={{
           title: "",
-          headerStyle: { backgroundColor: "white" },
+          headerStyle: { backgroundColor: "#0B2438" },
           headerShadowVisible: false,
-          headerTintColor: "black",
+          headerTintColor: "#e86800",
         }}
       />
       <Stack.Screen
         name="validationToGoToPassword"
         options={{
           title: "",
-          headerStyle: { backgroundColor: "white" },
+          headerStyle: { backgroundColor: "#0B2438" },
           headerShadowVisible: false,
-          headerTintColor: "black",
+          headerTintColor: "#e86800",
         }}
       />
       <Stack.Screen
         name="validationToGoToEmail"
         options={{
           title: "",
-          headerStyle: { backgroundColor: "white" },
+          headerStyle: { backgroundColor: "#0B2438" },
           headerShadowVisible: false,
-          headerTintColor: "black",
+          headerTintColor: "#e86800",
         }}
       />
       <Stack.Screen
         name="validationToGoToTelephone"
         options={{
           title: "",
-          headerStyle: { backgroundColor: "white" },
+          headerStyle: { backgroundColor: "#0B2438" },
           headerShadowVisible: false,
-          headerTintColor: "black",
+          headerTintColor: "#e86800",
         }}
       />
 
@@ -82,9 +82,9 @@ export default function LoginLayout() {
         name="contaCriada"
         options={{
           title: "",
-          headerStyle: { backgroundColor: "white" },
+          headerStyle: { backgroundColor: "#0B2438" },
           headerShadowVisible: false,
-          headerTintColor: "black",
+          headerTintColor: "#e86800",
         }}
       />
     </Stack>

@@ -38,12 +38,12 @@ const FormNomeScreen = ({ nomeParam, emailParam }) => {
   }, [senha, confirmarSenha]);
 
   return (
-    <View className=" h-full bg-white">
+    <View className=" h-full bg-ciano">
       <View className=" flex-col items-center">
-        <Text className="font-bold text-xl mt-5 mb-3">
+        <Text className="font-bold text-xl mt-5 mb-3 text-white">
           Insira a senha pra sua conta:
         </Text>
-        <View className="flex-row justify-center items-center w-full">
+        <View className="flex-row justify-center items-center w-full ">
           <TextInput
             keyboardType="default"
             selectTextOnFocus={false}
@@ -51,7 +51,7 @@ const FormNomeScreen = ({ nomeParam, emailParam }) => {
             autoFocus={true}
             placeholder="Senha"
             secureTextEntry={!senhaVisivel}
-            className="bg-gray-100 h-10 w-80 self-center rounded-md text-xl p-2 border-2 border-green-600"
+            className="bg-gray-100 h-10 w-80 self-center rounded-md text-xl p-2 border-2 border-laranja "
             onChangeText={(value) => setSenha(value)}
           />
 
@@ -62,16 +62,18 @@ const FormNomeScreen = ({ nomeParam, emailParam }) => {
             <FontAwesome5
               name={senhaVisivel ? "eye-slash" : "eye"}
               size={20}
-              color="black"
+              color="white"
             />
           </TouchableOpacity>
         </View>
-        <Text className="font-bold text-gray-600">
+        <Text className="font-bold text-gray-400 ">
           A senha deve ter pelo menos 8 caracteres.
         </Text>
       </View>
       <View className=" flex-col items-center">
-        <Text className="font-bold text-xl mt-8 mb-3">Confirme a senha:</Text>
+        <Text className="font-bold text-xl mt-8 mb-3 text-white">
+          Confirme a senha:
+        </Text>
         <View className="flex-row justify-center items-center w-full">
           <TextInput
             keyboardType="default"
@@ -79,19 +81,19 @@ const FormNomeScreen = ({ nomeParam, emailParam }) => {
             pointerEvents="box-only"
             placeholder="Confirmar Senha"
             secureTextEntry={!confirmarSenhaVisivel}
-            className="bg-gray-100 h-10 w-80 self-center rounded-md text-xl p-2 border-2 border-green-600"
+            className="bg-gray-100 h-10 w-80 self-center rounded-md text-xl p-2 border-2 border-laranja"
             onChangeText={(value) => setConfirmarSenha(value)}
           />
         </View>
       </View>
       <TouchableOpacity
         disabled={disabled}
-        style={{ backgroundColor: "#1CBA38", opacity: disabled ? 0.4 : 1 }}
+        style={{ backgroundColor: "#e86800", opacity: disabled ? 0.4 : 1 }}
         onPress={handleNext}
         className="self-center mt-10 w-40 rounded-md items-center justify-center p-3 flex-row space-x-4"
       >
         <Text
-          className="font-bold text-xl"
+          className="font-bold text-xl "
           style={{ color: disabled ? "black" : "white" }}
         >
           Próximo

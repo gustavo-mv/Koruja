@@ -26,20 +26,20 @@ const FormNomeScreen = () => {
   }, [nome]);
 
   return (
-    <View className=" h-full bg-white">
-      <Text className=" font-bold text-lg m-2 self-center">
+    <View className=" h-full bg-ciano">
+      <Text className=" font-bold text-xl m-2 mt-3 mb-5 text-white self-center">
         Vamos começar pelo seu nome:
       </Text>
       <TextInput
         autoFocus={true}
         placeholder="Nome"
         autoCapitalize="words"
-        className="bg-gray-100 h-10 w-72 self-center rounded-md text-xl p-2 border-2 border-green-600"
+        className="bg-gray-100 h-10 w-72 self-center font-medium rounded-md text-xl p-2 border-2 border-laranja"
         onChangeText={(value) => setNome(value)}
       ></TextInput>
       <TouchableOpacity
         disabled={disabled}
-        style={{ backgroundColor: "#1CBA38", opacity: disabled ? 0.4 : 1 }}
+        style={{ backgroundColor: "#e86800", opacity: disabled ? 0.4 : 1 }}
         onPress={handleNext}
         className="self-center m-5 w-40 rounded-md items-center justify-center p-3 flex-row space-x-4"
       >

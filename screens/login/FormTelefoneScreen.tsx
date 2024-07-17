@@ -64,7 +64,7 @@ const FormTelefoneScreen = ({ nomeParam, emailParam, senhaParam }: any) => {
   }, [inputValue]);
 
   return (
-    <View className=" h-full bg-white">
+    <View className=" h-full bg-ciano">
       <PhoneInput
         modalDisabled={true}
         value={inputValue}
@@ -75,22 +75,22 @@ const FormTelefoneScreen = ({ nomeParam, emailParam, senhaParam }: any) => {
         autoFocus={true}
       />
 
-      <Text className="font-bold text-gray-600 ml-5 mr-5 mt-2">
+      <Text className="font-bold text-gray-400 ml-5 mr-5 mt-2">
         Usaremos confirmação via SMS para validar sua conta. Cada conta possui
         um número associado.
       </Text>
 
-      <Text className="font-bold text-gray-600 ml-5 mr-5 mt-2">
+      <Text className="font-bold text-gray-400 ml-5 mr-5 mt-2">
         Ao clicar em "Criar Conta" você concorda com os{" "}
-        <Text className="font-extrabold text-blue-600">Termos e condições</Text>{" "}
+        <Text className="font-extrabold text-laranja">Termos e condições</Text>{" "}
         e{" "}
-        <Text className="font-extrabold text-blue-600">
+        <Text className="font-extrabold text-laranja">
           Política de Privacidade
         </Text>
       </Text>
       <TouchableOpacity
         disabled={disabled}
-        style={{ backgroundColor: "#1CBA38", opacity: disabled ? 0.4 : 1 }}
+        style={{ backgroundColor: "#e86800", opacity: disabled ? 0.4 : 1 }}
         onPress={handleCreate}
         className="self-center m-5 w-44 rounded-md items-center justify-center p-3 flex-row space-x-4"
       >
