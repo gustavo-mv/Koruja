@@ -58,54 +58,56 @@ const LoginForm = () => {
   }
 
   return (
-    <View className="flex-1 items-center  w-100 h-full bg-ciano">
-      <KorujaLogo style={{ height: "100%", width: "100%" }} />
-      <View className="mb-5 ">
-        {error && (
-          <Text className="text-center text-lg font-medium text-red-500">
-            {error}
+    <View className="flex-1 justify-center items-center  w-100 h-full bg-ciano">
+      <KorujaLogo style={{ height: "20%", width: "100%" }} />
+      <View className="bottom-24">
+        <View className="mb-5 ">
+          {error && (
+            <Text className="text-center text-lg font-medium text-red-500">
+              {error}
+            </Text>
+          )}
+          <Text className="mb-2 text-sm font-medium text-white">Email</Text>
+          <TextInput
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-laranja focus:border-laranja block w-80 p-2.5"
+            placeholder="Email"
+            value={email}
+            onChangeText={setEmail}
+            autoCapitalize="none"
+          />
+        </View>
+        <View className="mb-5 ">
+          <Text className="block mb-2 text-sm font-medium text-white dark:text-white">
+            Senha
           </Text>
-        )}
-        <Text className="mb-2 text-sm font-medium text-white">Email</Text>
-        <TextInput
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-laranja focus:border-laranja block w-80 p-2.5"
-          placeholder="Email"
-          value={email}
-          onChangeText={setEmail}
-          autoCapitalize="none"
-        />
-      </View>
-      <View className="mb-5 ">
-        <Text className="block mb-2 text-sm font-medium text-white dark:text-white">
-          Senha
-        </Text>
-        <TextInput
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-laranja focus:border-laranja  block w-80 p-2.5"
-          placeholder="Senha"
-          value={senha}
-          onChangeText={setSenha}
-          secureTextEntry
-        />
-      </View>
-      <View className="flex flex-row w-100 items-center">
-        <TouchableOpacity onPress={() => handleForgot()}>
-          <Text className="mr-5 text-white">Esqueceu sua senha?</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          className="w-32"
-          disabled={email.length > 4 && senha.length > 5 ? false : true}
-          onPress={handleLogin}
-        >
-          <Text
-            className={` w-32 ${
-              email.length > 4 && senha.length > 5
-                ? "opacity-100"
-                : "opacity-40"
-            } bg-laranja text-white  pt-1 rounded-xl h-10 text-lg font-bold text-center`}
+          <TextInput
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-laranja focus:border-laranja  block w-80 p-2.5"
+            placeholder="Senha"
+            value={senha}
+            onChangeText={setSenha}
+            secureTextEntry
+          />
+        </View>
+        <View className="flex flex-row w-100 items-center">
+          <TouchableOpacity onPress={() => handleForgot()}>
+            <Text className="mr-5 text-white">Esqueceu sua senha?</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            className="w-32"
+            disabled={email.length > 4 && senha.length > 5 ? false : true}
+            onPress={handleLogin}
           >
-            Login
-          </Text>
-        </TouchableOpacity>
+            <Text
+              className={` w-32 ${
+                email.length > 4 && senha.length > 5
+                  ? "opacity-100"
+                  : "opacity-40"
+              } bg-laranja text-white  pt-1 rounded-xl h-10 text-lg font-bold text-center`}
+            >
+              Login
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );

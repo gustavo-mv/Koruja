@@ -1,15 +1,30 @@
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import React from "react";
 import IndexCard from "./IndexCard";
 import GabaritosCard from "./GabaritosCard";
 import AtividadeCard from "./AtividadeCard";
+import { router } from "expo-router";
 
 const HomeIndex = () => {
   return (
-    <View className="bg-ciano">
-      <GabaritosCard />
+    <View className="bg-ciano mt-8">
+      <View>
+        <Text className=" text-4xl font-extrabold pl-2 pb-2 text-white border-b-2 border-laranja">
+          Provas
+        </Text>
+        <TouchableOpacity
+          onPress={() => (
+            router.replace("/home/(tabs)/scan"),
+            router.push("/home/(scan)/criarProva")
+          )}
+        >
+          <GabaritosCard />
+        </TouchableOpacity>
+      </View>
       <View className=" mt-3">
-        <Text className=" text-4xl font-extrabold pl-2 pb-2">Atividades:</Text>
+        <Text className=" text-4xl font-extrabold pl-2 pb-2 text-white border-b-2 border-laranja mb-3">
+          Atividades
+        </Text>
         <ScrollView horizontal={true} className=" ml-2">
           <AtividadeCard
             nomeMateria="Biologia"
