@@ -5,6 +5,9 @@ import {
   ScrollView,
   ActivityIndicator,
   TouchableOpacity,
+  Image,
+  Dimensions,
+  Alert,
 } from "react-native";
 import React, { useEffect, useState, useRef } from "react";
 import * as FileSystem from "expo-file-system";
@@ -13,9 +16,16 @@ import { Picker } from "@react-native-picker/picker";
 import LottieView from "lottie-react-native";
 import { Animated } from "react-native";
 import { FontAwesome6 } from "@expo/vector-icons";
+import { useFocusEffect } from "@react-navigation/native";
 import { router } from "expo-router";
+import * as MediaLibrary from "expo-media-library";
+
+const { width, height } = Dimensions.get("window");
 
 const AnaliseGabaritoScreen = ({ URI, dataQR }: any) => {
+  const imageWidth = width * 0.8;
+  const imageHeight = height * 0.8;
+
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [resultData, setResultData] = useState<any>(null);
@@ -29,6 +39,18 @@ const AnaliseGabaritoScreen = ({ URI, dataQR }: any) => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const API_URL = process.env.EXPO_PUBLIC_API_URL;
   const { token } = React.useContext(AuthContext);
+
+  // Use useFocusEffect to reset state when the screen gains focus
+  useFocusEffect(
+    React.useCallback(() => {
+      // Reset state when screen is focused
+      setLoading(false);
+      setError(null);
+      setResultData(null);
+      setLeitura({});
+      setScore({ correct: 0, incorrect: 0, blank: 0 });
+    }, [])
+  );
 
   useEffect(() => {
     if (resultData) {
@@ -164,71 +186,100 @@ const AnaliseGabaritoScreen = ({ URI, dataQR }: any) => {
     });
   };
 
+  const downloadImage = async () => {
+    if (!URI) return;
+
+    setLoading(true);
+
+    try {
+      const fileUri = FileSystem.documentDirectory + "downloaded_image.png";
+      const { uri } = await FileSystem.downloadAsync(URI, fileUri);
+
+      const asset = await MediaLibrary.createAssetAsync(uri);
+      await MediaLibrary.createAlbumAsync("Koruja", asset, false);
+
+      Alert.alert("Sucesso", "Imagem baixada com sucesso!");
+    } catch (error) {
+      console.error("Erro ao baixar a imagem:", error);
+      Alert.alert("Erro", "Falha ao baixar a imagem.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <View className="h-full bg-ciano">
-      <ScrollView className="h-full bg-ciano mb-8">
-        <View className="h-full bg-ciano">
-          {error && <Text style={styles.errorText}>{error}</Text>}
+    <View style={styles.container}>
+      <ScrollView style={styles.scrollView}>
+        <View style={styles.content}>
+          {error && (
+            <>
+              <Text style={styles.errorText}>{error}</Text>
+              <Image
+                source={{ uri: URI }}
+                style={{ width: imageWidth, height: imageHeight }}
+                resizeMode="contain"
+              />
+            </>
+          )}
           {loading && (
-            <View className="items-center h-full w-full justify-center">
+            <View style={styles.loadingContainer}>
               <LottieView
                 autoPlay
                 loop
-                style={{ width: 500, height: 350 }}
+                style={styles.loadingAnimation}
                 source={require("@/assets/lotties/loadingCorrect.json")}
               />
-              <Text className="mb-14 text-2xl font-bold text-white">
-                Carregando correção...
-              </Text>
+              <Text style={styles.loadingText}>Carregando correção...</Text>
               <ActivityIndicator size={60} color={"orange"} />
             </View>
           )}
           {!loading && resultData && (
-            <View className="w-full items-center">
-              <View className="flex-row space-x-3">
-                <View className="flex-col p-2">
-                  <View className="rounded-md mb-2">
-                    <Text className="font-extrabold text-3xl text-white">
-                      {resultData.dadosProva.nomeProva}
-                    </Text>
-                  </View>
-                  <View>
-                    <Text className="text-gray-200 font-bold text-lg">
-                      {resultData.dadosProva.assunto}
-                    </Text>
-                  </View>
-                </View>
+            <View style={styles.resultsContainer}>
+              <View style={styles.headerContainer}>
                 <View style={styles.header}>
+                  <Text style={styles.headerTitle}>
+                    {resultData.dadosProva.nomeProva}
+                  </Text>
+                  <Text style={styles.headerSubject}>
+                    {resultData.dadosProva.assunto}
+                  </Text>
+                </View>
+                <View style={styles.scoreContainer}>
                   <Text
-                    className={`text-7xl text-white font-bold rounded-md ${
-                      (score.correct / resultData.dadosProva.respostas.length) *
-                        10 >=
-                      8
-                        ? "bg-green-500"
-                        : (score.correct /
+                    style={[
+                      styles.scoreText,
+                      {
+                        backgroundColor:
+                          (score.correct /
                             resultData.dadosProva.respostas.length) *
                             10 >=
-                          5
-                        ? "bg-yellow-500"
-                        : "bg-red-500"
-                    } p-2 rounded`}
+                          8
+                            ? "#28a745"
+                            : (score.correct /
+                                resultData.dadosProva.respostas.length) *
+                                10 >=
+                              5
+                            ? "#ffc107"
+                            : "#dc3545",
+                      },
+                    ]}
                   >
                     {(
                       (score.correct / resultData.dadosProva.respostas.length) *
                       10
                     ).toFixed(2)}
                   </Text>
-                  <View className="flex-row space-x-3 pr-3 mt-2">
-                    <Text style={styles.headerText}>
+                  <View style={styles.scoreDetails}>
+                    <Text style={styles.scoreDetailText}>
                       Acertos: {score.correct}
                     </Text>
-                    <Text style={styles.headerText}>
+                    <Text style={styles.scoreDetailText}>
                       Erros: {score.incorrect}
                     </Text>
+                    <Text style={styles.scoreDetailText}>
+                      Nulos / Em branco: {score.blank}
+                    </Text>
                   </View>
-                  <Text style={styles.headerText}>
-                    Nulos / Em branco: {score.blank}
-                  </Text>
                 </View>
               </View>
               <View style={styles.table}>
@@ -248,21 +299,26 @@ const AnaliseGabaritoScreen = ({ URI, dataQR }: any) => {
             </View>
           )}
         </View>
+        <Image
+          source={{ uri: URI }}
+          style={{ width: imageWidth, height: imageHeight }}
+          resizeMode="contain"
+        />
       </ScrollView>
       <Animated.View style={{ opacity: fadeAnim }}>
         <TouchableOpacity
-          className="bg-laranja w-80 fixed bottom-6 h-16 self-center rounded-md items-center justify-center flex-row space-x-3"
+          style={styles.retryButton}
           onPress={() => {
-            router.replace("/home/(tabs)/scan");
-            router.push("/home/(scan)/corrigir");
+            router.back();
           }}
         >
-          <Text className="font-bold text-lg text-white">
-            Corrigir Novamente
-          </Text>
+          <Text style={styles.retryButtonText}>Corrigir Novamente</Text>
           <FontAwesome6 name="camera-rotate" size={24} color="white" />
         </TouchableOpacity>
       </Animated.View>
+      <TouchableOpacity style={styles.downloadButton} onPress={downloadImage}>
+        <Text style={styles.downloadButtonText}>Baixar Imagem</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -271,23 +327,70 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#0B2438",
-    alignItems: "center",
-    justifyContent: "center",
+  },
+  scrollView: {
+    flex: 1,
+    backgroundColor: "#0B2438",
+    marginBottom: 80,
+  },
+  content: {
+    flex: 1,
   },
   errorText: {
     color: "red",
   },
+  loadingContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    flex: 1,
+  },
+  loadingAnimation: {
+    width: 500,
+    height: 350,
+  },
   loadingText: {
+    marginBottom: 14,
+    fontSize: 20,
+    fontWeight: "bold",
     color: "white",
+  },
+  resultsContainer: {
+    alignItems: "center",
+  },
+  headerContainer: {
+    width: "100%",
+    alignItems: "center",
   },
   header: {
     marginBottom: 20,
     alignItems: "center",
   },
-  headerText: {
-    fontSize: 18,
+  headerTitle: {
+    fontSize: 30,
     fontWeight: "bold",
-    marginBottom: 5,
+    color: "white",
+  },
+  headerSubject: {
+    fontSize: 18,
+    color: "gray",
+  },
+  scoreContainer: {
+    alignItems: "center",
+  },
+  scoreText: {
+    fontSize: 50,
+    color: "white",
+    padding: 10,
+    borderRadius: 10,
+  },
+  scoreDetails: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "100%",
+    paddingHorizontal: 20,
+  },
+  scoreDetailText: {
+    fontSize: 18,
     color: "white",
   },
   table: {
@@ -334,6 +437,43 @@ const styles = StyleSheet.create({
   },
   blank: {
     backgroundColor: "#fff3cd",
+  },
+  retryButton: {
+    backgroundColor: "#FFA500",
+    width: 80,
+    position: "absolute",
+    bottom: 80,
+    height: 60,
+    alignSelf: "center",
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+  },
+  retryButtonText: {
+    fontSize: 18,
+    color: "white",
+  },
+  downloadButton: {
+    backgroundColor: "#007BFF",
+    width: 150,
+    position: "absolute",
+    bottom: 10,
+    height: 50,
+    alignSelf: "center",
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  downloadButtonText: {
+    fontSize: 18,
+    color: "white",
+  },
+  headerText: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 5,
+    color: "white",
   },
 });
 

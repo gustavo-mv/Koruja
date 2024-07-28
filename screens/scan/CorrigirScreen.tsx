@@ -1,75 +1,35 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Text,
   View,
   StyleSheet,
   TouchableOpacity,
-  ActivityIndicator,
+  Dimensions,
+  Alert,
 } from "react-native";
-import { CameraView, Camera, useCameraPermissions } from "expo-camera";
+import { Camera, CameraType } from "expo-camera/legacy";
 import LottieView from "lottie-react-native";
-import Structure from "@/assets/structure.svg";
-import { router } from "expo-router";
+import { useRouter } from "expo-router";
 import * as FileSystem from "expo-file-system";
-import { FontAwesome } from "@expo/vector-icons";
-import KorujaLogo from "@/assets/KorujaLogo.svg";
 import { MaterialIcons } from "@expo/vector-icons";
+import KorujaLogo from "@/assets/KorujaLogo.svg";
+import { useIsFocused } from "@react-navigation/native";
+
+const { width, height } = Dimensions.get("window");
 
 export default function CorrigirScreen() {
-  const [permission, requestPermission] = useCameraPermissions();
+  const isFocused = useIsFocused();
+  const [permission, requestPermission] = Camera.useCameraPermissions();
   const [isCameraReady, setIsCameraReady] = useState(false);
   const [onOffFlash, setOnOffFlash] = useState(false);
-
   const [disabled, setDisabled] = useState(true);
   const [firstCapture, setFirstCapture] = useState(true);
   const [dataQR, setDataQR] = useState<null | string>(null);
 
-  const cameraRef = React.useRef(null);
-
-  interface FlashToggleButtonProps {
-    onOffFlash: boolean;
-    toggleFlash: () => void;
-  }
-
-  interface CaptureButtonProps {
-    disabled: boolean;
-    onPress: () => void;
-    firstCapture: boolean;
-  }
-
-  const CaptureButton: React.FC<CaptureButtonProps> = ({
-    disabled,
-    onPress,
-    firstCapture,
-  }) => (
-    <TouchableOpacity
-      disabled={disabled}
-      className="left-4 items-center h-14 w-52 justify-center rounded-md"
-      style={[{ backgroundColor: "#e86800", opacity: disabled ? 0.5 : 1 }]}
-      onPress={onPress}
-    >
-      <Text className="font-bold text-white text-2xl">
-        {disabled ? (firstCapture ? "Capturar" : "Transferindo") : "Capturar"}
-      </Text>
-    </TouchableOpacity>
-  );
-
-  const FlashToggleButton: React.FC<FlashToggleButtonProps> = ({
-    onOffFlash,
-    toggleFlash,
-  }) => (
-    <TouchableOpacity onPress={toggleFlash} className="left-7">
-      <MaterialIcons
-        name={onOffFlash ? "flash-on" : "flash-off"}
-        size={30}
-        color="#fff"
-      />
-    </TouchableOpacity>
-  );
+  const cameraRef = useRef<Camera>(null);
+  const router = useRouter();
 
   useEffect(() => {
-    console.log(dataQR);
-
     if (dataQR !== null) {
       setDisabled(false);
     }
@@ -79,8 +39,8 @@ export default function CorrigirScreen() {
     setIsCameraReady(true);
   };
 
-  async function capturar() {
-    if (isCameraReady) {
+  const capturar = async () => {
+    if (cameraRef.current && isCameraReady) {
       try {
         const cacheDirectory = FileSystem.cacheDirectory;
         const files = await FileSystem.readDirectoryAsync(cacheDirectory);
@@ -91,7 +51,6 @@ export default function CorrigirScreen() {
         });
 
         await Promise.all(deletePromises);
-        console.log("Cache cleared successfully.");
 
         const imageData = await cameraRef.current.takePictureAsync({
           quality: 1,
@@ -104,129 +63,95 @@ export default function CorrigirScreen() {
             dataQR: dataQR,
           },
         });
-        setDisabled(false);
+        setDataQR(null);
+        setDisabled(true);
+        setFirstCapture(true);
       } catch (error) {
         console.error("Error taking picture:", error);
       }
     }
+  };
+
+  if (permission === null) {
+    return <View />;
   }
 
-  if (!permission?.granted) {
+  if (permission === false) {
+    return <Text>Não obtivemos acesso pela câmera</Text>;
+  }
+
+  if (!permission.granted) {
     return (
-      <View className="w-full h-full items-center bg-ciano justify-center">
+      <View className="h-full w-full items-center justify-center bg-ciano">
         <LottieView
           autoPlay
           speed={0.5}
-          style={{
-            width: 400,
-            height: 250,
-            right: 5,
-          }}
+          style={styles.lottie}
           source={require("@/assets/lotties/camera.json")}
         />
-        <Text
-          style={{ textAlign: "center" }}
-          className="font-semibold text-lg mb-5 text-white"
-        >
+        <Text style={styles.text} className="mb-4">
           Para conseguirmos corrigir o gabarito precisaremos da sua câmera!
         </Text>
         <TouchableOpacity
-          className="bg-laranja rounded-md p-2"
+          style={styles.permissionButton}
           onPress={requestPermission}
         >
-          <Text
-            style={{
-              color: "#fff",
-              textAlign: "center",
-              fontSize: 20,
-              fontWeight: "bold",
-            }}
-          >
+          <Text style={styles.permissionButtonText}>
             Permitir uso da Câmera
           </Text>
         </TouchableOpacity>
       </View>
-    );
-  }
-  if (!permission) {
-    return (
-      <>
-        <Text>Você não permitiu acesso a câmera.</Text>
-
-        <TouchableOpacity
-          disabled={disabled}
-          style={{
-            backgroundColor: disabled ? "#ccc" : "#4CAF50",
-          }}
-          onPress={async () => {
-            setDisabled(true);
-            try {
-              requestPermission;
-            } catch (error) {
-              console.error("Error requesting camera permissions:", error);
-            }
-          }}
-        >
-          <Text
-            style={{
-              color: "#fff",
-              textAlign: "center",
-              fontSize: 20,
-              fontWeight: "bold",
-            }}
-          >
-            Permitir uso da Câmera
-          </Text>
-        </TouchableOpacity>
-      </>
     );
   }
 
   return (
-    <View className="justify-end">
-      <CameraView
-        ref={cameraRef}
-        onCameraReady={onCameraReady}
-        style={StyleSheet.absoluteFillObject}
-        onBarcodeScanned={({ data }) => setDataQR(data)}
-        flash={onOffFlash ? "on" : "off"}
-      />
-
-      <Structure
-        height={"80%"}
-        width={"80%"}
-        style={{ position: "absolute", left: 30, top: 130, opacity: 0.7 }}
-      />
-
-      <View style={styles.mask} />
-
-      <View className="justify-end h-full w-full pb-20 items-center">
-        <KorujaLogo
-          style={{
-            height: 20,
-            width: 20,
-            position: "absolute",
-            bottom: 340,
-          }}
-        />
+    <View className="bg-ciano h-full w-full items-center justify-end">
+      <View className="z-20 top-32">
+        <KorujaLogo style={styles.logo} />
       </View>
-      <View className="mb-3 z-50 flex-row items-center self-center">
-        <CaptureButton
+      {isFocused && (
+        <Camera
+          ref={cameraRef}
+          style={styles.camera}
+          type={CameraType.back}
+          onCameraReady={onCameraReady}
+          onBarCodeScanned={({ data }) => setDataQR(data)}
+          flashMode={onOffFlash ? "torch" : "off"}
+        />
+      )}
+
+      <View className="mt-5 flex-row items-center justify-center mb-5 ">
+        <TouchableOpacity
           disabled={disabled}
-          firstCapture={firstCapture}
+          style={[styles.captureButton, { opacity: disabled ? 0.5 : 1 }]}
           onPress={() => {
             setFirstCapture(false);
             setDisabled(true);
             capturar();
           }}
-        />
-        <FlashToggleButton
-          onOffFlash={onOffFlash}
-          toggleFlash={() => setOnOffFlash(!onOffFlash)}
-        />
+        >
+          <Text style={styles.captureButtonText}>
+            {disabled
+              ? firstCapture
+                ? "Capturar"
+                : "Transferindo"
+              : "Capturar"}
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => setOnOffFlash(!onOffFlash)}
+          style={styles.flashButton}
+        >
+          <MaterialIcons
+            name={onOffFlash ? "flash-on" : "flash-off"}
+            size={30}
+            color="#fff"
+          />
+        </TouchableOpacity>
       </View>
-      <View className="self-center">
-        <Text className="font-bold text-white mb-20">
+
+      <View style={styles.footer}>
+        <Text style={styles.footerText}>
           Para ambientes escuros, ative o Flash.
         </Text>
       </View>
@@ -237,24 +162,90 @@ export default function CorrigirScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "column",
     justifyContent: "center",
+    alignItems: "center",
   },
-  button: {
+  camera: {
+    width: width,
+    height: width * (4 / 3), // Ajuste para manter a proporção da câmera 4:3
+    top: 0,
+  },
+  lottie: {
+    width: 400,
+    height: 250,
+  },
+  text: {
+    textAlign: "center",
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#fff",
+  },
+  permissionButton: {
+    backgroundColor: "#e86800",
     padding: 10,
     borderRadius: 5,
-    marginVertical: 10,
-    width: 200,
+  },
+  permissionButtonText: {
+    color: "#fff",
+    textAlign: "center",
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  structure: {
+    position: "absolute",
+    left: 30,
+    top: 130,
+    opacity: 0.7,
   },
   mask: {
     position: "absolute",
-    top: "-15%",
+    top: "-22%",
     left: "-81%",
     width: "262%",
-    height: "135%",
+    height: "145%",
     backgroundColor: "gray",
     opacity: 0.5,
     borderRadius: 10,
     borderWidth: 350,
+  },
+  logoContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    bottom: 20,
+  },
+  logo: {
+    height: 20,
+    width: 20,
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 20,
+  },
+  captureButton: {
+    height: 56,
+    width: 208,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#e86800",
+    borderRadius: 10,
+    marginHorizontal: 10,
+  },
+  captureButtonText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#fff",
+  },
+  flashButton: {
+    marginLeft: 10,
+  },
+  footer: {
+    alignItems: "center",
+    marginBottom: 20,
+  },
+  footerText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#fff",
   },
 });
