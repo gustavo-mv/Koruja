@@ -20,7 +20,7 @@ export default function HomeLayout() {
           headerStyle: {},
           headerTransparent: true,
           headerShadowVisible: false,
-          headerTintColor: "black",
+          headerTintColor: "#e86800",
           headerTitleAlign: "center",
         }}
       />

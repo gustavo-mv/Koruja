@@ -1,4 +1,4 @@
-import { View, Modal, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text } from "react-native";
 import React from "react";
 import LottieView from "lottie-react-native";
 
@@ -7,9 +7,9 @@ const UserAccountType = ({ tipoConta, data }: any) => {
 
   const dateObj = new Date(data);
 
-  const dia = dateObj.getDate().toString().padStart(2, "0"); // Dia com zero à esquerda se necessário
-  const mes = (dateObj.getMonth() + 1).toString().padStart(2, "0"); // Mês com zero à esquerda se necessário
-  const ano = dateObj.getFullYear().toString().slice(-2); // Ano como dois dígitos
+  const dia = dateObj.getDate().toString().padStart(2, "0");
+  const mes = (dateObj.getMonth() + 1).toString().padStart(2, "0");
+  const ano = dateObj.getFullYear().toString().slice(-2);
 
   const dataFormatada = `${dia}/${mes}/${ano}`;
 
