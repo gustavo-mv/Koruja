@@ -129,8 +129,15 @@ const ConfigIndex: React.FC<ConfigIndexProps> = ({
             {userGlobalData.tipo === "free" ? (
               contaFree()
             ) : (
-              <TouchableOpacity>
-                <View className="bg-chumbo h-32 w-40 rounded-lg items-center justify-end">
+              <TouchableOpacity
+                disabled={userGlobalData.tipo === "patrocinado"}
+                className={`${
+                  userGlobalData.tipo === "patrocinado" ? "opacity-30" : ""
+                }`}
+              >
+                <View
+                  className={`bg-chumbo h-32 w-40 rounded-lg items-center justify-end`}
+                >
                   <View className="mb-3">
                     <Fontisto name="credit-card" size={50} color="white" />
                   </View>
@@ -141,7 +148,7 @@ const ConfigIndex: React.FC<ConfigIndexProps> = ({
               </TouchableOpacity>
             )}
 
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => router.push("/home/(conf)/logs")}>
               <View className=" bg-chumbo w-40 h-32 rounded-lg items-center justify-end">
                 <View className=" flex-row space-x-1 mb-3">
                   <Octicons name="log" size={45} color="white" />

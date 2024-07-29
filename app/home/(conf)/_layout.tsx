@@ -14,6 +14,18 @@ export default function LoginLayout() {
         }}
       />
       <Stack.Screen
+        name="logs"
+        options={{
+          title: "Registros da Conta",
+          headerTitleAlign: "center",
+          headerTitleStyle: { color: "white", fontWeight: "bold" },
+          headerStyle: { backgroundColor: "#0B2438" },
+          headerTintColor: "#e86800",
+          headerShown: true,
+          headerShadowVisible: false,
+        }}
+      />
+      <Stack.Screen
         name="assinarPremium"
         options={{
           title: "",
