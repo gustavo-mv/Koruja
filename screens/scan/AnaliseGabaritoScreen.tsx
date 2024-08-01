@@ -116,8 +116,10 @@ const AnaliseGabaritoScreen = ({ URI, dataQR }: any) => {
     }
   }, [resultData, leitura]);
 
-  const calculateScore = () => {
-    const { leitura, dadosProva } = resultData;
+  const calculateScore = React.useCallback(() => {
+    if (!resultData || !resultData.dadosProva) return;
+
+    const { dadosProva } = resultData;
     let correct = 0,
       incorrect = 0,
       blank = 0;
@@ -136,7 +138,13 @@ const AnaliseGabaritoScreen = ({ URI, dataQR }: any) => {
     });
 
     setScore({ correct, incorrect, blank });
-  };
+  }, [resultData, leitura]);
+
+  useEffect(() => {
+    if (resultData) {
+      calculateScore();
+    }
+  }, [resultData, leitura, calculateScore]);
 
   const renderResponses = () => {
     if (!resultData) return null;
@@ -186,40 +194,25 @@ const AnaliseGabaritoScreen = ({ URI, dataQR }: any) => {
     });
   };
 
-  const downloadImage = async () => {
-    if (!URI) return;
-
-    setLoading(true);
-
-    try {
-      const fileUri = FileSystem.documentDirectory + "downloaded_image.png";
-      const { uri } = await FileSystem.downloadAsync(URI, fileUri);
-
-      const asset = await MediaLibrary.createAssetAsync(uri);
-      await MediaLibrary.createAlbumAsync("Koruja", asset, false);
-
-      Alert.alert("Sucesso", "Imagem baixada com sucesso!");
-    } catch (error) {
-      console.error("Erro ao baixar a imagem:", error);
-      Alert.alert("Erro", "Falha ao baixar a imagem.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollView}>
         <View style={styles.content}>
           {error && (
-            <>
+            <View className="w-full h-full items-center justify-center">
+              <Text className="text-2xl text-center p-4 mt-10 text-white font-bold">
+                Não foi possível encontrar os pontos do gabarito {":("}
+              </Text>
               <Text style={styles.errorText}>{error}</Text>
-              <Image
-                source={{ uri: URI }}
-                style={{ width: imageWidth, height: imageHeight }}
-                resizeMode="contain"
-              />
-            </>
+              <TouchableOpacity
+                onPress={() => router.back()}
+                className="bg-laranja p-3 rounded-md mt-5"
+              >
+                <Text className="text-white font-bold text-xl">
+                  Tente novamente
+                </Text>
+              </TouchableOpacity>
+            </View>
           )}
           {loading && (
             <View style={styles.loadingContainer}>
@@ -235,19 +228,19 @@ const AnaliseGabaritoScreen = ({ URI, dataQR }: any) => {
           )}
           {!loading && resultData && (
             <View style={styles.resultsContainer}>
-              <View style={styles.headerContainer}>
-                <View style={styles.header}>
-                  <Text style={styles.headerTitle}>
+              <View className="flex-row space-x-4">
+                <View className="self-start pt-4 w-52 p-2">
+                  <Text className="text-white text-3xl font-bold">
                     {resultData.dadosProva.nomeProva}
                   </Text>
                   <Text style={styles.headerSubject}>
                     {resultData.dadosProva.assunto}
                   </Text>
                 </View>
-                <View style={styles.scoreContainer}>
+                <View className=" w-44">
                   <Text
+                    className="text-6xl text-center p-2 font-bold text-white w-full"
                     style={[
-                      styles.scoreText,
                       {
                         backgroundColor:
                           (score.correct /
@@ -269,18 +262,20 @@ const AnaliseGabaritoScreen = ({ URI, dataQR }: any) => {
                       10
                     ).toFixed(2)}
                   </Text>
-                  <View style={styles.scoreDetails}>
-                    <Text style={styles.scoreDetailText}>
-                      Acertos: {score.correct}
-                    </Text>
-                    <Text style={styles.scoreDetailText}>
-                      Erros: {score.incorrect}
-                    </Text>
-                    <Text style={styles.scoreDetailText}>
-                      Nulos / Em branco: {score.blank}
-                    </Text>
-                  </View>
                 </View>
+              </View>
+              <View className="flex-row m-5 space-x-12 self-center items-center justify-center w-full">
+                <View className="flex-col">
+                  <Text className="text-white font-bold text-lg">
+                    Acertos: {score.correct}
+                  </Text>
+                  <Text className="text-white font-bold text-lg">
+                    Erros: {score.incorrect}
+                  </Text>
+                </View>
+                <Text className="text-white font-bold text-lg">
+                  Nulos / Em branco: {score.blank}
+                </Text>
               </View>
               <View style={styles.table}>
                 <View style={styles.row}>
@@ -299,11 +294,6 @@ const AnaliseGabaritoScreen = ({ URI, dataQR }: any) => {
             </View>
           )}
         </View>
-        <Image
-          source={{ uri: URI }}
-          style={{ width: imageWidth, height: imageHeight }}
-          resizeMode="contain"
-        />
       </ScrollView>
       <Animated.View style={{ opacity: fadeAnim }}>
         <TouchableOpacity
@@ -312,13 +302,12 @@ const AnaliseGabaritoScreen = ({ URI, dataQR }: any) => {
             router.back();
           }}
         >
-          <Text style={styles.retryButtonText}>Corrigir Novamente</Text>
+          <Text className="font-bold text-white text-lg mr-2">
+            Corrigir Novamente
+          </Text>
           <FontAwesome6 name="camera-rotate" size={24} color="white" />
         </TouchableOpacity>
       </Animated.View>
-      <TouchableOpacity style={styles.downloadButton} onPress={downloadImage}>
-        <Text style={styles.downloadButtonText}>Baixar Imagem</Text>
-      </TouchableOpacity>
     </View>
   );
 };
@@ -440,9 +429,9 @@ const styles = StyleSheet.create({
   },
   retryButton: {
     backgroundColor: "#FFA500",
-    width: 80,
     position: "absolute",
-    bottom: 80,
+    bottom: 10,
+    padding: 10,
     height: 60,
     alignSelf: "center",
     borderRadius: 10,

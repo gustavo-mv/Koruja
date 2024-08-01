@@ -20,7 +20,7 @@ const HeaderHome: React.FC<{ nome: string }> = ({ nome }) => {
     <View className=" h-36 bg-black flex justify-end items-center pl-6 pr-6 pb-10 rounded-b-3xl">
       <Text className=" font-extralight text-3xl text-white tracking-wider">
         {saudacao},{" "}
-        <Text className="font-bold text-3xl text-green-500 tracking-wider">
+        <Text className="font-bold text-3xl text-laranja tracking-wider">
           {nomeFormt}!
         </Text>{" "}
       </Text>

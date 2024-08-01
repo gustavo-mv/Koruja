@@ -110,14 +110,19 @@ export default function CorrigirScreen() {
         <KorujaLogo style={styles.logo} />
       </View>
       {isFocused && (
-        <Camera
-          ref={cameraRef}
-          style={styles.camera}
-          type={CameraType.back}
-          onCameraReady={onCameraReady}
-          onBarCodeScanned={({ data }) => setDataQR(data)}
-          flashMode={onOffFlash ? "torch" : "off"}
-        />
+        <View style={styles.cameraContainer}>
+          <Camera
+            ref={cameraRef}
+            style={styles.camera}
+            type={CameraType.back}
+            onCameraReady={onCameraReady}
+            onBarCodeScanned={({ data }) => setDataQR(data)}
+            flashMode={onOffFlash ? "torch" : "off"}
+          />
+          <View style={styles.maskContainer}>
+            <View style={styles.maskInner} />
+          </View>
+        </View>
       )}
 
       <View className="mt-5 flex-row items-center justify-center mb-5 ">
@@ -160,15 +165,30 @@ export default function CorrigirScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  cameraContainer: {
+    position: "relative",
+    width: width,
+    height: width * (4 / 3),
+    top: 0,
+  },
+  camera: {
+    ...StyleSheet.absoluteFillObject,
+  },
+  maskContainer: {
+    ...StyleSheet.absoluteFillObject,
     justifyContent: "center",
     alignItems: "center",
   },
-  camera: {
-    width: width,
-    height: width * (4 / 3), // Ajuste para manter a proporção da câmera 4:3
-    top: 0,
+  maskInner: {
+    width: "110%",
+    height: "100%",
+    borderColor: "rgba(128, 128, 128, 0.8)",
+    borderWidth: 70,
+    borderRadius: 0.1,
+  },
+  logo: {
+    height: 20,
+    width: 20,
   },
   lottie: {
     width: 400,
@@ -190,37 +210,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 20,
     fontWeight: "bold",
-  },
-  structure: {
-    position: "absolute",
-    left: 30,
-    top: 130,
-    opacity: 0.7,
-  },
-  mask: {
-    position: "absolute",
-    top: "-22%",
-    left: "-81%",
-    width: "262%",
-    height: "145%",
-    backgroundColor: "gray",
-    opacity: 0.5,
-    borderRadius: 10,
-    borderWidth: 350,
-  },
-  logoContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-    bottom: 20,
-  },
-  logo: {
-    height: 20,
-    width: 20,
-  },
-  buttonContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 20,
   },
   captureButton: {
     height: 56,
