@@ -42,6 +42,7 @@ Se você possui Smartphone Android poderá fazer Download do APK diretamente no 
 Para fins de teste disponibilizamos uma conta de login para utilização do ambiente:
 
 > Login: teste@teste.com
+>
 > Senha: 12345678
 
 ## ✒️ Desenvolvedores Principais do Koruja
