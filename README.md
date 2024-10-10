@@ -34,6 +34,17 @@ O Koruja utiliza uma combinação de tecnologias modernas para garantir uma expe
 
 Na Attlas Softwares, nossa missão é criar e entregar produtos de alta qualidade, sempre buscando inovação e excelência em todas as etapas do desenvolvimento. O Koruja foi projetado com a visão de facilitar o cotidiano dos professores, proporcionando ferramentas que tornam o processo de ensino mais dinâmico, organizado e eficaz.
 
+## Capturas de Tela
+
+ <p align="center">
+  <img src="/assets/SC1.png" alt="Screenshot 1" width="200"/>
+  <img src="/assets/SC2.png" alt="Screenshot 2" width="200"/>
+  <img src="/assets/SC3.png" alt="Screenshot 3" width="200"/>
+  <img src="/assets/SC4.png" alt="Screenshot 4" width="200"/>
+  <img src="/assets/SC5.png" alt="Screenshot 5" width="200"/>
+
+</p>
+
 ## Gostaria de testar?
 
 Se você possui Smartphone Android poderá fazer Download do APK diretamente no link abaixo. 😉
