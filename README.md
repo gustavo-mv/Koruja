@@ -34,6 +34,16 @@ O Koruja utiliza uma combinação de tecnologias modernas para garantir uma expe
 
 Na Attlas Softwares, nossa missão é criar e entregar produtos de alta qualidade, sempre buscando inovação e excelência em todas as etapas do desenvolvimento. O Koruja foi projetado com a visão de facilitar o cotidiano dos professores, proporcionando ferramentas que tornam o processo de ensino mais dinâmico, organizado e eficaz.
 
+## Gostaria de testar?
+
+Se você possui Smartphone Android poderá fazer Download do APK diretamente no link abaixo. 😉
+[Koruja](https://download1526.mediafire.com/4wvn3aw1pufgtH3dsHCsxgzGad__WVuLEpxQsKFO0fFKYDXbWXp21yuHIaJhui2FVadHn1_d8qnKhr4Tvgl5aR0nEW3W8rE209C58xCQtd-ioLbBk3NAQMnnMJzoxPe8roFzjZIjLb0HukcpB6RM_ueCfjXe4GC0LlSPWIoVMwPijUs/wxyf0ziabzcoog7/Koruja.apk)
+
+Para fins de teste disponibilizamos uma conta de login para utilização do ambiente:
+
+> Login: teste@teste.com
+> Senha: 12345678
+
 ## ✒️ Desenvolvedores Principais do Koruja
 
 - **Vinicius Almeida Morais** - _Desenvolvedor Back-End/Infra_ - [Vinicius](https://github.com/viniciusm49)
