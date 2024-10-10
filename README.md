@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="/assets/KorujaLogo.svg" alt="Logo Koruja" />
+</p>
+
 # Koruja
 
 Koruja é um projeto de código fechado desenvolvido pela [Attlas Softwares](https://attlasoft.com) com todos os direitos reservados à empresa e seus respectivos criadores.
