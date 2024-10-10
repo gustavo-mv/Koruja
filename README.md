@@ -1,50 +1,36 @@
-# Attlas Assistente
+# Koruja
 
-Um projeto para auxiliar professores nas atividades do dia-a-dia, contando com elaboração e correção de gabaritos, agenda e outras funcionalidades.
+Koruja é um projeto de código fechado desenvolvido pela [Attlas Softwares](https://attlasoft.com) com todos os direitos reservados à empresa e seus respectivos criadores.
+O projeto conta com o objetivo de simplificar a rotina dos professores, oferecendo ferramentas práticas para a gestão de suas atividades diárias. Com recursos como criação de turmas, elaboração e correção de gabaritos via câmera e um calendário de atividades, o Koruja se destaca como um assistente completo para facilitar o processo educacional.
 
-## 🚀 Começando
+## 🚀 Funcionalidades
 
-Essas instruções permitirão que você obtenha uma cópia do projeto em operação na sua máquina local para fins de desenvolvimento ou teste.
+O Koruja oferece uma série de funcionalidades voltadas para otimizar o tempo e as tarefas dos educadores:
 
-### 📋 Pré-requisitos
+- Criação de Turmas: Organize suas turmas de maneira prática e eficiente.
+- Elaboração de Gabaritos: Gere gabaritos personalizados para suas provas e atividades.
+- Correção de Gabaritos via Câmera: Utilize a câmera do dispositivo para corrigir automaticamente as provas.
+- Calendário de Atividades: Mantenha todas as atividades e compromissos organizados com um calendário intuitivo.
+- Registros de Ações: Acompanhe todas as atividades realizadas dentro do sistema.
+- Outras Funcionalidades: O projeto continua evoluindo, e novas funcionalidades estão sendo adicionadas regularmente.
 
-Node.js -
-VsCode -
-Expo Go (Play Store)
+### 📋 Tecnologias/Lado Técnico
 
-### 🔧 Instalação
+O Koruja utiliza uma combinação de tecnologias modernas para garantir uma experiência fluida e eficiente:
 
-Uma série de exemplos passo-a-passo que informam o que você deve executar para ter um ambiente de desenvolvimento em execução.
+- React Native (Expo): Plataforma para desenvolvimento de aplicativos móveis multiplataforma.
+- Nest.js: Framework escalável para desenvolvimento de back-end em Node.js.
+- Python (OpenCV, Pandas): Utilizado para visão computacional e análise de dados.
+- PostgreSQL: Banco de dados relacional robusto e escalável.
+- WebSockets: Comunicação em tempo real para notificações e atualizações dinâmicas.
+- Validação via SMS: Para garantir segurança e autenticidade nas operações.
+- Visão Computacional: Reconhecimento automático de padrões para correção de gabaritos através da câmera.
 
-Instalação de pacotes no Terminal do VsCode:
+### 🔧 Propósito
 
-```
-npm install
-```
+Na Attlas Softwares, nossa missão é criar e entregar produtos de alta qualidade, sempre buscando inovação e excelência em todas as etapas do desenvolvimento. O Koruja foi projetado com a visão de facilitar o cotidiano dos professores, proporcionando ferramentas que tornam o processo de ensino mais dinâmico, organizado e eficaz.
 
-Cria um arquivo .ENV com:
-
-```
-EXPO_PUBLIC_API_URL=https://url.com
-```
-
-Executar Expo GO no VsCode:
-
-```
-npx expo start (LAN)
-npx expo start --tunnel (NGROK)
-```
-
-Por fim, escanear o QR do Expo que será mostrado no terminal, usando o App.
-
-## 🛠️ Construído com
-
-
-
-- [Expo](https://expo.dev/) - Ferramenta de Desenvolvimento React Native
-- [Native Wind](https://www.nativewind.dev/) - Framework Tailwind utilizado em Expo.
-
-## ✒️ Autores
+## ✒️ Desenvolvedores Principais do Koruja
 
 - **Vinicius Almeida Morais** - _Desenvolvedor Back-End/Infra_ - [Vinicius](https://github.com/viniciusm49)
 - **Gustavo Marcos Vieira de Sousa** - _Desenvolvedor Front-End/Mobile_ - [Gustavo](https://github.com/gustavo-mv)

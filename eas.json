@@ -8,9 +8,6 @@
       "distribution": "internal"
     },
     "preview": {
-      "env": {
-        "EXPO_PUBLIC_API_URL": "https://api.attlasoft.com"
-      },
       "android": {
         "buildType": "apk"
       }
@@ -26,10 +23,6 @@
     "preview4": {
       "distribution": "internal"
     },
-    "production": {
-      "env": {
-        "EXPO_PUBLIC_API_URL": "https://api.attlasoft.com"
-      }
-    }
+    "production": {}
   }
 }
